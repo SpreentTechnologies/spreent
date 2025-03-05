@@ -105,7 +105,6 @@
     <orderEntry type="library" scope="PROVIDED" name="rubyzip (v2.4.1, RVM: ruby-3.3.1 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="securerandom (v0.4.1, RVM: ruby-3.3.1 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="selenium-webdriver (v4.29.1, RVM: ruby-3.3.1 [global]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="sqlite3 (v2.6.0, RVM: ruby-3.3.1 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sshkit (v1.24.0, RVM: ruby-3.3.1 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="stringio (v3.1.5, RVM: ruby-3.3.1 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thor (v1.3.2, RVM: ruby-3.3.1 [global]) [gem]" level="application" />
