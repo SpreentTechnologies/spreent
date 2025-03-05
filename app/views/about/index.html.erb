@@ -1,0 +1,14 @@
+<div id="main-container">
+    <%= image_tag "spreent_logo.png" %>
+    <h2><%= t :welcome %></h2>
+
+    <span><%= t :your_hub %></span>
+    <%= link_to "Login", new_user_session_path, class: "transparent-link" %>
+        <%= link_to invite_path, class: 'link-with-background' do %>
+            Enter Invitation Code
+            <div id="invitation_question">?</div>
+    <% end %>
+</div>
+
+<div class="blur-point top-left"></div>
+<div class="blur-point bottom-right"></div>

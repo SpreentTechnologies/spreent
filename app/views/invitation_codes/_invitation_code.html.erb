@@ -1,0 +1,10 @@
+<%= turbo_frame_tag invitation_code do %>
+  <div class="invitation-code">
+    <p>Code: <%= invitation_code.code %></p>
+    <p>Generated At: <%= invitation_code.created_at %></p>
+    <%= button_to 'Delete', invitation_code_path(invitation_code),
+                  method: :delete,
+                  form: { data: { turbo_frame: invitation_code } },
+                  class: 'btn btn-danger' %>
+  </div>
+<% end %>

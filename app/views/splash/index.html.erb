@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Spreent - Your Sports Community</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag 'splash', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_importmap_tags %>
+</head>
+<body class="splash-page">
+<%= image_tag "spreent_logo.png" %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      Turbo.visit('/home', { action: 'replace' })
+    }, 3000)
+  })
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<%= form_with(
+      model: [@new_invitation_code || InvitationCode.new],
+      local: false,
+      class: 'invitation-code-form'
+    ) do |form| %>
+  <div class="form-group">
+    <%= form.label :code, 'Invitation Code' %>
+    <%= form.text_field :code,
+                        class: 'form-control',
+                        placeholder: 'Enter custom code (optional)',
+                        maxlength: 12 %>
+  </div>
+
+  <% if @new_invitation_code&.errors&.any? %>
+    <div class="error-messages">
+      <% @new_invitation_code.errors.full_messages.each do |message| %>
+        <p class="text-danger"><%= message %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit 'Generate Invitation Code', class: 'btn btn-primary' %>
+    <%= button_tag 'Auto Generate',
+                   type: 'button',
+                   class: 'btn btn-secondary auto-generate-btn',
+                   data: {
+                     action: 'click->invitation-code#autoGenerate'
+                   } %>
+  </div>
+<% end %>

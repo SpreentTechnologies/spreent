@@ -1,0 +1,21 @@
+<% content_for :header do %>
+    <div class="header-container">
+        <%= link_to feed_path, style: 'height:24px;position: relative;top: 30px;left: 20px;' do %>
+            <i class="fa-solid fa-arrow-left" style="color:white;height:24px;width:24px;"></i>
+        <% end %>
+        <h1 style="font-size: 24px;max-width: fit-content;margin-left: auto;margin-right: auto;">Notifications</h1>
+    </div>
+<% end %>
+
+<div class="notifications-container">
+    <div class="notifications-pills">
+        <button>General</button>
+        <button>Communities</button>
+        <button>Challenges</button>
+    </div>
+    <hr />
+
+    <h3 style="color: black;">Recents</h3>
+
+    <h3 style="color: black;">Today</h3>
+</div>

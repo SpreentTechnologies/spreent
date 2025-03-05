@@ -1,0 +1,20 @@
+<%= turbo_stream do %>
+  <% if @posts.next_page %>
+    <%= turbo_stream.append "posts" do %>
+      <%= render @posts %>
+    <% end %>
+
+    <%= turbo_stream.update "posts_pagination" do %>
+      <%= turbo_frame_tag "posts_pagination" do %>
+        <%= link_to "Load More", posts_path(page: @posts.next_page),
+            class: "btn btn-load-more",
+            data: {
+              turbo_frame: "posts_list",
+              turbo_action: "advance"
+            } %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <%= turbo_stream.remove "posts_pagination" %>
+  <% end %>
+<% end %>

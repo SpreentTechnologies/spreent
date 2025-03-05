@@ -1,0 +1,104 @@
+<% content_for :header do %>
+    <div class="header-container">
+        <%= image_tag "spreent_logo.png", style: 'width:150px;height:50px' %>
+        <div class="header-icons">
+            <%= link_to notifications_path, style: 'color:white;width:28px;height:28px;' do %>
+                <i class="fa-solid fa-bell"></i>
+            <% end %>
+
+            <%= link_to messages_path, style: 'color:white;width:28px;height:28px;' do %>
+                <i class="fa-solid fa-message"></i>
+            <% end %>
+        </div>
+    </div>
+<% end %>
+
+<div class="feed-container">
+    <div class="searchForm"></div>
+    <div class="communities_pills"></div>
+    <hr />
+    <div class="share-something">
+        <div class="share-something-avatar">
+            <% if current_user.avatar.attached? %>
+                <%= image_tag current_user.avatar.variant(resize_to_limit: [50, 50]),
+                    class: 'user-avatar circular-avatar',
+                    alt: "#{current_user.email}'s avatar"
+                %>
+            <% else %>
+                <%= image_tag 'default_avatar.png',
+                    class: 'circular-avatar',
+                    alt: 'Default avatar'
+                %>
+            <% end %>
+        </div>
+
+        <div class="share-something-input">
+            <%= turbo_frame_tag "share_something_input" do %>
+                <%= form_with(model: @new_post, local: false, html: {
+                    class: 'post-form',
+                    data: {
+                        controller: 'file-upload',
+                        action: 'file-upload:progress->turbo-frame#update'
+                    }
+                }) do |form| %>
+                    <% if @new_post.errors.any? %>
+                      <div class="error_messages">
+                        <% post.errors.full_messages.each do |message| %>
+                          <p class="text-danger"><%= message %></p>
+                        <% end %>
+                      </div>
+                    <% end %>
+
+                    <div class="field">
+                      <%= form.text_area :content,
+                          placeholder: 'Share something...',
+                          class: 'form-control share-content',
+                          rows: 3
+                      %>
+                    </div>
+
+                    <div class="form-group media-upload">
+                      <%= form.label :media, "Attach Media" %>
+
+                      <div class="media-input-wrapper">
+                        <%= form.file_field :media,
+                            multiple: true,
+                            accept: 'image/png,image/jpeg,image/gif,video/mp4,video/quicktime',
+                            class: 'form-control-file',
+                            direct_upload: true,
+                            data: {
+                               action: 'change->file-upload#handleFileSelect',
+                               'file-upload-target': 'input'
+                           } %>
+
+                        <div class="media-preview" id="media-preview"></div>
+                      </div>
+                    </div>
+
+                    <%= form.submit 'Create Post', class: 'btn btn-primary mt-2' %>
+                <% end %>
+            <% end %>
+        </div>
+
+        <div class="share-something-image">
+            <i class="fa-solid fa-image"></i>
+        </div>
+    </div>
+
+    <%= turbo_frame_tag "posts_list", data: { turbo_action: "advance" } do %>
+        <div id="posts">
+            <%= render @posts %>
+        </div>
+
+        <% if @posts.next_page %>
+          <%= turbo_frame_tag "posts_pagination" do %>
+            <%= link_to "Load More", posts_path(page: @posts.next_page),
+                class: "btn btn-load-more",
+                data: {
+                  turbo_frame: "posts_list",
+                  turbo_action: "advance"
+                } %>
+          <% end %>
+        <% end %>
+    <% end %>
+</div>

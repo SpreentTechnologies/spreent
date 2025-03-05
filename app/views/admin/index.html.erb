@@ -1,0 +1,11 @@
+<div class="admin-container">
+  <h1>Invitation codes</h1>
+
+  <%= turbo_frame_tag 'new_invitation_code_form' do %>
+  <%= render 'invitation_code_form' %>
+  <% end %>
+
+  <div id="invitation_codes">
+    <%= render @invitation_codes %>
+  </div>
+</div>

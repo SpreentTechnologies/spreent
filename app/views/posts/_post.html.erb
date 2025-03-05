@@ -1,0 +1,55 @@
+<%= turbo_frame_tag dom_id(post) do %>
+  <div class="post">
+      <div class="post-header">
+        <div class="post-avatar">
+            <% if post.user %>
+                <% if post.user.avatar.attached? %>
+                    <%= image_tag post.user.avatar.variant(resize_to_limit: [50, 50]), class: 'circular-avatar', alt: "#{post.user.email}'s avatar" %>
+                <% else %>
+                    <%= image_tag 'default_avatar.png', class: 'circular-avatar', alt: 'Default avatar' %>
+                <% end %>
+            <% end %>
+        </div>
+
+        <div class="post-user-info">
+            <% if post.user %>
+                <span class="post-user-name"><%= post.user.name %></span>
+            <% end %>
+                <span class="post-reason">Suggested for you</span>
+        </div>
+
+        <div class="post-user-button">
+        </div>
+
+        <div class="post-user-actions">
+            <i class="fa-solid fa-ellipsis-v"></i>
+        </div>
+      </div>
+
+
+    <div class="post-content">
+      <%= post.content %>
+
+      <% if post.media.attached? %>
+         <div class="post-media">
+           <% post.media.each do |media| %>
+             <% if media.image? %>
+               <%= image_tag media.variant(:preview), class: 'post-image' %>
+             <% elsif media.video? %>
+               <%= video_tag rails_blob_path(media), controls: true, class: 'post-video' %>
+             <% end %>
+           <% end %>
+         </div>
+       <% end %>
+    </div>
+
+    <div class="post-icons">
+        <%= link_to '', method: :post, class: 'post-icon' do %>
+            <i class="fa-solid fa-heart"></i>
+            <% if post.likes.count > 0 %>
+                <span class="like-count"><%= post.likes.count %></span>
+            <% end %>
+        <% end %>
+    </div>
+  </div>
+<% end %>

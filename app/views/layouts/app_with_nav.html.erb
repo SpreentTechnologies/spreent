@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Spreent" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app_with_nav, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <script src="https://kit.fontawesome.com/129864eb3e.js" crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+    <%= yield :header %>
+    <div class="fold">
+    <%= yield %>
+    </div>
+    <nav>
+        <div class="nav-wrapper">
+            <%= link_to feed_path, class: "text-center #{'selected-nav' if current_page?(feed_path) || current_page?(notifications_path)} nav-item" do %>
+              <div class="flex flex-col items-center">
+                  <i class="fa-solid fa-house"></i>
+              </div>
+            <% end %>
+
+            <%= link_to communities_path, class: "text-center #{'selected-nav' if current_page?(communities_path)} nav-item" do %>
+              <div class="flex flex-col items-center">
+                  <i class="fa-solid fa-star"></i>
+              </div>
+            <% end %>
+
+            <%= link_to '', class: "text-center #{'selected-nav' if current_page?('')} nav-item" do %>
+              <div class="flex flex-col items-center">
+                  <i class="fa-solid fa-calendar"></i>
+              </div>
+            <% end %>
+
+            <%= link_to profile_path, class: "text-center #{'selected-nav' if current_page?(profile_path)} nav-item" do %>
+              <div class="flex flex-col items-center">
+                  <i class="fa-solid fa-user"></i>
+              </div>
+            <% end %>
+
+          <% if current_user.user_type == 'admin' %>
+            <%= link_to admin_path, class: "text-center #{'selected-nav' if current_page?(admin_path)} nav-item" do %>
+              <div class="flex flex-col items-center">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+    </nav>
+  </body>
+</html>

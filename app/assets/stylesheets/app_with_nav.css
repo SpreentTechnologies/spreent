@@ -1,0 +1,186 @@
+body {
+  background: #6a0dad;
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  color: white;
+  margin: 0;
+}
+
+.blur-point {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: white;
+  filter: blur(80px); /* Blurry effect */
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+.top-left {
+  top: -50px;
+  left: -50px;
+}
+
+.bottom-right {
+  bottom: -50px;
+  right: -50px;
+}
+
+nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: black;
+}
+
+.nav-wrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.selected-nav {
+    color: white !important;
+}
+
+.nav-item {
+    color: gray;
+}
+
+.fold {
+    background-color: white;
+    height: 100vh;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+
+
+.feed-container {
+    padding-top: 20px;
+}
+
+.header-container {
+    display: flex;
+}
+
+.header-icons {
+    position:absolute;
+    right:0;
+    display: flex;
+}
+
+.circular-avatar {
+  width: 37px;
+  height: 37px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  border: 3px solid #ddd;
+}
+
+.share-something {
+    padding-left: 20px;
+    display: flex;
+    border: none;
+}
+
+.share-something-input {
+    width: 60%;
+}
+
+.share-something-input textarea {
+    width: 100%;
+    vertical-align: middle;
+}
+
+.share-something-input textarea:placeholder {
+    width: 100%;
+    vertical-align: middle;
+}
+
+
+.share-content {
+    border: none;
+    height: 37px;
+    margin-left: 20px;
+}
+
+.share-something-image {
+    color: black;
+    margin-left: 10px;
+    position: absolute;
+    right: 100px;
+    width: 24px;
+    height: 24px;
+}
+
+.post {
+    color: black;
+    padding-left: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.post-content {
+    padding-left: 20px;
+    padding-top: 15px;
+    color: #30284F;
+}
+
+.post-icons {
+    padding-left: 20px;
+    padding-top: 15px;
+}
+
+
+.post-header {
+    display: flex;
+}
+
+.post-user-info {
+    margin-left: 10px;
+}
+
+.post-user-name {
+    font-weight: bold;
+}
+
+.post-user-actions {
+    position: absolute;
+    right: 20px;
+}
+
+.post-reason {
+    display: flex;
+}
+
+#posts {
+    height: calc(100vh - 225px);
+    overflow-y: auto;
+
+    overflow-y: scroll;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+}
+
+
+.form-control-file {
+    display: none;
+}
+
+.notifications-container {
+    padding-top: 25px;
+}
+
+.notifications-pills {
+    display: flex;
+}
+
+
+.admin-container {
+    color: black;
+}
