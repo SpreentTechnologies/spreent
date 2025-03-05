@@ -1,3 +1,3 @@
-class Report < ActiveRecord
+class Report < ApplicationRecord
 
 end
