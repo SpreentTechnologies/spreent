@@ -1,0 +1,4 @@
+CREATE DATABASE spreent_production;
+CREATE DATABASE spreent_production_cache;
+CREATE DATABASE spreent_production_queue;
+CREATE DATABASE spreent_production_cable;
