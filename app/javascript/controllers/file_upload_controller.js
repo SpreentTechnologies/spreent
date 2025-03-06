@@ -30,6 +30,8 @@ export default class extends Controller {
               reader.onload = function (event) {
                 const img = document.createElement('img');
                 img.src = event.target.result;
+                img.style.width = '100%';
+                img.style.height = '100%';
                 document.getElementById('upload-preview').appendChild(img);
               };
 

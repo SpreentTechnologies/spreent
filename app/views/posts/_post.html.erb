@@ -41,15 +41,19 @@
 
 
     <div class="post-content">
+        <div style="padding-bottom: 20px;">
       <%= post.content %>
+        </div>
 
       <% if post.media.attached? %>
          <div class="post-media">
            <% post.media.each do |media| %>
              <% if media.image? %>
-               <%= image_tag media.variant(:preview), class: 'post-image' %>
+               <%= image_tag media.variant(resize_to_limit: [1000, 500]), class: 'post-image' %>
              <% elsif media.video? %>
-               <%= video_tag rails_blob_path(media), controls: true, class: 'post-video' %>
+                 <div class="video-container" style="max-width:800px; margin: 0 auto;">
+               <%= video_tag rails_blob_path(media), controls: true, class: 'post-video', style: 'width: 100%; height: auto;' %>
+                 </div>
              <% end %>
            <% end %>
          </div>
