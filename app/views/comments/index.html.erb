@@ -1,0 +1,31 @@
+<%= turbo_frame_tag "comments_panel" do %>
+  <div data-controller="comments">
+  <div class="comments-overlay" data-action="click->comments#close"></div>
+
+  <div class="comments-panel">
+    <div class="comments-header">
+      <h2>Comments</h2>
+      <button class="close-button" data-action="click->comments#close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6L6 18M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Drag handle for mobile -->
+    <div class="drag-handle">
+      <div class="drag-indicator" data-action="mousedown->comments#startDrag touchstart->comments#startDrag"></div>
+    </div>
+
+    <div class="comments-content">
+      <div id="comments">
+        <%= render @comments %>
+      </div>
+    </div>
+
+    <div class="comments-footer">
+      <%= render "comments/form", post: @post, comment: @comment %>
+    </div>
+  </div>
+  </div>
+<% end %>

@@ -1,0 +1,11 @@
+<div id="<%= dom_id(message) %>" class="message <%= message.user == current_user_for_view ? 'sent' : 'received' %>">
+  <div class="message-content">
+    <div class="message-header">
+      <span class="user-name"><%= message.user.name %></span>
+      <span class="timestamp"><%= message.created_at.strftime("%I:%M %p | %b %d") %></span>
+    </div>
+    <div class="message-body">
+      <%= message.body %>
+    </div>
+  </div>
+</div>

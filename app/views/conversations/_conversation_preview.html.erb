@@ -1,0 +1,23 @@
+<div id="conversation_<%= conversation.id %>_preview" class="conversation-preview <%= 'unread' if conversation.unread_count_for(current_user_for_view) > 0 %>">
+  <%= link_to conversation_path(conversation) do %>
+    <div class="conversation-details">
+      <% participants = conversation.other_participants(current_user_for_view) %>
+      <h3>
+        <%= participants.map(&:name).join(", ") %>
+        <% if conversation.unread_count_for(current_user_for_view) > 0 %>
+          <span class="unread-count"><%= conversation.unread_count_for(current_user_for_view) %></span>
+        <% end %>
+      </h3>
+
+      <% if conversation.latest_message %>
+        <p class="latest-message">
+          <span class="sender"><%= conversation.latest_message.user.name == current_user_for_view.name ? "You" : conversation.latest_message.user.name %>:</span>
+          <span class="message-preview"><%= truncate(conversation.latest_message.body, length: 50) %></span>
+          <span class="timestamp"><%= time_ago_in_words(conversation.latest_message.created_at) %> ago</span>
+        </p>
+      <% else %>
+        <p class="no-messages">No messages yet</p>
+      <% end %>
+    </div>
+  <% end %>
+</div>

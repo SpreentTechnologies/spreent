@@ -1,1 +1,17 @@
-<h1>Communities</h1>
+<h1><%= @sport.name %> Communities</h1>
+
+<%= form_with url: category_sport_communities_path(@sport), method: :get, data: { controller: "search-form", turbo_frame: "communities" } do |form| %>
+  <div class="search-container">
+    <%= form.label :query, "Search communities:" %>
+    <%= form.text_field :query,
+                        value: params[:query],
+                        data: {
+                          action: "input->search-form#submit",
+                          search_form_target: "input"
+                        } %>
+  </div>
+<% end %>
+
+<%= turbo_frame_tag "communities" do %>
+  <%= render "communities", communities: @communities %>
+<% end %>

@@ -1,0 +1,22 @@
+<%= form_with(model: [post, comment], id: "comment_form", class: "comment-form", data: { controller: "reset_form", action: "turbo:submit-end->reset-form#reset" }) do |form| %>
+  <% if comment.errors.any? %>
+    <div class="form-errors">
+      <% comment.errors.full_messages.each do |message| %>
+        <div class="error-message"><%= message %></div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <div class="form-input">
+      <%= form.text_area :content,
+                         class: "comment-textarea",
+                         placeholder: "Write a comment...",
+                         rows: 2 %>
+    </div>
+
+    <div class="form-submit">
+      <%= form.submit "Post", class: "submit-button" %>
+    </div>
+  </div>
+<% end %>

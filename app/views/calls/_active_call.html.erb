@@ -1,0 +1,12 @@
+<div id="active_call">
+  <div class="call-active" data-controller="call" data-call-id="<%= call.uuid %>">
+    <h3>On call with <%= current_user.id == call.caller_id ? call.recipient.name : call.caller.name %></h3>
+    <div class="call-timer" data-call-target="timer"></div>
+    <div class="call-controls">
+      <button data-call-target="muteButton" data-action="click->call#toggleMute">Mute</button>
+      <%= button_to "End Call", end_call_path(call), method: :patch,
+                    data: { call_target: "endButton", action: "click->call#end" } %>
+    </div>
+    <audio data-call-target="remoteAudio" autoplay></audio>
+  </div>
+</div>

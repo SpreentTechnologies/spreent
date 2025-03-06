@@ -1,0 +1,13 @@
+<%= turbo_frame_tag "modal_frame" do %>
+  <div class="report-success">
+    <script>
+        // Update the modal title on success
+        document.getElementById('modal_title').textContent = 'Report Submitted';
+    </script>
+
+    <p>Thank you for helping keep our community safe. We'll review this post shortly.</p>
+    <div class="actions">
+      <button type="button" class="btn btn-primary" data-action="click->modal#close">Close</button>
+    </div>
+  </div>
+<% end %>

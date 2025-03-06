@@ -19,6 +19,7 @@
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app_with_nav, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag :comments, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <script src="https://kit.fontawesome.com/129864eb3e.js" crossorigin="anonymous"></script>
   </head>
@@ -38,7 +39,7 @@
               </div>
             <% end %>
 
-            <%= link_to communities_path, class: "text-center #{'selected-nav' if current_page?(communities_path)} nav-item" do %>
+            <%= link_to categories_path, class: "text-center #{'selected-nav' if current_page?(categories_path)} nav-item" do %>
               <div class="flex flex-col items-center">
                   <i class="fa-solid fa-star"></i>
               </div>
@@ -50,7 +51,7 @@
               </div>
             <% end %>
 
-            <%= link_to profile_path, class: "text-center #{'selected-nav' if current_page?(profile_path)} nav-item" do %>
+            <%= link_to settings_path, class: "text-center #{'selected-nav' if current_page?(settings_path)} nav-item" do %>
               <div class="flex flex-col items-center">
                   <i class="fa-solid fa-user"></i>
               </div>
@@ -65,5 +66,28 @@
           <% end %>
         </div>
     </nav>
+
+      <%= turbo_frame_tag "comments_panel", target: "_top" %>
+
+      <%= javascript_tag do %>
+        document.addEventListener('turbo:before-fetch-request', function(event) {
+          if (event.target.id === 'comments_panel') {
+              document.body.classList.add('no-scroll');
+          }
+        });
+      <% end %>
+
+      <div id="modal" class="modal" data-controller="modal">
+        <div class="modal-overlay" data-action="click->modal#close"></div>
+        <div class="modal-container">
+          <div class="modal-header">
+            <h3 class="modal-title" id="modal_title">Modal Title</h3>
+            <button type="button" class="modal-close" data-action="click->modal#close">&times;</button>
+          </div>
+          <div class="modal-content">
+            <%= turbo_frame_tag "modal_frame" %>
+          </div>
+        </div>
+      </div>
   </body>
 </html>

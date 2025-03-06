@@ -1,0 +1,21 @@
+<div class="challenges-container">
+  <div class="challenges-header">
+    <h1>Challenges from <%= @community.name %></h1>
+    <%= link_to "Back to Community", @community, class: "btn btn-outline" %>
+  </div>
+
+  <% if @challenges.any? %>
+    <div class="challenges-list">
+      <% @challenges.each do |challenge| %>
+        <%= render "challenge", challenge: challenge %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="empty-state">
+      <p>No challenges have been created yet.</p>
+      <% if current_user && @community.members.include?(current_user) %>
+        <%= link_to "Create the first challenge", new_community_challenge_path(@community), class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

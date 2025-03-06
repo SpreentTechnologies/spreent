@@ -1,0 +1,22 @@
+<div class="conversations-container">
+  <h1>Your Conversations</h1>
+
+  <div class="new-conversation">
+    <%= form_with url: conversations_path, method: :post, class: "new-conversation-form" do |form| %>
+      <%= form.collection_select :user_id, User.where.not(id: current_user.id), :id, :name, prompt: "Select a user" %>
+      <%= form.submit "Start Conversation", class: "btn" %>
+    <% end %>
+  </div>
+
+  <div id="conversations" class="conversations-list">
+    <%= turbo_stream_from "user_#{current_user.id}_conversations" %>
+
+    <% if @conversations.any? %>
+      <% @conversations.each do |conversation| %>
+        <%= render partial: "conversation_preview", locals: { conversation: conversation, current_user_for_view: current_user } %>
+      <% end %>
+    <% else %>
+      <p>You don't have any conversations yet.</p>
+    <% end %>
+  </div>
+</div>

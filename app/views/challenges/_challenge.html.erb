@@ -1,0 +1,9 @@
+<div class="challenge-card">
+  <h2 class="challenge-title"><%= challenge.title %></h2>
+  <p class="challenge-description"><%= truncate(challenge.description, length: 150) %></p>
+  <div class="challenge-meta">
+    <span>Posted by: <%= challenge.creator.name %></span>
+    <span><%= time_ago_in_words(challenge.created_at) %> ago</span>
+  </div>
+  <%= link_to "View Details", community_challenge_path(challenge.community, challenge), class: "btn btn-sm" %>
+</div>

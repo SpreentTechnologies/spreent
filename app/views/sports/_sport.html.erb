@@ -1,0 +1,8 @@
+<div id="<%= dom_id(sport) %>" class="sport-card">
+  <% if sport.image.present? %>
+    <div class="sport-image">
+      <img src="<%= sport.image %>" alt="<%= sport.name %>">
+    </div>
+  <% end %>
+  <h3 class="sport-name"><%= sport.name %></h3>
+</div>

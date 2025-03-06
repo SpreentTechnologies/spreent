@@ -6,7 +6,7 @@
                 <i class="fa-solid fa-bell"></i>
             <% end %>
 
-            <%= link_to messages_path, style: 'color:white;width:28px;height:28px;' do %>
+            <%= link_to conversations_path, style: 'color:white;width:28px;height:28px;' do %>
                 <i class="fa-solid fa-message"></i>
             <% end %>
         </div>
@@ -17,7 +17,7 @@
     <div class="searchForm"></div>
     <div class="communities_pills"></div>
     <hr />
-    <div class="share-something">
+    <div class="share-something" data-controller="file-upload">
         <div class="share-something-avatar">
             <% if current_user.avatar.attached? %>
                 <%= image_tag current_user.avatar.variant(resize_to_limit: [50, 50]),
@@ -64,14 +64,15 @@
                         <%= form.file_field :media,
                             multiple: true,
                             accept: 'image/png,image/jpeg,image/gif,video/mp4,video/quicktime',
-                            class: 'form-control-file',
+                            class: 'form-control-file hidden-file-input',
+                            style: 'display: none;',
                             direct_upload: true,
                             data: {
-                               action: 'change->file-upload#handleFileSelect',
-                               'file-upload-target': 'input'
-                           } %>
+                              file_upload_target: "fileInput"
+                            }
+                        %>
 
-                        <div class="media-preview" id="media-preview"></div>
+                        <div class="selected-files" data-file-upload-target="fileList"></div>
                       </div>
                     </div>
 
@@ -80,7 +81,7 @@
             <% end %>
         </div>
 
-        <div class="share-something-image">
+        <div class="share-something-image" data-action="click->file-upload#triggerFileInput">
             <i class="fa-solid fa-image"></i>
         </div>
     </div>

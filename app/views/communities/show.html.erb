@@ -1,0 +1,28 @@
+<div class="community-container">
+  <% if @community.banner.attached? %>
+    <div class="community-banner">
+      <%= image_tag @community.banner.variant(resize_to_fill: [1200, 300]), class: "w-full h-auto" %>
+    </div>
+  <% end %>
+
+  <div class="community-header">
+    <h1 class="community-name"><%= @community.name %></h1>
+    <div class="community-meta">
+      <span class="community-sport"><%= @community.sport %></span>
+      <span class="community-location"><%= @community.location %></span>
+      <span id="member_count"><%= render "member_count", community: @community %></span>
+    </div>
+  </div>
+
+  <div class="community-description">
+    <%= simple_format @community.description %>
+  </div>
+
+  <div class="community-actions">
+    <div id="membership_status">
+      <%= render "membership_status", community: @community, is_member: @is_member %>
+    </div>
+
+    <%= link_to "View Challenges", community_challenges_path(@community), class: "btn btn-secondary" %>
+  </div>
+</div>

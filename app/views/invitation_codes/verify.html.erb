@@ -1,10 +1,12 @@
-<h2>Enter Your Invitation Code</h2>
+<h2 style="padding-top: 0;">Enter Your Invitation Code</h2>
+<div class="fold" style="padding-top:20px;">
 <%= form_with url: invite_path, method: :post do %>
   <div class="field">
-    <%= label_tag :invitation_code, "Invitation Code" %>
+    <%= label_tag :invitation_code, "Invitation Code", style: 'margin-bottom:20px;' %>
     <%= text_field_tag :invitation_code, params[:invitation_code], required: true %>
   </div>
   <div class="actions">
-    <%= submit_tag "Proceed" %>
+    <%= submit_tag "Proceed", class: 'submit-button-login' %>
   </div>
 <% end %>
+</div>

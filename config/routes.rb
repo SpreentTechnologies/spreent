@@ -22,15 +22,25 @@ Rails.application.routes.draw do
   resources :invitation_codes, only: [:create, :destroy]
 
   get '/feed', to: 'feed#index'
-  get '/messages', to: 'messages#index'
-  get '/messages/:id', to: 'messages#show'
+
+  resources :conversations, only: [:index, :show, :create] do
+    resources :messages, only: [:create]
+  end
 
   # Communities
-  get '/communities', to: 'communities#index', as: 'communities'
-  get '/communities/:id', to: 'communities#show'
-  delete '/communities/:id', to: 'communities#destroy'
+  resources :communities, only: [:index, :show] do
+    member do
+      post 'join'
+      delete 'leave'
+    end
+
+    resources :challenges
+  end
 
   get '/notifications', to: 'notifications#index'
+
+  resource :avatar, only: [:update, :destroy]
+  resource :settings, only: [:show, :update]
 
   post '/posts', to: 'posts#create'
 
@@ -39,4 +49,28 @@ Rails.application.routes.draw do
   # User profile
   get '/profile', to: 'profile#index', as: 'profile'
   get '/profile/:id', to: 'profile#show'
+
+  resources :posts do
+    resources :comments, only: [:index, :create, :destroy]
+    resource :like, only: [:create, :destroy]
+    resources :reports, only: [:new, :create]
+  end
+
+  resources :categories, only: [:index] do
+    resources :sports, only: [:create] do
+      resources :communities, only: [:index]
+    end
+  end
+
+  resources :calls, only: [:create] do
+    member do
+      patch :accept
+      patch :end
+    end
+  end
+
+  resources :users, only: [:index, :show]
+  get 'calls', to: 'call_interface#index', as: 'call_interface'
+
+  mount ActionCable.server => '/cable'
 end

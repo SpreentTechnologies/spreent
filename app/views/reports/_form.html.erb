@@ -1,0 +1,26 @@
+<%= form_with(model: [post, report], data: { turbo_frame: "_self" }) do |form| %>
+  <% if report.errors.any? %>
+    <div class="error-messages">
+      <ul>
+        <% report.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :reason %>
+    <%= form.select :reason, ["Inappropriate content", "Spam", "Harassment", "False information", "Other"], prompt: "Select a reason" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :details %>
+    <%= form.text_area :details, placeholder: "Provide more details (optional)" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Submit Report", class: "btn btn-primary" %>
+    <button type="button" class="btn btn-secondary" data-action="click->modal#close">Cancel</button>
+  </div>
+<% end %>

@@ -1,0 +1,8 @@
+<div id="outgoing_call">
+  <div class="call-status" data-controller="call" data-call-id="<%= call.uuid %>">
+    <h3>Calling <%= call.recipient.name %>...</h3>
+    <div class="call-timer" data-call-target="timer"></div>
+    <%= button_to "End Call", end_call_path(call), method: :patch,
+                  data: { call_target: "endButton", action: "click->call#end" } %>
+  </div>
+</div>

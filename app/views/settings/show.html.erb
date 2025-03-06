@@ -1,0 +1,48 @@
+<div class="settings-container">
+  <h1>Account Settings</h1>
+
+  <div id="flash_messages">
+    <%= render 'shared/flash', flash: flash %>
+  </div>
+
+  <div class="settings-grid" style="color: black;">
+    <div class="settings-sidebar">
+      <ul>
+        <li class="active"><a href="#profile">Profile</a></li>
+        <li><a href="#avatar">Avatar</a></li>
+        <li><a href="#account">Account</a></li>
+        <li><a href="#notifications">Notifications</a></li>
+      </ul>
+
+      <div class="logout-section">
+        <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "logout-button", data: { turbo: false } %>
+      </div>
+    </div>
+
+    <div class="settings-content">
+      <section id="profile">
+        <h2>Profile Settings</h2>
+        <div id="profile_settings">
+          <%= render 'profile_settings', user: @user %>
+        </div>
+      </section>
+
+      <section id="avatar">
+        <h2>Avatar</h2>
+        <div id="avatar_section">
+          <%= render 'avatar_section', user: @user %>
+        </div>
+      </section>
+
+      <section id="account">
+        <h2>Account Settings</h2>
+        <!-- Account settings form here -->
+      </section>
+
+      <section id="notifications">
+        <h2>Notification Preferences</h2>
+        <!-- Notification settings form here -->
+      </section>
+    </div>
+  </div>
+</div>

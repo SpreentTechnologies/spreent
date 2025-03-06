@@ -1,0 +1,100 @@
+<!-- app/views/call_interface/index.html.erb -->
+<div class="call-interface-container">
+  <div class="call-status-area">
+    <!-- Areas for call states that will be updated via Turbo Streams -->
+    <div id="outgoing_call"></div>
+    <div id="incoming_calls"></div>
+    <div id="active_call"></div>
+
+    <!-- Shows current call if one exists -->
+    <% if @active_call %>
+      <% if @active_call.caller_id == current_user.id %>
+        <%= render partial: "calls/outgoing_call", locals: { call: @active_call } %>
+      <% else %>
+        <%= render partial: "calls/incoming_call", locals: { call: @active_call } %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="call-interface">
+    <h2>Start a New Call</h2>
+
+    <div class="user-search">
+      <!-- Simple search for users -->
+      <input type="text" id="user-search" placeholder="Search for a user..."
+             data-controller="search" data-action="input->search#filter">
+    </div>
+
+    <div class="users-list" data-search-target="list">
+      <% @users.each do |user| %>
+        <div class="user-card" data-search-target="item" data-search-name="<%= user.name.downcase %>">
+          <div class="user-info">
+            <div class="user-avatar">
+              <!-- You can add user avatars here -->
+              <div class="avatar-placeholder"><%= user.name.first %></div>
+            </div>
+            <div class="user-details">
+              <h3><%= user.name %></h3>
+              <p class="user-status">
+                <!-- You can add online status indicators here -->
+                <span class="status-indicator"></span>
+                <%#= user.online? ? 'Online' : 'Offline' %>
+              </p>
+            </div>
+          </div>
+
+          <div class="user-actions">
+            <%= button_to "Voice Call", calls_path(recipient_id: user.id),
+                          class: "call-button voice",
+                          data: { turbo_frame: "outgoing_call" } %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="call-history">
+    <h2>Recent Calls</h2>
+
+    <div class="recent-calls-list">
+      <% Call.where("caller_id = ? OR recipient_id = ?", current_user.id, current_user.id)
+             .order(created_at: :desc).limit(10).each do |call| %>
+        <div class="call-history-item">
+          <% other_user = call.caller_id == current_user.id ? call.recipient : call.caller %>
+          <div class="call-history-user">
+            <div class="user-avatar-small">
+              <%= other_user.name.first %>
+            </div>
+            <div class="call-history-details">
+              <h4><%= other_user.name %></h4>
+              <p class="call-timestamp">
+                <%= call.created_at.strftime("%b %d, %I:%M %p") %>
+                <span class="call-type">
+                  <%= call.caller_id == current_user.id ? 'Outgoing' : 'Incoming' %>
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <div class="call-history-status">
+            <span class="status-<%= call.status %>">
+              <%= call.status.capitalize %>
+            </span>
+
+            <% if call.status == 'ended' %>
+              <span class="call-duration">
+                <!-- You would calculate this from start/end timestamps -->
+                <%= call.duration_in_minutes %> min
+              </span>
+            <% end %>
+          </div>
+
+          <!-- Quick call button -->
+          <%= button_to "Call Back", calls_path(recipient_id: other_user.id),
+                        class: "call-button-small",
+                        data: { turbo_frame: "outgoing_call" } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

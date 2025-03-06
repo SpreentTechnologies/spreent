@@ -1,0 +1,19 @@
+<% if @report.persisted? %>
+  <%= turbo_stream.update "modal_frame" do %>
+    <div class="report-success">
+      <script>
+          // Update the modal title on success
+          document.getElementById('modal_title').textContent = 'Report Submitted';
+      </script>
+
+      <p>Thank you for helping keep our community safe. We'll review this post shortly.</p>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" data-action="click->modal#close">Close</button>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <%= turbo_stream.update "modal_frame" do %>
+    <%= render "form", report: @report, post: @post %>
+  <% end %>
+<% end %>

@@ -1,0 +1,16 @@
+<h1>Users</h1>
+
+<div id="outgoing_call"></div>
+<div id="incoming_calls"></div>
+<div id="active_call"></div>
+
+<ul class="users-list">
+  <% @users.each do |user| %>
+    <% next if user == current_user %>
+    <li>
+      <%= user.name %>
+      <%= button_to "Call", calls_path(recipient_id: user.id),
+                    data: { turbo_frame: "outgoing_call" } %>
+    </li>
+  <% end %>
+</ul>

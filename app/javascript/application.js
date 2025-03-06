@@ -10,3 +10,4 @@ document.addEventListener('turbolinks:load', () => {
     window.location.href = '/home';
   }, 3000);
 });
+import "channels"

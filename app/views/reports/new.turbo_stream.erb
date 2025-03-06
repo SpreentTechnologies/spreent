@@ -1,0 +1,5 @@
+<%= turbo_stream.update("modal_title", html: "Report Post") %>
+<%= turbo_stream.update("modal_content", partial: "reports/form", locals: { report: @report, post: @post }) %>
+<%= turbo_stream.append("modal",
+                        html: "<script>document.getElementById('modal').dispatchEvent(new CustomEvent('modal:open'))</script>"
+    ) %>

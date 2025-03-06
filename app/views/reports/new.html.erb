@@ -1,0 +1,12 @@
+<%= turbo_frame_tag "modal_frame" do %>
+  <div id="report_form_<%= @post.id %>" class="report-form">
+    <script>
+        // Open the modal when this frame loads
+        document.getElementById('modal').classList.add('open');
+        document.body.classList.add('modal-open');
+        document.getElementById('modal_title').textContent = 'Report Post';
+    </script>
+
+    <%= render "form", report: @report, post: @post %>
+  </div>
+<% end %>

@@ -1,0 +1,10 @@
+<% if flash.present? %>
+  <div class="flash-messages">
+    <% flash.each do |type, message| %>
+      <div class="flash flash-<%= type %>" data-controller="flash" data-flash-target="message">
+        <p><%= message %></p>
+        <button data-action="flash#dismiss" class="flash-close">&times;</button>
+      </div>
+    <% end %>
+  </div>
+<% end %>

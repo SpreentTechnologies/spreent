@@ -1,0 +1,12 @@
+<!-- app/views/calls/_incoming_call.html.erb -->
+<div id="incoming_calls">
+  <div class="call-notification" data-controller="call" data-call-id="<%= call.uuid %>">
+    <h3>Incoming call from <%= call.caller.name %></h3>
+    <div class="call-actions">
+      <%= button_to "Accept", accept_call_path(call), method: :patch,
+                    data: { call_target: "acceptButton", action: "click->call#accept" } %>
+      <%= button_to "Decline", end_call_path(call), method: :patch,
+                    data: { call_target: "declineButton", action: "click->call#decline" } %>
+    </div>
+  </div>
+</div>

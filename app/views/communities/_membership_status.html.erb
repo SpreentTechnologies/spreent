@@ -1,0 +1,7 @@
+<% if is_member %>
+  <%= button_to "Leave Community", leave_community_path(community), method: :delete,
+                class: "btn btn-outline", form: { data: { turbo_confirm: "Are you sure you want to leave this community?" } } %>
+<% else %>
+  <%= button_to "Join Community", join_community_path(community), method: :post,
+                class: "btn btn-primary" %>
+<% end %>

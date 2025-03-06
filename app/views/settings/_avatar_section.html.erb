@@ -1,0 +1,43 @@
+<div class="avatar-display">
+  <% if user.avatar.attached? %>
+    <div class="current-avatar">
+      <%= image_tag user.avatar.variant(resize_to_fill: [150, 150]), class: "avatar-img" %>
+    </div>
+
+    <div class="avatar-actions">
+      <%= button_to "Remove Avatar", avatar_path, method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: "Are you sure you want to remove your avatar?" } } %>
+    </div>
+  <% else %>
+    <div class="avatar-placeholder">
+      <div class="placeholder-initial"><%= user.name.first.upcase %></div>
+    </div>
+  <% end %>
+</div>
+
+<div class="avatar-upload">
+  <h3>Upload New Avatar</h3>
+
+  <%= form_with model: Avatar.new, url: avatar_path, local: false do |f| %>
+    <div class="form-group">
+      <%= f.label :image, "Choose Image" %>
+      <%= f.file_field :image,
+                       accept: 'image/jpeg,image/png',
+                       direct_upload: true,
+                       class: "form-control-file",
+                       data: {
+                         controller: "avatar-preview",
+                         action: "change->avatar-preview#showPreview"
+                       }
+      %>
+      <div data-avatar-preview-target="preview" class="avatar-preview"></div>
+    </div>
+
+    <small class="form-text text-muted">
+      Supported formats: JPEG, PNG. Max file size: 5MB.
+    </small>
+
+    <div class="form-actions">
+      <%= f.submit "Upload Avatar", class: "btn btn-primary", data: { disable_with: "Uploading..." } %>
+    </div>
+  <% end %>
+</div>

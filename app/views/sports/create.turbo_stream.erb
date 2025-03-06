@@ -1,0 +1,17 @@
+<turbo-stream action="append" target="<%= dom_id(@sport.category) %> .sports-grid">
+  <template>
+    <% sports_count = @sport.category.sports.count %>
+    <% if (sports_count - 1) % 3 == 0 %>
+      <div class="sports-row">
+        <%= render partial: 'sports/sport', locals: { sport: @sport } %>
+      </div>
+    <% else %>
+      <% target_row = "row-#{@sport.category.id}-#{(sports_count - 1) / 3}" %>
+      <turbo-stream action="append" target="<%= target_row %>">
+        <template>
+          <%= render partial: 'sports/sport', locals: { sport: @sport } %>
+        </template>
+      </turbo-stream>
+    <% end %>
+  </template>
+</turbo-stream>

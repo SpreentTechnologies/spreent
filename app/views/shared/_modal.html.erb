@@ -1,0 +1,12 @@
+<div id="modal" class="modal" data-controller="modal" data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard">
+  <div class="modal-overlay"></div>
+  <div class="modal-container" data-action="click->modal#stopPropagation">
+    <div class="modal-header">
+      <h3 class="modal-title" data-modal-target="title"></h3>
+      <button type="button" class="modal-close" data-action="click->modal#close">&times;</button>
+    </div>
+    <div class="modal-content" data-modal-target="content">
+      <!-- Modal content will be loaded here -->
+    </div>
+  </div>
+</div>

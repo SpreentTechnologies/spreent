@@ -1,0 +1,24 @@
+<div class="conversation-container">
+  <div class="conversation-header">
+    <h1>
+      <%= link_to "← Back", conversations_path, class: "back-link" %>
+      <%= @conversation.other_participants(current_user).map(&:name).join(", ") %>
+    </h1>
+  </div>
+
+  <div id="messages" class="messages-container">
+    <%= turbo_stream_from "conversation_#{@conversation.id}" %>
+
+    <% if @messages.any? %>
+      <% @messages.each do |message| %>
+        <%= render partial: "messages/message", locals: { message: message, current_user_for_view: current_user } %>
+      <% end %>
+    <% else %>
+      <p class="no-messages">No messages yet. Start the conversation!</p>
+    <% end %>
+  </div>
+
+  <div class="message-form-container">
+    <%= render partial: "messages/form", locals: { conversation: @conversation, message: @message } %>
+  </div>
+</div>

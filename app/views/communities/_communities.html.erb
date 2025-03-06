@@ -1,0 +1,23 @@
+<div class="communities-list">
+  <% if communities.any? %>
+    <% communities.each do |community| %>
+      <%= link_to community_path(community) do %>
+      <div class="community-card">
+        <div class="community-image">
+          <% if community.image.attached? %>
+            <%= image_tag community.image, alt: community.name %>
+          <% else %>
+            <%= image_tag "community-placeholder.png", alt: "Community placeholder" %>
+          <% end %>
+        </div>
+        <div class="community-info">
+          <h3><%= community.name %></h3>
+          <p><%= community.description %></p>
+        </div>
+      </div>
+        <% end %>
+    <% end %>
+  <% else %>
+    <p>No communities found matching your search criteria.</p>
+  <% end %>
+</div>

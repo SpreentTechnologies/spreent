@@ -21,8 +21,21 @@
         <div class="post-user-button">
         </div>
 
-        <div class="post-user-actions">
-            <i class="fa-solid fa-ellipsis-v"></i>
+        <div class="post-menu">
+          <div class="three-dots-menu" data-controller="dropdown">
+            <button type="button" data-action="click->dropdown#toggle">
+              <i class="fa fa-ellipsis-v"></i>
+            </button>
+
+            <div class="dropdown-menu" data-dropdown-target="menu">
+              <%= link_to "Report", new_post_report_path(post),
+                          data: {
+                            turbo_frame: "modal_frame",
+                            action: "click->dropdown#close"
+                          } %>
+              <!-- Other menu items -->
+            </div>
+          </div>
         </div>
       </div>
 
@@ -44,12 +57,18 @@
     </div>
 
     <div class="post-icons">
-        <%= link_to '', method: :post, class: 'post-icon' do %>
-            <i class="fa-solid fa-heart"></i>
-            <% if post.likes.count > 0 %>
-                <span class="like-count"><%= post.likes.count %></span>
-            <% end %>
-        <% end %>
+      <%= render "posts/like_button", post: post %>
+
+      <%= link_to post_comments_path(post),
+                  data: { turbo_frame: "comments_panel" },
+                  class: "comments-button" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+          <% if post.comments.count > 0 %>
+          <span><%= post.comments.count %></span>
+          <% end %>
+      <% end %>
     </div>
   </div>
 <% end %>

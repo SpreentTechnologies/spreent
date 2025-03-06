@@ -1,5 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :check_invitation_code, only: [:new, :create]
+  before_action :check_captcha, only: [:create]
   layout 'fold_without_bar'
 
 
@@ -37,5 +38,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def check_invitation_code
     redirect_to invite_path, alert: "Enter an invitation code first." unless session[:invitation_code].present?
+  end
+
+  def check_captcha
+    return if verify_recaptcha(action: 'registration', minimum_score: 0.5, secret_key: Recaptcha.configuration.secret_key)
+
+    self.resource = resource_class.new sign_up_params
+    resource.validate
+    set_minimum_password_length
+
+      flash.now[:alert] = "reCAPTCHA verification failed, please try again."
+      render :new
   end
 end
