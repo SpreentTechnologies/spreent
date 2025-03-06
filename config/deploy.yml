@@ -23,6 +23,8 @@ env:
     - DO_SPACES_BUCKET
     - DO_SPACES_REGION
     - AWS_REGION
+    - RECAPTCHA_SITE_KEY
+    - RECAPTCHA_SECRET_KEY
   clear:
     SOLID_QUEUE_IN_PUMA: true
     DB_HOST: spreent-db
