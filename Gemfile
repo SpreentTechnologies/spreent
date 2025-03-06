@@ -71,5 +71,7 @@ gem "devise", "~> 4.9"
 gem "will_paginate"
 gem 'recaptcha'
 
+gem 'dotenv', groups: [:development, :test]
+
 gem 'aws-sdk-s3'
 gem 'active_storage_validations'
