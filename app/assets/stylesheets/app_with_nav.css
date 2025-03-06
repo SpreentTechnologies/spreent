@@ -94,11 +94,13 @@ nav {
 .share-something-input textarea {
     width: 100%;
     vertical-align: middle;
+    font-size: 16px;
 }
 
 .share-something-input textarea:placeholder {
     width: 100%;
     vertical-align: middle;
+    font-size: 16px;
 }
 
 
@@ -429,6 +431,7 @@ body.modal-open {
     border: none;
     outline: none;
     border-radius: 4px;
+    font-size: 16px;
 }
 
 .field textarea {
