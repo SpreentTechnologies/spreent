@@ -21,10 +21,19 @@ export default class extends Controller {
             list.className = 'file-list'
 
             Array.from(files).forEach(file => {
-                const item = document.createElement('li')
-                item.className = 'file-item'
-                item.textContent = file.name
-                list.appendChild(item)
+                // const item = document.createElement('li')
+                // item.className = 'file-item'
+                // item.textContent = file.name
+                // list.appendChild(item)
+                const reader = new FileReader();
+
+              reader.onload = function (event) {
+                const img = document.createElement('img');
+                img.src = event.target.result;
+                document.getElementById('upload-preview').appendChild(img);
+              };
+
+                reader.readAsDataURL(file);
             })
 
             this.fileListTarget.appendChild(list)

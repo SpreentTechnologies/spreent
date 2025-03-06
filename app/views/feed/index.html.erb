@@ -49,6 +49,10 @@
                       </div>
                     <% end %>
 
+                    <div class="share-something-image" data-action="click->file-upload#triggerFileInput">
+                        <i class="fa-solid fa-image"></i>
+                    </div>
+
                     <div class="field">
                       <%= form.text_area :content,
                           placeholder: 'Share something...',
@@ -58,7 +62,6 @@
                     </div>
 
                     <div class="form-group media-upload">
-                      <%= form.label :media, "Attach Media" %>
 
                       <div class="media-input-wrapper">
                         <%= form.file_field :media,
@@ -73,17 +76,17 @@
                         %>
 
                         <div class="selected-files" data-file-upload-target="fileList"></div>
+
+                        <div id="upload-preview"></div>
                       </div>
                     </div>
 
-                    <%= form.submit 'Create Post', class: 'btn btn-primary mt-2' %>
+                    <%= form.submit 'Create Post', class: 'submit-button-login', style: 'font-size: 1rem;' %>
                 <% end %>
             <% end %>
         </div>
 
-        <div class="share-something-image" data-action="click->file-upload#triggerFileInput">
-            <i class="fa-solid fa-image"></i>
-        </div>
+
     </div>
 
     <%= turbo_frame_tag "posts_list", data: { turbo_action: "advance" } do %>

@@ -114,9 +114,11 @@ nav {
     color: black;
     margin-left: 10px;
     position: absolute;
-    right: 100px;
+    right: 35px;
     width: 24px;
     height: 24px;
+    margin-top: 10px;
+    cursor: pointer;
 }
 
 .post {
@@ -435,7 +437,6 @@ body.modal-open {
 }
 
 .field textarea {
-    min-height: 100px;
     resize: none;
 }
 
@@ -1241,4 +1242,9 @@ call-interface-container {
 .submit-button-login:active {
     transform: translateY(1px);
     box-shadow: 0 1px 3px rgba(94, 97, 231, 0.4);
+}
+
+.post-menu {
+    position: absolute;
+    right: 16px;
 }
