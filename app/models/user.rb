@@ -1,6 +1,4 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable, :trackable, :lockable
@@ -17,6 +15,34 @@ class User < ApplicationRecord
   has_many :conversation_participants
   has_many :conversations, through: :conversation_participants
   has_many :messages
+
+  # Follower associations
+  has_many :active_follows, class_name: "Follow",
+           foreign_key: "follower_id",
+           dependent: :destroy
+
+  has_many :following, through: :active_follows, source: :followed
+
+
+  # Followed associations
+  has_many :passive_follows, class_name: "Follow",
+           foreign_key: "followed_id",
+           dependent: :destroy
+  has_many :followers, through: :passive_follows, source: :follower
+
+  # Follow methods
+  def follow(other_user)
+    following << other_user unless self == other_user
+  end
+
+  def unfollow(other_user)
+    following.delete(other_user)
+  end
+
+  def following?(other_user)
+    following.include?(other_user)
+  end
+
 
   def conversations_with(other_user)
     Conversation.joins(:conversation_participants)

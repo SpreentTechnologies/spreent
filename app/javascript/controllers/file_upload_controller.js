@@ -6,6 +6,8 @@ export default class extends Controller {
 
     connect() {
         this.fileInputTarget.addEventListener('change', this.updateFileList.bind(this))
+        this.fileUploading = false
+        this.uploadComplete = false
     }
 
     triggerFileInput(event) {

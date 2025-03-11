@@ -1,11 +1,7 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+running_community:
+  id: 1
+  name: The Mount Royal Runners
 
-one:
-  name: MyString
-  description: MyText
-  sport: one
-
-two:
-  name: MyString
-  description: MyText
-  sport: two
+bouldering_group:
+  id: 2
+  name: The MTL Climbers
