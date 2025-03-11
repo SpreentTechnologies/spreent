@@ -11,19 +11,19 @@ class PostsController < ApplicationController
             post_id: @new_post.id,
           }
         )
-        @project_api_key = 'phc_MTEDYMT3VxmLUK30Cvno1b3So27daWvfJBrOWt31hCb'
-        cookie_key = "ph_#{@project_api_key}_posthog"
+        # @project_api_key = 'phc_MTEDYMT3VxmLUK30Cvno1b3So27daWvfJBrOWt31hCb'
+        # cookie_key = "ph_#{@project_api_key}_posthog"
 
-        if cookies[cookie_key].present?
-          @ph_cookie = JSON.parse(cookies[cookie_key])
-        else
-          @ph_cookie = nil  # Or set a default value
-        end
+        # if cookies[cookie_key].present?
+        #   @ph_cookie = JSON.parse(cookies[cookie_key])
+        # else
+        #   @ph_cookie = nil  # Or set a default value
+        # end
 
-        $posthog.alias({
-          distinct_id: current_user.email,
-          alias: @ph_cookie['distinct_id']
-        });
+        # $posthog.alias({
+        #   distinct_id: current_user.email,
+        #   alias: @ph_cookie['distinct_id']
+        # });
 
         format.turbo_stream do
           render turbo_stream: [
