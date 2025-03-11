@@ -5,7 +5,7 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @new_post.save
         $posthog.capture(
-          distinct_id: current_user.id,
+          distinct_id: current_user.email,
           event: 'post_created',
           properties: {
             post_id: @new_post.id,
@@ -15,7 +15,7 @@ class PostsController < ApplicationController
         @ph_cookie = JSON.parse(cookies["ph_#{@project_api_key}_posthog"])
 
         $posthog.alias({
-          distinct_id: current_user.id,
+          distinct_id: current_user.email,
           alias: @ph_cookie['distinct_id']
         });
 
