@@ -12,7 +12,13 @@ class PostsController < ApplicationController
           }
         )
         @project_api_key = 'phc_MTEDYMT3VxmLUK30Cvno1b3So27daWvfJBrOWt31hCb'
-        @ph_cookie = JSON.parse(cookies["ph_#{@project_api_key}_posthog"])
+        cookie_key = "ph_#{@project_api_key}_posthog"
+
+        if cookies[cookie_key].present?
+          @ph_cookie = JSON.parse(cookies[cookie_key])
+        else
+          @ph_cookie = nil  # Or set a default value
+        end
 
         $posthog.alias({
           distinct_id: current_user.email,
