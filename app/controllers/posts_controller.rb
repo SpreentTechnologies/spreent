@@ -4,6 +4,21 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @new_post.save
+        $posthog.capture(
+          distinct_id: current_user.id,
+          event: 'post_created',
+          properties: {
+            post_id: @new_post.id,
+          }
+        )
+        @project_api_key = 'phc_MTEDYMT3VxmLUK30Cvno1b3So27daWvfJBrOWt31hCb'
+        @ph_cookie = JSON.parse(cookies["ph_#{@project_api_key}_posthog"])
+
+        $posthog.alias({
+          distinct_id: current_user.id,
+          alias: @ph_cookie['distinct_id']
+        });
+
         format.turbo_stream do
           render turbo_stream: [
             turbo_stream.prepend('posts', partial: 'posts/post', locals: { post: @new_post }),
