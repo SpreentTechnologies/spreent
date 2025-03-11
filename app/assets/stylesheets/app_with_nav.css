@@ -1,29 +1,31 @@
 body {
-  background: #6a0dad;
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
-  margin: 0;
+    background: #6a0dad;
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .blur-point {
-  position: absolute;
-  width: 150px;
-  height: 150px;
-  background: white;
-  filter: blur(80px); /* Blurry effect */
-  border-radius: 50%;
-  opacity: 0.8;
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: white;
+    filter: blur(80px); /* Blurry effect */
+    border-radius: 50%;
+    opacity: 0.8;
 }
 
 .top-left {
-  top: -50px;
-  left: -50px;
+    top: -50px;
+    left: -50px;
 }
 
 .bottom-right {
-  bottom: -50px;
-  right: -50px;
+    bottom: -50px;
+    right: -50px;
 }
 
 nav {
@@ -57,7 +59,6 @@ nav {
     border-top-right-radius: 25px;
 }
 
-
 .feed-container {
     padding-top: 20px;
 }
@@ -67,18 +68,18 @@ nav {
 }
 
 .header-icons {
-    position:absolute;
-    right:0;
+    position: absolute;
+    right: 0;
     display: flex;
 }
 
 .circular-avatar {
-  width: 37px;
-  height: 37px;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: center;
-  border: 3px solid #ddd;
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    border: 3px solid #ddd;
 }
 
 .share-something {
@@ -102,7 +103,6 @@ nav {
     vertical-align: middle;
     font-size: 16px;
 }
-
 
 .share-content {
     border: none;
@@ -131,7 +131,7 @@ nav {
 .post-content {
     padding-left: 20px;
     padding-top: 15px;
-    color: #30284F;
+    color: #30284f;
 }
 
 .post-icons {
@@ -140,7 +140,6 @@ nav {
     padding-left: 20px;
     padding-top: 15px;
 }
-
 
 .post-header {
     display: flex;
@@ -170,8 +169,8 @@ nav {
     overflow-y: scroll;
     overscroll-behavior-y: contain;
     -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
 }
-
 
 .form-control-file {
     display: none;
@@ -184,7 +183,6 @@ nav {
 .notifications-pills {
     display: flex;
 }
-
 
 .admin-container {
     color: black;
@@ -206,14 +204,14 @@ nav {
 }
 
 .heart-icon {
-    stroke: #FF4B4B;
+    stroke: #ff4b4b;
     fill: transparent;
     stroke-width: 2;
     transition: all 0.3s ease;
 }
 
 .heart-icon.filled {
-    fill: #FF4B4B;
+    fill: #ff4b4b;
     transform: scale(1.2);
     animation: heart-pulse 0.4s forwards;
 }
@@ -236,9 +234,8 @@ nav {
 }
 
 .liked .like-count {
-    color: #FF4B4B;
+    color: #ff4b4b;
 }
-
 
 .post {
     position: relative;
@@ -270,7 +267,7 @@ nav {
     right: 0;
     background-color: white;
     min-width: 120px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
     border-radius: 4px;
 }
@@ -290,7 +287,8 @@ nav {
     background-color: #f1f1f1;
 }
 
-.report-form, .report-success {
+.report-form,
+.report-success {
     padding: 15px;
     background: white;
     border-radius: 5px;
@@ -318,7 +316,9 @@ nav {
     justify-content: center;
     visibility: hidden;
     opacity: 0;
-    transition: visibility 0s linear 0.2s, opacity 0.2s;
+    transition:
+        visibility 0s linear 0.2s,
+        opacity 0.2s;
 }
 
 .modal.open {
@@ -454,7 +454,6 @@ body.modal-open {
     text-align: center;
 }
 
-
 .category-container {
     margin-bottom: 40px;
 }
@@ -542,7 +541,7 @@ body.modal-open {
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
 }
@@ -575,8 +574,6 @@ body.modal-open {
     margin: 0;
     color: #555;
 }
-
-
 
 .conversations-container {
     max-width: 800px;
@@ -743,7 +740,6 @@ body.modal-open {
     cursor: pointer;
 }
 
-
 .settings-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -881,9 +877,9 @@ body.modal-open {
     }
 }
 
-   .flash-messages {
-       margin-bottom: 2rem;
-   }
+.flash-messages {
+    margin-bottom: 2rem;
+}
 
 .flash {
     padding: 1rem;
@@ -956,7 +952,6 @@ body.modal-open {
     }
 }
 
-
 .community-container {
     @apply max-w-4xl mx-auto bg-white rounded-lg shadow-md overflow-hidden;
 }
@@ -977,7 +972,8 @@ body.modal-open {
     @apply flex flex-wrap gap-4 text-gray-600;
 }
 
-.community-sport, .community-location {
+.community-sport,
+.community-location {
     @apply flex items-center gap-1;
 }
 
@@ -1008,7 +1004,6 @@ body.modal-open {
 .empty-state {
     @apply bg-white p-12 rounded-lg shadow-md text-center;
 }
-
 
 call-interface-container {
     display: grid;
@@ -1083,7 +1078,7 @@ call-interface-container {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: #4CAF50;
+    background-color: #4caf50;
     color: white;
     display: flex;
     align-items: center;
@@ -1093,7 +1088,7 @@ call-interface-container {
 }
 
 .call-button {
-    background-color: #4CAF50;
+    background-color: #4caf50;
     color: white;
     border: none;
     border-radius: 4px;
@@ -1107,7 +1102,7 @@ call-interface-container {
 }
 
 .call-button-small {
-    background-color: #4CAF50;
+    background-color: #4caf50;
     color: white;
     border: none;
     border-radius: 4px;
@@ -1133,7 +1128,7 @@ call-interface-container {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background-color: #2196F3;
+    background-color: #2196f3;
     color: white;
     display: flex;
     align-items: center;
@@ -1143,21 +1138,20 @@ call-interface-container {
 }
 
 .status-active {
-    color: #4CAF50;
+    color: #4caf50;
 }
 
 .status-ended {
-    color: #607D8B;
+    color: #607d8b;
 }
 
 .status-missed {
-    color: #F44336;
+    color: #f44336;
 }
 
 .status-pending {
-    color: #FF9800;
+    color: #ff9800;
 }
-
 
 #flash-messages-container {
     position: fixed;
@@ -1176,7 +1170,7 @@ call-interface-container {
     font-weight: bold;
     position: relative;
     pointer-events: auto; /* Make the actual alert clickable */
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
     transform: translateY(-100%); /* Start above the viewport */
     transition: transform 0.4s ease;
 }
@@ -1193,7 +1187,8 @@ call-interface-container {
     background-color: #28a745;
 }
 
-.alert-error, .alert-danger {
+.alert-error,
+.alert-danger {
     background-color: #dc3545;
 }
 
@@ -1271,7 +1266,9 @@ call-interface-container {
     bottom: 0;
     opacity: 0.2;
     background: #0076ff;
-    transition: width 120ms ease-out, opacity 60ms 60ms ease-in;
+    transition:
+        width 120ms ease-out,
+        opacity 60ms 60ms ease-in;
     transform: translate3d(0, 0, 0);
 }
 
@@ -1283,6 +1280,6 @@ call-interface-container {
     border-color: red;
 }
 
-input[type=file][data-direct-upload-url][disabled] {
+input[type="file"][data-direct-upload-url][disabled] {
     display: none;
 }
