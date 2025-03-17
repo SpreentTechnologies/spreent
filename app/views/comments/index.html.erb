@@ -19,7 +19,11 @@
 
     <div class="comments-content">
       <div id="comments">
+        <% if @comments.count > 0 %>
         <%= render @comments %>
+          <% else %>
+        No comments yet, what say you?
+        <% end %>
       </div>
     </div>
 

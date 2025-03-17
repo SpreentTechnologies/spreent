@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "@rails/activestorage": "^8.0.100"
+    "@rails/activestorage": "^8.0.100",
+    "swiper": "^11.2.5",
+    "zxcvbn": "^4.4.2"
   }
 }

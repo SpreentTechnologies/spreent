@@ -1,0 +1,158 @@
+<style>
+  .follow-button {
+      padding-right: 40px;
+  }
+    .profile-container {
+        width: 100%;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    h2.display-name {
+        padding-top: 0;
+        max-width: none;
+        font-size: 16px;
+    }
+
+    .username-header {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+
+    .profile-info {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .profile-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid white;
+    }
+
+    .user-details {
+        margin-left: 20px;
+        flex-grow: 1;
+    }
+
+    .display-name {
+        font-size: 28px;
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+
+    .follow-stats {
+        display: flex;
+        gap: 20px;
+        font-size: 16px;
+    }
+
+    .follow-btn {
+        background-color: rgba(255, 255, 255, 0.3);
+        color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 8px 30px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .user-bio, .user-location, .user-sports {
+        margin-bottom: 15px;
+        font-size: 16px;
+    }
+
+    .profile-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+        max-width: 94%;
+        gap: 15px;
+    }
+
+    .action-button {
+        background-color: rgba(255, 255, 255, 0.3);
+        color: white;
+        border-radius: 20px;
+        padding: 10px 20px;
+        text-align: center;
+        flex-basis: 30%;
+        cursor: pointer;
+        width: 106px;
+    }
+
+    .location-icon, .sports-icon {
+        display: inline-block;
+        width: 20px;
+        margin-right: 5px;
+    }
+
+    /* For responsive design */
+    @media (max-width: 480px) {
+        .profile-info {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .user-details {
+            margin-left: 0;
+            margin-top: 15px;
+        }
+
+        .follow-stats {
+            justify-content: center;
+        }
+
+        .follow-button {
+            margin-top: 15px;
+        }
+    }
+</style>
+
+<div class="profile-container" style="background: linear-gradient(135deg, #5B69FF, #8A7AFF); color: white;">
+
+  <div class="profile-info">
+    <div class="avatar-section">
+      <%= image_tag @user.avatar.present? ? @user.avatar : 'default_avatar.png', class: 'profile-avatar' %>
+    </div>
+
+    <div class="user-details">
+      <h2 class="display-name"><%= @user.name %></h2>
+      <div class="follow-stats">
+        <span><%= @user.followers.count %> Followers</span>
+        <span><%= @user.following.count %> Following</span>
+      </div>
+    </div>
+
+    <div class="follow-button">
+      <%= render 'follow_button', user: @user %>
+    </div>
+  </div>
+
+  <div class="user-bio">
+    <p><%= @user.bio %></p>
+  </div>
+
+  <div class="user-location">
+    <i class="fa-solid fa-location-pin"></i> <%= @user.location %>
+  </div>
+
+<!--  <div class="user-sports">-->
+<!--    <i class="sports-icon"></i> <%#= @user.sports.map(&:name).join(', ') %>-->
+<!--  </div>-->
+
+  <div class="profile-actions">
+    <div class="action-button">Communities</div>
+    <div class="action-button">Challenges</div>
+    <div class="action-button">Message</div>
+  </div>
+</div>
+
+<div id="posts">
+  <%= render @posts %>
+</div>

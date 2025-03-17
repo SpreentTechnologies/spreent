@@ -65,8 +65,15 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users, only: [:index, :show]
+  resources :users, only: [:show, :index] do
+    member do
+      post 'follow', to: 'follows#create', as: :follow
+      delete 'unfollow', to: 'follows#destroy', as: :unfollow
+    end
+  end
   get 'calls', to: 'call_interface#index', as: 'call_interface'
+
+  get '/search', to: 'search#index'
 
   mount ActionCable.server => '/cable'
 end

@@ -1,0 +1,18 @@
+<div class="search-results">
+  <% if query.present? %>
+    <h2>Results for "<%= query %>"</h2>
+
+    <% if results&.any? %>
+      <ul class="results-list">
+        <% results.each do |community| %>
+          <li class="result-item">
+            <%= link_to community.name, community_path(community) %>
+            <p><%= community.description %></p>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>No communities found matching your search.</p>
+    <% end %>
+  <% end %>
+</div>

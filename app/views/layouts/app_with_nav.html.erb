@@ -3,9 +3,15 @@
   <head>
     <title><%= content_for(:title) || "Spreent" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="handheldfriendly" content="true">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="turbo-visit-control" content="reload">
+
+    <meta property="og:site_name" content="Spreent">
+    <meta property="og:title" content="Spreent - Your Sports Community">
+    <meta property="og:description" content="Spreent is a sports community platform that connects sports enthusiasts around the world.">
+    <meta property="og:type" content="website">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -29,11 +35,11 @@
             person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
         })
     </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   </head>
 
   <body>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
     <%= yield :header %>
     <div class="fold">
     <%= yield %>
@@ -52,7 +58,7 @@
               </div>
             <% end %>
 
-            <%= link_to '', class: "text-center #{'selected-nav' if current_page?('')} nav-item" do %>
+            <%= link_to '', class: "text-center #{'selected-nav' if current_page?('')} nav-item grayed-out" do %>
               <div class="flex flex-col items-center">
                   <i class="fa-solid fa-calendar"></i>
               </div>
@@ -96,5 +102,51 @@
           </div>
         </div>
       </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          // Initialize thumbnail swiper
+          var galleryThumbs = new Swiper('.gallery-thumbs', {
+            spaceBetween: 10,
+            slidesPerView: 4,
+            freeMode: true,
+            watchSlidesProgress: true,
+            breakpoints: {
+              640: { slidesPerView: 5 },
+              768: { slidesPerView: 6 },
+              1024: { slidesPerView: 8 }
+            }
+          });
+
+          // Initialize main swiper
+          var mainSwiper = new Swiper('.swiper-container:not(.gallery-thumbs)', {
+            spaceBetween: 10,
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+            },
+            thumbs: {
+              swiper: galleryThumbs
+            },
+            autoplay: {
+              delay: 5000,
+              disableOnInteraction: false,
+            },
+            on: {
+              slideChange: function() {
+                // Pause all videos when sliding
+                document.querySelectorAll('.swiper-video').forEach(function(video) {
+                  video.pause();
+                });
+              }
+            }
+          });
+        });
+      </script>
   </body>
 </html>

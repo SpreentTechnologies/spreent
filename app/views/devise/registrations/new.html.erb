@@ -2,7 +2,25 @@
     <h2 class="screen_header">Create Your Account</h2>
 <% end %>
 
-<%= form_for(resource, as: resource_name, class: 'styled-form', url: registration_path(resource_name)) do |f| %>
+<meta name="turbo-visit-control" content="reload">
+
+<% if flash.any? %>
+  <div class="flash-messages">
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key == 'notice' ? 'success' : 'danger' %>">
+        <%= value %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<%= form_for(resource, as: resource_name, class: 'styled-form', url: registration_path(resource_name),
+             html: {
+               data: {
+                 controller: "password_strength_controller"
+               }
+             }
+    ) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
@@ -18,7 +36,7 @@
   <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
-    <em style="position:absolute;right:16px;color:black;">(<%= @minimum_password_length %> characters minimum)</em>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
   </div>

@@ -1,0 +1,44 @@
+<turbo-frame id="search_results">
+  <div class="search-results">
+    <% if @query.present? %>
+
+      <% if @community_results.any? || @user_results.any? %>
+        <% if @community_results.any? %>
+          <div class="result-group">
+            <h3>Communities</h3>
+            <ul class="results-list">
+              <% @community_results.each do |community| %>
+                <li class="result-item">
+                  <%= link_to community.name, community_path(community) %>
+                  <p><%= community.description %></p>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <% if @user_results.any? %>
+          <div class="result-group">
+            <h3>Users</h3>
+            <ul class="results-list">
+              <% @user_results.each do |user| %>
+                <li class="result-item">
+                  <% if user.respond_to?(:avatar) && user.avatar.attached? %>
+                    <%= image_tag user.avatar, class: "user-avatar" %>
+                  <% else %>
+                    <%= image_tag 'default_avatar.png', class: "user-avatar" %>
+                  <% end %>
+                  <div>
+                    <%= link_to user.name, user_path(user) %>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      <% else %>
+        <p>No results found matching your search.</p>
+      <% end %>
+    <% end %>
+  </div>
+</turbo-frame>

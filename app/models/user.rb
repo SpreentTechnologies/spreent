@@ -17,18 +17,18 @@ class User < ApplicationRecord
   has_many :messages
 
   # Follower associations
-  has_many :active_follows, class_name: "Follow",
-           foreign_key: "follower_id",
+  has_many :active_follows, class_name: 'Follow',
+           foreign_key: 'follower_id',
+           dependent: :destroy
+  # Passive relationships (user being followed by others)
+  has_many :passive_follows, class_name: 'Follow',
+           foreign_key: 'followed_id',
            dependent: :destroy
 
-  has_many :following, through: :active_follows, source: :followed
-
-
-  # Followed associations
-  has_many :passive_follows, class_name: "Follow",
-           foreign_key: "followed_id",
-           dependent: :destroy
-  has_many :followers, through: :passive_follows, source: :follower
+  # Users that this user is following
+  has_many :following, through: :active_follows, source: :followed, class_name: 'User'
+  # Users that follow this user
+  has_many :followers, through: :passive_follows, source: :follower, class_name: 'User'
 
   # Follow methods
   def follow(other_user)

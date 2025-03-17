@@ -175,12 +175,14 @@
     padding: 0.5rem;
     resize: vertical;
     font-size: 16px;
+    font-family: "Varela", sans-serif;
 }
 
 .comment-textarea:focus {
     outline: none;
     border-color: #3b82f6;
     box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    font-family: "Varela", sans-serif;
 }
 
 .form-submit {

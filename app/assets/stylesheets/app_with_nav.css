@@ -1,3 +1,5 @@
+@import "swiper/swiper-bundle.min.css";
+
 body {
     background: #6a0dad;
     position: relative;
@@ -35,6 +37,7 @@ nav {
     left: 0;
     right: 0;
     background-color: black;
+    z-index: 999;
 }
 
 .nav-wrapper {
@@ -97,12 +100,14 @@ nav {
     width: 100%;
     vertical-align: middle;
     font-size: 16px;
+    font-family: "Varela", sans-serif;
 }
 
-.share-something-input textarea:placeholder {
+.share-something-input textarea::placeholder {
     width: 100%;
     vertical-align: middle;
     font-size: 16px;
+    font-family: "Varela", sans-serif;
 }
 
 .share-content {
@@ -1283,4 +1288,179 @@ call-interface-container {
 
 input[type="file"][data-direct-upload-url][disabled] {
     display: none;
+}
+
+.password-strength-meter {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.meter-bar {
+    background-color: #e6e6e6;
+    height: 5px;
+    border-radius: 3px;
+    margin-bottom: 5px;
+}
+
+.meter-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    width: 0;
+}
+
+.meter-text {
+    font-size: 12px;
+    color: #666;
+}
+
+.meter-suggestion {
+    font-style: italic;
+    margin-top: 3px;
+    font-size: 11px;
+    color: #999;
+}
+
+.grayed-out {
+    color: #4f4f4f;
+    cursor: not-allowed;
+}
+
+.search-container {
+    max-width: 960px;
+    margin: auto;
+}
+
+.search-field {
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 12px 12px 40px;
+    font-size: 18px;
+    border: 0;
+    outline: none;
+}
+
+.search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+}
+
+.navigation-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.nav-button {
+    padding: 12px 24px;
+    background-color: #6c5ce7;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.nav-button:hover {
+    background-color: #5649c0;
+}
+
+@media (max-width: 768px) {
+    .navigation-buttons {
+        flex-direction: column;
+    }
+}
+
+.search-results h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #444;
+}
+
+.results-list {
+    list-style: none;
+    padding: 0;
+}
+
+.result-item {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+}
+
+.result-item:last-child {
+    border-bottom: none;
+}
+
+.result-item a {
+    font-weight: bold;
+    color: #6c5ce7;
+    text-decoration: none;
+}
+
+.result-item a:hover {
+    text-decoration: underline;
+}
+
+.result-item p {
+    margin: 5px 0 0;
+    color: #666;
+}
+
+.user-result .result-item {
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.search-tabs {
+    margin-top: 20px;
+}
+
+.tab-buttons {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+}
+
+.tab-button {
+    padding: 10px 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666;
+}
+
+.tab-button.active {
+    color: #6c5ce7;
+    border-bottom: 2px solid #6c5ce7;
+}
+
+.tab-content {
+    display: none;
+    padding: 15px 0;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.post-user-button {
+    position: absolute;
+    right: 45px;
 }

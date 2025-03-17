@@ -1,0 +1,11 @@
+<div class="community-results">
+  <h3>Communities</h3>
+  <ul class="results-list">
+    <% communities.each do |community| %>
+      <li class="result-item">
+        <%= link_to community.name, community_path(community) %>
+        <p><%= community.description %></p>
+      </li>
+    <% end %>
+  </ul>
+</div>
