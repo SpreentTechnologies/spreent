@@ -114,7 +114,7 @@
     <orderEntry type="library" scope="PROVIDED" name="pp (v0.6.2, RVM: ruby-3.2.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="prettyprint (v0.2.0, RVM: ruby-3.2.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="propshaft (v1.1.0, RVM: ruby-3.2.4) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="psych (v5.2.3, RVM: ruby-3.2.4) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="psych (v5.1.2, RVM: ruby-3.2.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="public_suffix (v6.0.1, RVM: ruby-3.2.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="puma (v6.6.0, RVM: ruby-3.2.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="raabro (v1.4.0, RVM: ruby-3.2.4) [gem]" level="application" />

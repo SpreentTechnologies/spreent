@@ -75,3 +75,5 @@ gem 'dotenv', groups: [:development, :test]
 
 gem 'aws-sdk-s3'
 gem 'active_storage_validations'
+
+gem 'psych', '~> 5.1.0'
