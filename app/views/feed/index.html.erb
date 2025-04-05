@@ -19,7 +19,7 @@
   <%= render 'shared/search_bar' %>
     <div class="communities_pills"></div>
     <hr />
-    <div class="pl-[20px] flex border-none opacity-100 translate-y-0 transform transition-all duration-300 ease-in-out" data-controller="file-upload" id="dynamic-height-element">
+    <div class="pl-[20px] pt-[10px] flex border-none opacity-100 translate-y-0 transform transition-all duration-300 ease-in-out" data-controller="file-upload" id="dynamic-height-element">
         <div class="share-something-avatar">
             <% if current_user.avatar.attached? %>
                 <%= image_tag current_user.avatar.variant(resize_to_limit: [50, 50]),
@@ -34,7 +34,7 @@
             <% end %>
         </div>
 
-        <div>
+        <div class="w-[80%]">
             <%= turbo_frame_tag "share_something_input" do %>
                 <%= form_with(model: @new_post, local: false, html: {
                     class: 'post-form',
@@ -59,7 +59,7 @@
                     <div class="field">
                       <%= form.text_area :content,
                           placeholder: I18n.t('feed.share_something'),
-                          class: 'form-control share-content',
+                          class: 'form-control share-content w-[85%]',
                           rows: 3
                       %>
                     </div>
@@ -96,14 +96,4 @@
             <%= render @posts %>
         </div>
 
-        <% if @posts.next_page %>
-          <%= turbo_frame_tag "posts_pagination" do %>
-            <%= link_to "Load More", posts_path(page: @posts.next_page),
-                class: "btn btn-load-more",
-                data: {
-                  turbo_frame: "posts_list",
-                  turbo_action: "advance"
-                } %>
-          <% end %>
-        <% end %>
     <% end %>

@@ -1,11 +1,11 @@
 <% if user_signed_in? && current_user != user %>
   <div id="follow_button_<%= user.id %>">
     <% if current_user.following?(user) %>
-      <%= button_to unfollow_user_path(user), method: :delete, class: "btn btn-secondary", form: { data: { turbo: true } } do %>
+      <%= button_to unfollow_user_path(user), method: :delete, class: "btn btn-secondary cursor-pointer", form: { data: { turbo: true } } do %>
         <i class="fas fa-user-minus"></i> Unfollow
       <% end %>
     <% else %>
-      <%= button_to follow_user_path(user), method: :post, class: "btn btn-primary", form: { data: { turbo: true } } do %>
+      <%= button_to follow_user_path(user), method: :post, class: "btn btn-primary cursor-pointer", form: { data: { turbo: true } } do %>
         <i class="fas fa-user-plus"></i> Follow
       <% end %>
     <% end %>

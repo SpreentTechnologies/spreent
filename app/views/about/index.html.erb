@@ -6,6 +6,7 @@
     <%= link_to I18n.t("home.login"), new_user_session_path, class: "
       flex
       justify-center
+      relative
       text-white
       px-[10px] py-[20px]
       text-xl
@@ -14,9 +15,9 @@
       transition-all duration-300 ease-in-out
       rounded-3xl
       hover:bg-white hover:text-black" %>
-        <%= link_to invite_path, class: "flex justify-center px-[10px] py-[20px] text-[#3F256A] no-underline bg-white rounded-3xl transition-all duration-300 ease-in-out mt-[20px] text-xl" do %>
+        <%= link_to invite_path, class: "flex justify-center px-[10px] py-[20px] text-[#3F256A] no-underline bg-white rounded-3xl transition-all duration-300 ease-in-out mt-[20px] text-xl relative" do %>
             <%= I18n.t "home.enter_invitation_code" %>
-            <div class="bg-[#A7A4F5] text-white relative left-[64px] pl-[7px] pb-[10px] w-[20px] h-[20px] rounded-full text-base">?</div>
+            <div class="bg-[#A7A4F5] text-white left-[64px] pl-[7px] pb-[10px] w-[20px] h-[20px] rounded-full text-base ml-[25px]">?</div>
     <% end %>
 </div>
 

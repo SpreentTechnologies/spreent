@@ -5,6 +5,8 @@ fr:
     login_instead: "Se connecter?"
   search:
     no_results: "Aucun résultat trouvé pour votre recherche"
+    users: "Membres"
+    communities: "Communautés"
   forgot_password:
     send_me_instructions: "M'envoyer les instructions"
   notifications:

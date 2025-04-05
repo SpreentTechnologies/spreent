@@ -5,7 +5,7 @@
       <% if @community_results.any? || @user_results.any? %>
         <% if @community_results.any? %>
           <div class="result-group">
-            <h3>Communities</h3>
+            <h3><%= I18n.t('search.communities') %></h3>
             <ul class="results-list">
               <% @community_results.each do |community| %>
                 <li class="result-item">
@@ -19,16 +19,16 @@
 
         <% if @user_results.any? %>
           <div class="result-group">
-            <h3>Users</h3>
+            <h3><%= I18n.t('search.users') %></h3>
             <ul class="results-list">
               <% @user_results.each do |user| %>
-                <li class="result-item">
+                <li class="flex mb-4">
                   <% if user.respond_to?(:avatar) && user.avatar.attached? %>
-                    <%= image_tag user.avatar, class: "user-avatar" %>
+                    <%= image_tag user.avatar, class: "w-12 h-12" %>
                   <% else %>
-                    <%= image_tag 'default_avatar.png', class: "user-avatar" %>
+                    <%= image_tag 'default_avatar.png', class: "w-12 h-12" %>
                   <% end %>
-                  <div>
+                  <div class="flex items-center">
                     <%= link_to user.name, user_path(user) %>
                   </div>
                 </li>

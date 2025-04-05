@@ -3,7 +3,7 @@
     <div class="relative">
       <%= f.text_field :query,
                        placeholder: I18n.t('feed.search'),
-                       class: "w-[80%] text-base no-outline pl-10 py-3 pr-3 border-b-2 border-gray-300",
+                       class: "w-full text-base no-outline pl-10 py-3 pr-3 border-b-2 border-gray-300",
                        data: {
                          controller: "search",
                          action: "input->search#debounce"
