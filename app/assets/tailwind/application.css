@@ -24,7 +24,6 @@
 }
 
 .fold {
-    @apply bg-white text-black pt-[20px] h-[100vh] px-4 rounded-t-3xl;
 }
 
 #posts {
