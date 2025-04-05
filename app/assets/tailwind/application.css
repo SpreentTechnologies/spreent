@@ -24,6 +24,14 @@
 }
 
 .fold {
+    background-color: white;
+    color: black;
+    padding-top: 20px;
+    height: 100vh;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-top-left-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
 }
 
 #posts {
