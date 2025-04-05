@@ -1,7 +1,23 @@
 class Conversation < ApplicationRecord
-  has_many :conversation_participants, dependent: :destroy
-  has_many :users, through: :conversation_participants
+  belongs_to :sender, class_name: 'User'
+  belongs_to :recipient, class_name: 'User'
+
   has_many :messages, dependent: :destroy
+
+  validates :sender_id, uniqueness: { scope: :recipient_id }
+
+  scope :between, -> (sender_id, recipient_id) do
+    where("(conversations.sender_id = ? AND conversations.recipient_id = ?) OR (conversations.sender_id = ? AND conversations.recipient_id = ?)",
+          sender_id, recipient_id, recipient_id, sender_id)
+  end
+
+  def opposed_user(user)
+    user.id == sender_id ? recipient : sender
+  end
+
+  def last_message
+    messages.order(created_at: :desc).first
+  end
 
   def latest_message
     messages.order(created_at: :desc).first

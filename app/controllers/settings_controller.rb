@@ -50,6 +50,6 @@ class SettingsController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :bio, :public_email,
-                                 :theme_preference, :notification_preferences)
+                                 :theme_preference, :notification_preferences, :location)
   end
 end

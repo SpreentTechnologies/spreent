@@ -1,14 +1,24 @@
-<div id="main-container">
+<div class="max-w-content ml-auto mr-auto pt-[150px] max-w-fit">
     <%= image_tag "spreent_logo.png" %>
-    <h2><%= t :welcome %></h2>
+    <h2 class="font-[Varela] text-3xl ml-auto mr-auto max-w-fit pt-[100] pb-[20px]"><%= I18n.t "home.welcome" %></h2>
 
-    <span><%= t :your_hub %></span>
-    <%= link_to "Login", new_user_session_path, class: "transparent-link" %>
-        <%= link_to invite_path, class: 'link-with-background' do %>
-            Enter Invitation Code
-            <div id="invitation_question">?</div>
+    <span class="ml-auto mr-auto max-w-fit relative left-[30px] bottom-[25px] mb-10 text-2xl"><%= I18n.t "home.your_hub" %></span>
+    <%= link_to I18n.t("home.login"), new_user_session_path, class: "
+      flex
+      justify-center
+      text-white
+      px-[10px] py-[20px]
+      text-xl
+      border border-white
+      bg-transparent no-underline
+      transition-all duration-300 ease-in-out
+      rounded-3xl
+      hover:bg-white hover:text-black" %>
+        <%= link_to invite_path, class: "flex justify-center px-[10px] py-[20px] text-[#3F256A] no-underline bg-white rounded-3xl transition-all duration-300 ease-in-out mt-[20px] text-xl" do %>
+            <%= I18n.t "home.enter_invitation_code" %>
+            <div class="bg-[#A7A4F5] text-white relative left-[64px] pl-[7px] pb-[10px] w-[20px] h-[20px] rounded-full text-base">?</div>
     <% end %>
 </div>
 
-<div class="blur-point top-left"></div>
-<div class="blur-point bottom-right"></div>
+<div class="absolute w-[150px] h-[150px] bg-white opacity-50 top-[-50px] left-[-50px] rounded-lg blur-3xl"></div>
+<div class="absolute w-[150px] h-[150px] bg-white opacity-50 bottom-[-50px] right-[-50px] rounded-lg blur-3xl"></div>

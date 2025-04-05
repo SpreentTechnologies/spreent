@@ -1,22 +1,30 @@
-<div class="conversations-container">
-  <h1>Your Conversations</h1>
-
-  <div class="new-conversation">
-    <%= form_with url: conversations_path, method: :post, class: "new-conversation-form" do |form| %>
-      <%= form.collection_select :user_id, User.where.not(id: current_user.id), :id, :name, prompt: "Select a user" %>
-      <%= form.submit "Start Conversation", class: "btn" %>
+<% content_for :header do %>
+  <div class="flex text-white py-4">
+    <%= link_to feed_path, class: 'text-white absolute top-[23px] pl-[20px]' do %>
+      <%= image_tag 'arrow_back.png' %>
     <% end %>
+    <h2 class="mr-auto ml-auto text-2xl">Messages</h2>
   </div>
+<% end %>
 
-  <div id="conversations" class="conversations-list">
-    <%= turbo_stream_from "user_#{current_user.id}_conversations" %>
+<div class="container mx-auto max-w-md h-screen flex flex-col bg-white">
+  <%# Add flash messages %>
+  <% if flash[:alert] %>
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+      <span class="block sm:inline"><%= flash[:alert] %></span>
+    </div>
+  <% end %>
 
-    <% if @conversations.any? %>
-      <% @conversations.each do |conversation| %>
-        <%= render partial: "conversation_preview", locals: { conversation: conversation, current_user_for_view: current_user } %>
-      <% end %>
-    <% else %>
-      <p>You don't have any conversations yet.</p>
-    <% end %>
-  </div>
+  <%# Add the search form at the top %>
+  <%= render 'search_form' %>
+
+  <%# Conversations list with Turbo Frame %>
+  <%= turbo_frame_tag "conversations-list" do %>
+    <div class="flex-1 overflow-y-auto" data-live-search-target="results">
+      <%= render 'conversations_list', conversations: @conversations %>
+    </div>
+  <% end %>
+
+  <%# Modal for creating a new conversation %>
+  <%= render 'new_conversation_modal' %>
 </div>

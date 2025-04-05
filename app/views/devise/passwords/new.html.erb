@@ -1,4 +1,4 @@
-<h2 style="padding-top:0;">Forgot your password?</h2>
+<h2 class="mr-auto ml-auto max-w-fit py-4"><%= I18n.t('links.forgot_your_password') %></h2>
 
 <div class="fold" style="padding-top:20px;">
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
@@ -6,13 +6,15 @@
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'h-[42px] w-full text-base rounded-3xl pl-[20px] border' %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Send me reset password instructions", class: 'submit-button-login' %>
+    <%= f.submit I18n.t('forgot_password.send_me_instructions'), class: 'text-white py-[12px] px-[30px] mb-[50px] hover:-translate-y-0.5 hover:shadow-[0_4px_8px_rgba(94,97,231,0.4)] active:translate-y-0.5 active:shadow-[0_1px_3px_rgba(94,97,231,0.4)] transition-all duration-300 ease-in-out rounded-3xl text-xl transition-all duration-300 ease-in-out cursor-pointer ml-auto mr-auto border-none bg-gradient-to-r from-[#5e61e7] to-[#8d7dfa] shadow-[0_2px_5px_rgba(94,97,231,0.3)] mt-10' %>
   </div>
 <% end %>
+
+  <br />
 
 <%= render "devise/shared/links" %>
 </div>

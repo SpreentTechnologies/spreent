@@ -1,6 +1,6 @@
-<div id="like_button_<%= post.id %>" class="like-button">
+<div id="like_button_<%= post.id %>" class="inline-flex items-center">
   <% if post.liked_by?(current_user) %>
-    <%= button_to post_like_path(post), method: :delete, class: "like-btn liked", form: { data: { turbo: true } } do %>
+    <%= button_to post_like_path(post), method: :delete, class: "bg-transparent border-0 cursor-pointer flex items-center gap-1 p-1.5 liked text-[#ff4b4b] fill-[#ff4b4b]", form: { data: { turbo: true } } do %>
       <svg class="heart-icon filled" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
       </svg>
@@ -9,8 +9,8 @@
       <% end %>
     <% end %>
   <% else %>
-    <%= button_to post_like_path(post), method: :post, class: "like-btn", form: { data: { turbo: true } } do %>
-      <svg class="heart-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <%= button_to post_like_path(post), method: :post, class: "bg-transparent border-0 cursor-pointer flex items-center gap-1 p-1.5", form: { data: { turbo: true } } do %>
+      <svg class="stroke-[#ff4b4b] fill-transparent stroke-2 transition-all duration-300 ease-in-out" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
       </svg>
         <% if post.likes.count > 0 %>

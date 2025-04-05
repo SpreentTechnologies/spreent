@@ -1,9 +1,10 @@
 class Community < ApplicationRecord
   belongs_to :sport
   belongs_to :admin, class_name: :User
-  has_many :community_memberships
-  has_many :members, through: :community_memberships, source: :user
+  has_many :memberships
+  has_many :members, through: :memberships, source: :user
   has_many :challenges
+  has_many :posts, dependent: :destroy
 
   validates :name, presence: true
   validates :sport, presence: true
@@ -21,5 +22,19 @@ class Community < ApplicationRecord
       # Return a path to a placeholder image
       "/images/community-placeholder.png"
     end
+  end
+
+  def invite_user(user, invited_by)
+    Notification.create_notification(
+      recipient: user,
+      actor: invited_by,
+      notifiable: self,
+      category: :invitation,
+      message: "#{invited_by.name} has invited you to join the '#{name}' community."
+    )
+  end
+
+  def owns?(user)
+    user && user.id == admin_id
   end
 end

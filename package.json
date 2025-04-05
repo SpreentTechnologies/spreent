@@ -2,6 +2,7 @@
   "dependencies": {
     "@rails/activestorage": "^8.0.100",
     "swiper": "^11.2.5",
+    "tailwindcss": "^4.0.0",
     "zxcvbn": "^4.4.2"
   }
 }

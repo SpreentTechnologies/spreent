@@ -15,5 +15,3 @@ document.addEventListener("turbo:before-stream-render", (event) => {
         }
     }
 })
-
-document.addEventListener('turbo:load', showFlashMessages);

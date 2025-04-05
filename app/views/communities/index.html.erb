@@ -1,17 +1,40 @@
-<h1><%= @sport.name %> Communities</h1>
+<% content_for :header do %>
+    <h2 style="margin-left:auto;margin-right:auto;" class="ml-auto mr-auto flex max-w-fit text-white py-4"><%= I18n.t('explore.explore_title') %></h2>
+<% end %>
 
-<%= form_with url: category_sport_communities_path(@sport), method: :get, data: { controller: "search-form", turbo_frame: "communities" } do |form| %>
-  <div class="search-container">
-    <%= form.label :query, "Search communities:" %>
-    <%= form.text_field :query,
-                        value: params[:query],
-                        data: {
-                          action: "input->search-form#submit",
-                          search_form_target: "input"
-                        } %>
+  <!-- Search bar with plus button -->
+  <div class="relative flex items-center mb-6">
+    <div class="relative flex-grow">
+      <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+      <input type="search" class="block w-full pl-10 pr-3 py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" placeholder="<%= I18n.t('explore.search') %>">
+    </div>
+    <%= link_to new_category_sport_community_path do %>
+        <%= image_tag 'plus_icon.png' %>
+    <% end %>
   </div>
-<% end %>
 
-<%= turbo_frame_tag "communities" do %>
-  <%= render "communities", communities: @communities %>
-<% end %>
+  <!-- List of yoga communities -->
+  <div class="space-y-3">
+    <% @communities.each do |community| %>
+      <div class="rounded-xl overflow-hidden shadow-sm">
+          <%= link_to community_path(community[:id]) do %>
+        <div class="group <%= community[:color] %> text-[#5D5D5D] p-3 flex items-center bg-[#EFEFEF] hover:bg-gradient-to-tr hover:from-[#6351DF] hover:to-[#8B75FF] cursor-pointer">
+          <div class="flex-shrink-0 mr-3">
+            <%#<%= image_tag community[:image], class: "h-12 w-12 rounded-lg object-cover" %>%>
+          </div>
+          <div class="flex-grow">
+            <h3 class="font-medium group-hover:text-white"><%= community[:name] %></h3>
+            <p class="text-sm text-[#929292] group-hover:text-white truncate"><%= community[:description] %></p>
+          </div>
+          <div class="text-sm text-[#A6A6A6] group-hover:text-white relative bottom-[14px]">
+            <%= community.members.count %> <% if community.members.count > 1 %> members <% else %> member <% end %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>

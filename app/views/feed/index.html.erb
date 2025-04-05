@@ -1,61 +1,64 @@
 <% content_for :header do %>
-    <div class="header-container">
-        <%= image_tag "spreent_logo.png", style: 'width:150px;height:50px' %>
-        <div class="header-icons">
-            <%= link_to notifications_path, style: 'color:white;width:28px;height:28px;' do %>
+    <div class="flex">
+        <%= image_tag "spreent_logo.png", class: 'w-[150px] h-[50px]' %>
+        <div class="absolute right-0 top-[21px] flex pr-[7px]">
+            <%= link_to notifications_path, class: 'text-white w-[28px] h-[28px]' do %>
                 <i class="fa-solid fa-bell"></i>
             <% end %>
 
-            <%= link_to conversations_path, style: 'color:white;width:28px;height:28px;' do %>
+            <%= link_to conversations_path, class: 'text-white w-[28px] h-[28px]' do %>
                 <i class="fa-solid fa-message"></i>
+            <% if current_user.unread_messages_count > 0 %>
+                <span class="relative bottom-[40px] left-[4px] bg-[#E8C0FF] w-[10px] rounded-full p-1 text-[10px]"><%= current_user.unread_messages_count %></span>
+                <% end %>
             <% end %>
         </div>
     </div>
 <% end %>
 
-<div class="feed-container">
   <%= render 'shared/search_bar' %>
     <div class="communities_pills"></div>
     <hr />
-    <div class="share-something" data-controller="file-upload">
+    <div class="pl-[20px] flex border-none opacity-100 translate-y-0 transform transition-all duration-300 ease-in-out" data-controller="file-upload" id="dynamic-height-element">
         <div class="share-something-avatar">
             <% if current_user.avatar.attached? %>
                 <%= image_tag current_user.avatar.variant(resize_to_limit: [50, 50]),
-                    class: 'user-avatar circular-avatar',
+                    class: 'w-[50px] h-[50px] rounded-full object-cover object-center border-3 border-gray-300',
                     alt: "#{current_user.email}'s avatar"
                 %>
             <% else %>
                 <%= image_tag 'default_avatar.png',
-                    class: 'circular-avatar',
+                    class: 'w-[50px] h-[50px] rounded-full object-cover object-center border-3 border-gray-300 mr-[15px]',
                     alt: 'Default avatar'
                 %>
             <% end %>
         </div>
 
-        <div class="share-something-input">
+        <div>
             <%= turbo_frame_tag "share_something_input" do %>
                 <%= form_with(model: @new_post, local: false, html: {
                     class: 'post-form',
                     data: {
                         controller: 'file-upload',
-                        action: 'file-upload:progress->turbo-frame#update'
+                        action: 'file-upload:progress->turbo-frame#update',
+                        turbo: false
                     }
                 }) do |form| %>
                     <% if @new_post.errors.any? %>
                       <div class="error_messages">
-                        <% post.errors.full_messages.each do |message| %>
+                        <% @new_post.errors.full_messages.each do |message| %>
                           <p class="text-danger"><%= message %></p>
                         <% end %>
                       </div>
                     <% end %>
 
-                    <div class="share-something-image" data-action="click->file-upload#triggerFileInput">
+                    <div class="text-black ml-2.5 absolute right-9 w-6 h-6 mt-2.5 cursor-pointer" data-action="click->file-upload#triggerFileInput">
                         <i class="fa-solid fa-image"></i>
                     </div>
 
                     <div class="field">
                       <%= form.text_area :content,
-                          placeholder: 'Share something...',
+                          placeholder: I18n.t('feed.share_something'),
                           class: 'form-control share-content',
                           rows: 3
                       %>
@@ -80,7 +83,7 @@
                       </div>
                     </div>
 
-                    <%= form.submit 'Create Post', class: 'submit-button-login', style: 'font-size: 1rem;' %>
+                    <%= form.submit I18n.t('feed.create_post'), class: 'text-white py-[12px] px-[30px] mb-[50px] hover:-translate-y-0.5 hover:shadow-[0_4px_8px_rgba(94,97,231,0.4)] active:translate-y-0.5 active:shadow-[0_1px_3px_rgba(94,97,231,0.4)] transition-all duration-300 ease-in-out rounded-3xl text-xl transition-all duration-300 ease-in-out cursor-pointer ml-auto mr-auto border-none bg-gradient-to-r from-[#5e61e7] to-[#8d7dfa] shadow-[0_2px_5px_rgba(94,97,231,0.3)]' %>
                 <% end %>
             <% end %>
         </div>
@@ -89,7 +92,7 @@
     </div>
 
     <%= turbo_frame_tag "posts_list", data: { turbo_action: "advance" } do %>
-        <div id="posts">
+        <div class="overflow-y-scroll overflow-x-hidden h-[calc(100vh-225px)] scrollbar-hide" id="posts">
             <%= render @posts %>
         </div>
 
@@ -104,4 +107,3 @@
           <% end %>
         <% end %>
     <% end %>
-</div>

@@ -77,3 +77,5 @@ gem 'aws-sdk-s3'
 gem 'active_storage_validations'
 
 gem 'psych', '~> 5.1.0'
+gem "tailwindcss-ruby", "~> 4.0"
+gem "tailwindcss-rails", "~> 4.2"

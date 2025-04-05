@@ -1,5 +1,10 @@
 en:
-  welcome: "Welcome to Spreent"
-  your_hub: "Your Sports Community Hub"
-  login: "Login"
-  enter_invitation_code: "Enter Invitation Code"
+  home:
+    welcome: "Welcome to Spreent"
+    your_hub: "Your Sports Community Hub"
+    login: "Login"
+    enter_invitation_code: "Enter Invitation Code"
+  login:
+    login_title: "Login"
+    email: "Email"
+    password: "Password"

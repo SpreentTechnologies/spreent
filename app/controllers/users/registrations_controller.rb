@@ -1,8 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :check_invitation_code, only: [:new, :create]
-  layout 'fold_without_bar'
-
-
+  layout "full"
 
   def create
     build_resource(sign_up_params)

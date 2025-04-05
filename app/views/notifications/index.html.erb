@@ -1,21 +1,31 @@
 <% content_for :header do %>
-    <div class="header-container">
-        <%= link_to feed_path, style: 'height:24px;position: relative;top: 30px;left: 20px;' do %>
-            <i class="fa-solid fa-arrow-left" style="color:white;height:24px;width:24px;"></i>
-        <% end %>
-        <h1 style="font-size: 24px;max-width: fit-content;margin-left: auto;margin-right: auto;">Notifications</h1>
-    </div>
+  <div class="flex text-white py-4">
+  <%= link_to feed_path, class: 'text-white absolute top-[23px] pl-[20px]' do %>
+    <%= image_tag 'arrow_back.png' %>
+  <% end %>
+  <h2 class="mr-auto ml-auto text-2xl"><%= I18n.t('notifications.notifications_title') %></h2>
+  </div>
 <% end %>
 
-<div class="notifications-container">
-    <div class="notifications-pills">
-        <button>General</button>
-        <button>Communities</button>
-        <button>Challenges</button>
+  <!-- Navigation Tabs -->
+  <div class="px-4 py-3 border-b">
+    <div class="flex space-x-4">
+      <button class="px-4 py-2 bg-indigo-600 text-white rounded-full font-medium cursor-pointer">
+        <%= I18n.t('notifications.general') %>
+      </button>
+      <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full font-medium cursor-pointer">
+        <%= I18n.t('notifications.communities') %>
+      </button>
+      <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full font-medium cursor-pointer">
+        <%= I18n.t('notifications.challenges') %>
+      </button>
     </div>
-    <hr />
+    </div>
 
-    <h3 style="color: black;">Recents</h3>
+  <div class="px-4 py-4">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4"><%= I18n.t('notifications.recents') %></h2>
 
-    <h3 style="color: black;">Today</h3>
-</div>
+    <% @recent_notifications.each do |activity| %>
+      <%= render partial: 'shared/activity_item', locals: { activity: activity } %>
+    <% end %>
+  </div>

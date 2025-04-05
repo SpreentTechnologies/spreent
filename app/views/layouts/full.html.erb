@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title><%= content_for(:title) || "Spreent" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -18,8 +18,7 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :yo, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Varela&display=swap');
@@ -34,9 +33,13 @@
     </script>
   </head>
 
-  <body>
+  <body class="relative h-[100vh] overflow-hidden font-[Varela] bg-[#6a0dad] text-white">
       <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      <% if alert %>
+      <p class="alert max-w-fit ml-auto mr-auto bg-white text-red-400 rounded-3xl px-[20px] py-[10px]">
+        <%= alert %>
+      </p>
+    <% end %>
     <%= yield %>
   </body>
 </html>

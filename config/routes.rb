@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   end
 
   # Communities
-  resources :communities, only: [:index, :show] do
+  resources :communities, only: [:index, :show, :update] do
     member do
       post 'join'
       delete 'leave'
@@ -33,7 +33,14 @@ Rails.application.routes.draw do
     resources :challenges
   end
 
-  get '/notifications', to: 'notifications#index'
+  resources :notifications, only: [:index] do
+    member do
+      post :mark_as_read
+    end
+    collection do
+      post :mark_all_as_read
+    end
+  end
 
   resource :avatar, only: [:update, :destroy]
   resource :settings, only: [:show, :update]
@@ -41,6 +48,11 @@ Rails.application.routes.draw do
   post '/posts', to: 'posts#create'
 
   get '/admin', to: 'admin#index', as: 'admin'
+
+  resources :challenges, only: [:create, :show] do
+    post 'join', on: :member
+    post 'invite', on: :member
+  end
 
   # User profile
   get '/profile', to: 'profile#index', as: 'profile'
@@ -54,7 +66,7 @@ Rails.application.routes.draw do
 
   resources :categories, only: [:index] do
     resources :sports, only: [:create] do
-      resources :communities, only: [:index]
+      resources :communities, only: [:index, :new, :create]
     end
   end
 
@@ -71,7 +83,6 @@ Rails.application.routes.draw do
       delete 'unfollow', to: 'follows#destroy', as: :unfollow
     end
   end
-  get 'calls', to: 'call_interface#index', as: 'call_interface'
 
   get '/search', to: 'search#index'
 

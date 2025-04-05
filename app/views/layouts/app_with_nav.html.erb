@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title><%= content_for(:title) || "Spreent" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -24,9 +24,10 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app_with_nav, "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag :comments, "data-turbo-track": "reload" %>
+    <%#= stylesheet_link_tag :app_with_nav, "data-turbo-track": "reload" %>
+    <%#= stylesheet_link_tag :comments, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <script src="https://kit.fontawesome.com/129864eb3e.js" crossorigin="anonymous"></script>
     <script>
         !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
@@ -39,39 +40,39 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   </head>
 
-  <body>
+  <body class="bg-[#6a0dad] relative h-[100vh] overflow-hidden m-0 w-full box-border">
     <%= yield :header %>
     <div class="fold">
     <%= yield %>
     </div>
-    <nav>
-        <div class="nav-wrapper">
-            <%= link_to feed_path, class: "text-center #{'selected-nav' if current_page?(feed_path) || current_page?(notifications_path)} nav-item" do %>
+    <nav class="fixed bottom-0 left-0 right-0 bg-black z-[999]">
+        <div class="flex justify-around py-[20px] items-center">
+            <%= link_to feed_path, class: "text-center #{'!text-white' if current_page?(feed_path) || current_page?(notifications_path)} text-gray-500" do %>
               <div class="flex flex-col items-center">
                   <i class="fa-solid fa-house"></i>
               </div>
             <% end %>
 
-            <%= link_to categories_path, class: "text-center #{'selected-nav' if current_page?(categories_path)} nav-item" do %>
+            <%= link_to categories_path, class: "text-center #{'!text-white' if current_page?(categories_path)} text-gray-500" do %>
               <div class="flex flex-col items-center">
                   <i class="fa-solid fa-star"></i>
               </div>
             <% end %>
 
-            <%= link_to '', class: "text-center #{'selected-nav' if current_page?('')} nav-item grayed-out" do %>
+            <%= link_to '', class: "text-center #{'!text-white' if current_page?('')} text-gray-500 grayed-out" do %>
               <div class="flex flex-col items-center">
                   <i class="fa-solid fa-calendar"></i>
               </div>
             <% end %>
 
-            <%= link_to settings_path, class: "text-center #{'selected-nav' if current_page?(settings_path)} nav-item" do %>
+            <%= link_to settings_path, class: "text-center #{'!text-white' if current_page?(settings_path)} text-gray-500" do %>
               <div class="flex flex-col items-center">
                   <i class="fa-solid fa-user"></i>
               </div>
             <% end %>
 
           <% if current_user.user_type == 'admin' %>
-            <%= link_to admin_path, class: "text-center #{'selected-nav' if current_page?(admin_path)} nav-item" do %>
+            <%= link_to admin_path, class: "text-center #{'!text-white' if current_page?(admin_path)} text-gray-500" do %>
               <div class="flex flex-col items-center">
                 <i class="fa-solid fa-screwdriver-wrench"></i>
               </div>

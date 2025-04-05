@@ -1,5 +1,67 @@
 fr:
-  welcome: "Bienvenue sur Spreent"
-  your_hub: "Votre communauté sportive"
-  login: "Connexion"
-  enter_invitation_code: "Entrez le code d'invitation"
+  links:
+    forgot_your_password: "Mot de passe oublié?"
+    sign_up: "Créer un compte"
+    login_instead: "Se connecter?"
+  search:
+    no_results: "Aucun résultat trouvé pour votre recherche"
+  forgot_password:
+    send_me_instructions: "M'envoyer les instructions"
+  notifications:
+    notifications_title: "Notifications"
+    general: "Général"
+    communities: "Communautés"
+    challenges: "Défis"
+    recents: "Récentes"
+  messages:
+    find_someone: "Trouver quelqu'un"
+  community:
+    see_challenges: "Voir les défis"
+    join_community: "Rejoindre"
+  create_challenge:
+    create_a_challenge: "Créer un défi"
+    set_up_goals_for_community: "Lance un défi à la communauté"
+    challenge_name: "Nom du défi"
+    challenge_name_placeholder: "e.g. Faire 50 km de vélo"
+    explain_the_goal: "Explique le but"
+    rules: "Règles"
+    rules_placeholder: "Règles pour compléter le défi"
+    duration: "Durée"
+    starts: "Date de début"
+    ends: "Date de fin"
+    create_challenge: "Créer le défi"
+  challenges_panel:
+    challenges: "Défis"
+    create: "Créer"
+    current_challenges: "Défis en cours"
+    past_challenges: "Défis passés"
+    days_left: "%{days_left} jours restants"
+  explore:
+    explore_title: "Explorer les communautés"
+    search: "Recherche de communauté par sport ou endroit"
+  home:
+    welcome: "Bienvenue sur Spreent"
+    your_hub: "Votre communauté sportive"
+    login: "Connexion"
+    enter_invitation_code: "Entrez le code d'invitation"
+  feed:
+    search: "Recherche"
+    share_something: "Partage quelque chose"
+    create_post: "Publier"
+  login:
+    login_title: "Connexion"
+  register:
+    register_title: "Crée ton compte"
+    sign_up: "Création de compte"
+  enter_invitation_code:
+    title: "Entre ton code d'invitation"
+    proceed: "Continuer"
+  activerecord:
+    attributes:
+      user:
+        name: "Nom"
+        email: "Courriel"
+        password: "Mot de passe"
+        password_confirmation: "Mot de passe (confirmation)"
+      invitation_code:
+        code: "Code d'invitation"

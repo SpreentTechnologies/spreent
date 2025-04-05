@@ -1,0 +1,482 @@
+<div class="p-6">
+  <!-- Header Section with Title and Action Buttons -->
+  <div class="flex justify-between items-center mb-1">
+    <h1 class="text-2xl font-bold text-gray-800"><%= @challenge.name %></h1>
+    <div class="flex space-x-2">
+      <button class="text-gray-600">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+        </svg>
+      </button>
+      <button class="text-gray-600">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Subtitle Info -->
+  <p class="text-gray-500 text-sm mb-4">
+    <% if @challenge.days_left <= 1 %> Less than a day left <% else %> <%= pluralize(@challenge.days_left, 'day') %> left <% end %>
+    , <%= pluralize(@challenge.participants.count, 'participant') %>
+  </p>
+
+  <!-- Description -->
+  <p class="text-gray-700 mb-6">
+    <%= @challenge.description %>
+  </p>
+
+  <!-- Progress Bar (Optional) -->
+  <% if @challenge.active? && current_user&.participating_in?(@challenge) %>
+    <div class="mb-4">
+      <div class="flex justify-between items-center mb-1">
+        <span class="text-sm text-gray-600">Your progress</span>
+        <span class="text-sm font-medium text-indigo-600"><%= @user_progress %>%</span>
+      </div>
+      <div class="w-full bg-gray-200 rounded-full h-2.5">
+        <div class="bg-indigo-600 h-2.5 rounded-full" style="width: <%= @user_progress %>%"></div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Action Buttons -->
+  <div class="flex space-x-4">
+    <% if current_user&.participating_in?(@challenge) %>
+      <button class="px-6 py-2 bg-indigo-400 text-white font-medium rounded-full hover:bg-indigo-500 transition duration-200">
+        Participating
+      </button>
+    <% else %>
+      <button id="join-challenge-button" class="px-6 py-2 bg-indigo-400 text-white font-medium rounded-full hover:bg-indigo-500 transition duration-200" data-challenge-id="<%= @challenge.id %>">
+        Join Challenge
+      </button>
+    <% end %>
+    <button id="invite-members-button" class="px-6 py-2 bg-gray-300 text-gray-700 font-medium rounded-full hover:bg-gray-400 transition duration-200">
+      Invite Members
+    </button>
+  </div>
+</div>
+
+<hr />
+
+<div class="pl-[20px] flex border-none opacity-100 translate-y-0 transform transition-all duration-300 ease-in-out" data-controller="file-upload" id="dynamic-height-element">
+<div class="share-something-avatar">
+  <% if current_user.avatar.attached? %>
+    <%= image_tag current_user.avatar.variant(resize_to_limit: [50, 50]),
+                  class: 'w-[50px] h-[50px] rounded-full object-cover object-center border-3 border-gray-300',
+                  alt: "#{current_user.email}'s avatar"
+    %>
+  <% else %>
+    <%= image_tag 'default_avatar.png',
+                  class: 'w-[50px] h-[50px] rounded-full object-cover object-center border-3 border-gray-300 mr-[15px]',
+                  alt: 'Default avatar'
+    %>
+  <% end %>
+</div>
+
+<div>
+  <%= turbo_frame_tag "share_something_input" do %>
+    <%= form_with(model: @new_post, local: false, html: {
+      class: 'post-form',
+      data: {
+        controller: 'file-upload',
+        action: 'file-upload:progress->turbo-frame#update'
+      }
+    }) do |form| %>
+      <% if @new_post.errors.any? %>
+        <div class="error_messages">
+          <% post.errors.full_messages.each do |message| %>
+            <p class="text-danger"><%= message %></p>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div class="text-black ml-2.5 absolute right-9 w-6 h-6 mt-2.5 cursor-pointer" data-action="click->file-upload#triggerFileInput">
+        <i class="fa-solid fa-image"></i>
+      </div>
+
+      <div class="field">
+        <%= form.text_area :content,
+                           placeholder: 'Share something...',
+                           class: 'form-control share-content',
+                           rows: 3
+        %>
+      </div>
+
+      <%= form.hidden_field :challenge_id, value: @challenge.id %>
+
+      <div class="form-group media-upload">
+        <div class="media-input-wrapper">
+          <%= form.file_field :media,
+                              multiple: true,
+                              accept: 'image/png,image/jpeg,image/gif,video/mp4,video/quicktime',
+                              class: 'form-control-file hidden-file-input',
+                              style: 'display: none;',
+                              direct_upload: true,
+                              data: {
+                                file_upload_target: "fileInput"
+                              }
+          %>
+
+          <div class="selected-files" data-file-upload-target="fileList"></div>
+
+          <div id="upload-preview"></div>
+        </div>
+      </div>
+
+      <%= form.submit 'Create Post', class: 'text-white py-[12px] px-[30px] mb-[50px] hover:-translate-y-0.5 hover:shadow-[0_4px_8px_rgba(94,97,231,0.4)] active:translate-y-0.5 active:shadow-[0_1px_3px_rgba(94,97,231,0.4)] transition-all duration-300 ease-in-out rounded-3xl text-xl transition-all duration-300 ease-in-out cursor-pointer ml-auto mr-auto border-none bg-gradient-to-r from-[#5e61e7] to-[#8d7dfa] shadow-[0_2px_5px_rgba(94,97,231,0.3)]' %>
+    <% end %>
+  <% end %>
+</div>
+</div>
+
+
+<!-- Invite Members Sliding Panel -->
+<div id="invite-panel" class="fixed bottom-[56px] left-0 right-0 bg-white rounded-t-3xl z-50 transform translate-y-full transition-transform duration-300 ease-in-out">
+  <div class="max-w-md mx-auto px-6 py-6">
+    <!-- Drag handle at the top -->
+    <div class="flex justify-center mb-2">
+      <div class="w-12 h-1 bg-gray-300 rounded-full"></div>
+    </div>
+
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-semibold text-gray-800">Invite Members</h2>
+      <button id="close-invite-panel" class="text-gray-500 hover:text-gray-700">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Search Input -->
+    <div class="relative mb-6">
+      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+      <input type="text" id="invite-search" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-full text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-indigo-300" placeholder="Find someone">
+    </div>
+
+    <!-- Members Grid -->
+    <div id="members-grid" class="grid grid-cols-3 gap-4 mb-8">
+      <!-- Member thumbnails will be dynamically loaded here -->
+    </div>
+
+    <!-- Selected Count & Invite Button -->
+    <div class="flex items-center justify-between mb-2">
+      <span id="selected-count" class="text-sm text-gray-500">0 selected</span>
+      <button id="clear-selection" class="text-sm text-indigo-500 hover:text-indigo-700">Clear all</button>
+    </div>
+
+    <!-- Invite Button -->
+    <button id="send-invites-btn" class="w-full py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded-full transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+      Invite Members
+    </button>
+  </div>
+</div>
+
+<!-- Member template (hidden, used for cloning) -->
+<template id="member-template">
+  <div class="member-item flex flex-col items-center" data-id="">
+    <div class="relative">
+      <div class="avatar h-16 w-16 rounded-full bg-gray-200 mb-1 overflow-hidden relative">
+        <img src="" alt="" class="h-full w-full object-cover">
+      </div>
+      <div class="checkmark absolute -top-1 -right-1 h-5 w-5 bg-indigo-500 rounded-full flex items-center justify-center transform scale-0 transition-transform duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-white" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+        </svg>
+      </div>
+    </div>
+    <span class="member-name text-sm text-center truncate w-full">Name</span>
+  </div>
+</template>
+
+<%= render @posts %>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Join challenge button functionality
+        const joinButton = document.getElementById('join-challenge-button');
+        if (joinButton) {
+            const challengeId = joinButton.getAttribute('data-challenge-id');
+
+            joinButton.addEventListener('click', function() {
+                // Show loading state
+                joinButton.innerHTML = `
+        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        Joining...
+      `;
+                joinButton.disabled = true;
+                joinButton.classList.add('cursor-not-allowed');
+
+                // Get the CSRF token
+                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+
+                // Send POST request to join the challenge
+                fetch(`/challenges/${challengeId}/join`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-Token': csrfToken
+                    },
+                    credentials: 'same-origin'
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Request failed with status ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Reload the page to show updated UI
+                        window.location.reload();
+                    })
+                    .catch(error => {
+                        console.error('Error joining challenge:', error);
+                        joinButton.innerHTML = 'Join Challenge';
+                        joinButton.disabled = false;
+                        joinButton.classList.remove('cursor-not-allowed');
+                        alert('Failed to join challenge. Please try again.');
+                    });
+            });
+        }
+    });
+</script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // DOM elements
+        const inviteButton = document.getElementById('invite-members-button');
+        const invitePanel = document.getElementById('invite-panel');
+        const closeInvitePanel = document.getElementById('close-invite-panel');
+        const searchInput = document.getElementById('invite-search');
+        const membersGrid = document.getElementById('members-grid');
+        const memberTemplate = document.getElementById('member-template');
+        const selectedCountEl = document.getElementById('selected-count');
+        const clearSelectionBtn = document.getElementById('clear-selection');
+        const sendInvitesBtn = document.getElementById('send-invites-btn');
+
+        // Selected members tracking
+        let selectedMembers = new Set();
+
+        // Mock data for members (in a real app, you'd fetch this from your API)
+        const members = [
+            { id: 1, name: 'Gary', avatar: 'https://i.pravatar.cc/150?img=1', selected: false },
+            { id: 2, name: 'Chloe', avatar: 'https://i.pravatar.cc/150?img=5', selected: false },
+            { id: 3, name: 'Mely', avatar: 'https://i.pravatar.cc/150?img=9', selected: false },
+            { id: 4, name: 'Daniel', avatar: 'https://i.pravatar.cc/150?img=12', selected: false },
+            { id: 5, name: 'Sabrina', avatar: 'https://i.pravatar.cc/150?img=16', selected: false },
+            { id: 6, name: 'Sofia', avatar: 'https://i.pravatar.cc/150?img=25', selected: false },
+            { id: 7, name: 'Alex', avatar: 'https://i.pravatar.cc/150?img=30', selected: false },
+            { id: 8, name: 'Jordan', avatar: 'https://i.pravatar.cc/150?img=33', selected: false },
+            { id: 9, name: 'Taylor', avatar: 'https://i.pravatar.cc/150?img=38', selected: false }
+        ];
+
+        // Function to render members
+        function renderMembers(membersToRender) {
+            // Clear the grid
+            membersGrid.innerHTML = '';
+
+            // Render each member
+            membersToRender.forEach(member => {
+                // Clone the template
+                const memberEl = memberTemplate.content.cloneNode(true);
+                const memberItem = memberEl.querySelector('.member-item');
+
+                // Set data attributes and content
+                memberItem.dataset.id = member.id;
+                memberItem.querySelector('img').src = member.avatar;
+                memberItem.querySelector('img').alt = member.name;
+                memberItem.querySelector('.member-name').textContent = member.name;
+
+                // If the member is selected, show the checkmark
+                if (selectedMembers.has(member.id)) {
+                    memberItem.querySelector('.checkmark').classList.add('scale-100');
+                    memberItem.classList.add('opacity-100');
+                } else {
+                    memberItem.querySelector('.checkmark').classList.remove('scale-100');
+                    memberItem.classList.remove('opacity-100');
+                }
+
+                // Add click event
+                memberItem.addEventListener('click', () => toggleMemberSelection(member.id));
+
+                // Append to grid
+                membersGrid.appendChild(memberEl);
+            });
+
+            // Update selected count
+            updateSelectedCount();
+        }
+
+        // Function to toggle member selection
+        function toggleMemberSelection(memberId) {
+            if (selectedMembers.has(memberId)) {
+                selectedMembers.delete(memberId);
+            } else {
+                selectedMembers.add(memberId);
+            }
+
+            // Update UI to reflect selection
+            const memberEl = membersGrid.querySelector(`.member-item[data-id="${memberId}"]`);
+            const checkmark = memberEl.querySelector('.checkmark');
+
+            if (selectedMembers.has(memberId)) {
+                checkmark.classList.add('scale-100');
+                memberEl.classList.add('opacity-100');
+            } else {
+                checkmark.classList.remove('scale-100');
+                memberEl.classList.remove('opacity-100');
+            }
+
+            // Update selected count and button state
+            updateSelectedCount();
+        }
+
+        // Function to update selected count and button state
+        function updateSelectedCount() {
+            selectedCountEl.textContent = `${selectedMembers.size} selected`;
+            sendInvitesBtn.disabled = selectedMembers.size === 0;
+        }
+
+        // Function to filter members based on search
+        function filterMembers(query) {
+            if (!query) {
+                return members;
+            }
+
+            const lowerQuery = query.toLowerCase();
+            return members.filter(member =>
+                member.name.toLowerCase().includes(lowerQuery)
+            );
+        }
+
+        // Function to open invite panel
+        function openInvitePanel() {
+            // Show the panel
+            invitePanel.classList.remove('translate-y-full');
+
+            // Prevent scrolling on the body
+            document.body.classList.add('overflow-hidden');
+
+            // Render members
+            renderMembers(members);
+
+            // Focus the search input
+            setTimeout(() => {
+                searchInput.focus();
+            }, 300);
+        }
+
+        // Function to close invite panel
+        function closeInvitePanelFun() {
+            // Hide the panel
+            invitePanel.classList.add('translate-y-full');
+
+
+            // After transition is complete, hide the overlay completely
+            setTimeout(() => {
+                document.body.classList.remove('overflow-hidden');
+            }, 300);
+        }
+
+        // Event listeners
+        if (inviteButton) {
+            inviteButton.addEventListener('click', openInvitePanel);
+        }
+
+        if (closeInvitePanel) {
+            closeInvitePanel.addEventListener('click', closeInvitePanelFun);
+        }
+
+        if (searchInput) {
+            searchInput.addEventListener('input', event => {
+                const filtered = filterMembers(event.target.value);
+                renderMembers(filtered);
+            });
+        }
+
+        if (clearSelectionBtn) {
+            clearSelectionBtn.addEventListener('click', () => {
+                selectedMembers.clear();
+                renderMembers(filterMembers(searchInput.value));
+            });
+        }
+
+        if (sendInvitesBtn) {
+            sendInvitesBtn.addEventListener('click', () => {
+                // Get the CSRF token
+                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+
+                // Show loading state
+                const originalButtonText = sendInvitesBtn.textContent;
+                sendInvitesBtn.disabled = true;
+                sendInvitesBtn.innerHTML = `
+        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 inline-block text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        Sending invites...
+      `;
+
+                // Get challenge ID from the URL
+                const challengeId = window.location.pathname.split('/').pop();
+
+                // Prepare data
+                const data = {
+                    user_ids: Array.from(selectedMembers)
+                };
+
+                // Send invites
+                fetch(`/challenges/${challengeId}/invite`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-Token': csrfToken
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Request failed with status ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Show success message
+                        alert(`Successfully invited ${selectedMembers.size} members!`);
+
+                        // Clear selection
+                        selectedMembers.clear();
+
+                        // Close panel
+                        closeInvitePanelFun();
+                    })
+                    .catch(error => {
+                        console.error('Error sending invites:', error);
+                        alert('Failed to send invites. Please try again.');
+                    })
+                    .finally(() => {
+                        // Restore button state
+                        sendInvitesBtn.disabled = false;
+                        sendInvitesBtn.textContent = originalButtonText;
+                    });
+            });
+        }
+
+        // Handle escape key press
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && !invitePanel.classList.contains('translate-y-full')) {
+                closeInvitePanelFun();
+            }
+        });
+    });
+</script>

@@ -1,6 +1,8 @@
-<div class="container">
-  <h1 class="page-title">Communities</h1>
+<% content_for :header do %>
+    <h2 class="mr-auto ml-auto max-w-fit text-white py-4">Communities</h2>
+<% end %>
 
+<div class="bg-white text-black pt-[20px] h-[100vh] px-4 rounded-t-3xl">
   <div id="categories">
     <%= render @categories %>
   </div>

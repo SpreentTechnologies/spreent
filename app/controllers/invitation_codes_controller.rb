@@ -1,6 +1,7 @@
 class InvitationCodesController < ApplicationController
   before_action :authenticate_user!, only: ['create']
   before_action :require_admin, only: ['create', 'destroy']
+  layout "full"
 
   def create
     @new_invitation_code = InvitationCode.new(invitation_code_params)

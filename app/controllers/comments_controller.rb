@@ -17,6 +17,16 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
+        if current_user.id != @comment.user_id
+          Notification.create_notification(
+            recipient: current_user,
+            actor: current_user,
+            notifiable: @comment,
+            category: :social,
+            message: "#{@comment.user.name} commented: #{@comment.content.truncate(30)}"
+          )
+        end
+
         format.turbo_stream
       else
         format.turbo_stream {

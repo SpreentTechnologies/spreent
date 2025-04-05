@@ -7,14 +7,17 @@ class User < ApplicationRecord
     attachable.variant :circle, resize_to_limit: [300, 300]
   end
 
+  has_many :memberships
+
   has_many :posts
   has_many :comments
   has_many :likes, dependent: :destroy
   has_many :notifications, as: :recipient
+  has_many :communities, through: :memberships
 
-  has_many :conversation_participants
-  has_many :conversations, through: :conversation_participants
   has_many :messages
+  has_many :conversations_as_sender, class_name: 'Conversation', foreign_key: 'sender_id'
+  has_many :conversations_as_recipient, class_name: 'Conversation', foreign_key: 'recipient_id'
 
   # Follower associations
   has_many :active_follows, class_name: 'Follow',
@@ -30,6 +33,22 @@ class User < ApplicationRecord
   # Users that follow this user
   has_many :followers, through: :passive_follows, source: :follower, class_name: 'User'
 
+  has_many :participations
+  has_many :challenges, through: :participations
+
+  def conversations
+    Conversation.where("sender_id = ? OR recipient_id = ?", self.id, self.id)
+  end
+
+  def unread_messages_count
+    Message.joins(:conversation)
+           .where("conversations.sender_id = ? OR conversations.recipient_id = ?", self.id, self.id)
+           .where.not(user_id: self.id)
+           .where(read: false)
+           .count
+  end
+
+
   # Follow methods
   def follow(other_user)
     following << other_user unless self == other_user
@@ -43,6 +62,17 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
+  def participating_in?(challenge)
+    challenges.include?(challenge)
+  end
+
+  def initials
+    name.split.map(&:first).join.upcase
+  end
+
+  def owns?(community)
+    self.id == community.admin_id
+  end
 
   def conversations_with(other_user)
     Conversation.joins(:conversation_participants)
@@ -74,4 +104,8 @@ class User < ApplicationRecord
 
   has_many :liked_posts, through: :likes, source: :post
   has_many :reports
+
+  def member_of?(community)
+    communities.include?(community)
+  end
 end

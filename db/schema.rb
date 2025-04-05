@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_17_201809) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_24_112007) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -55,13 +55,29 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_17_201809) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "challenge_invitations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "challenge_id", null: false
+    t.bigint "sender_id", null: false
+    t.bigint "recipient_id", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["challenge_id", "recipient_id"], name: "index_challenge_invitations_on_challenge_id_and_recipient_id", unique: true
+    t.index ["challenge_id"], name: "index_challenge_invitations_on_challenge_id"
+    t.index ["recipient_id"], name: "index_challenge_invitations_on_recipient_id"
+    t.index ["sender_id"], name: "index_challenge_invitations_on_sender_id"
+  end
+
   create_table "challenges", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "title"
+    t.string "name"
     t.text "description"
     t.bigint "community_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "rules"
+    t.date "start_date", null: false
+    t.date "end_date"
     t.index ["community_id"], name: "index_challenges_on_community_id"
     t.index ["user_id"], name: "index_challenges_on_user_id"
   end
@@ -83,6 +99,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_17_201809) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "location"
+    t.integer "level"
+    t.integer "privacy"
+    t.integer "admin_id"
     t.index ["sport_id"], name: "index_communities_on_sport_id"
   end
 
@@ -109,6 +128,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_17_201809) do
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "sender_id", null: false
+    t.bigint "recipient_id", null: false
   end
 
   create_table "follows", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -141,6 +162,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_17_201809) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
+  create_table "memberships", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "community_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["community_id"], name: "index_memberships_on_community_id"
+    t.index ["user_id"], name: "index_memberships_on_user_id"
+  end
+
   create_table "messages", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "body"
     t.bigint "user_id", null: false
@@ -163,9 +193,21 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_17_201809) do
     t.datetime "read_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "message"
+    t.integer "category"
     t.index ["actor_type", "actor_id"], name: "index_notifications_on_actor"
     t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
     t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
+  end
+
+  create_table "participations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "challenge_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["challenge_id"], name: "index_participations_on_challenge_id"
+    t.index ["user_id", "challenge_id"], name: "index_participations_on_user_id_and_challenge_id", unique: true
+    t.index ["user_id"], name: "index_participations_on_user_id"
   end
 
   create_table "posts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -173,6 +215,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_17_201809) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.integer "community_id"
+    t.integer "challenge_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -230,6 +274,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_17_201809) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "challenge_invitations", "challenges"
+  add_foreign_key "challenge_invitations", "users", column: "recipient_id"
+  add_foreign_key "challenge_invitations", "users", column: "sender_id"
   add_foreign_key "communities", "sports"
   add_foreign_key "community_memberships", "communities"
   add_foreign_key "community_memberships", "users"
@@ -237,8 +284,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_17_201809) do
   add_foreign_key "conversation_participants", "users"
   add_foreign_key "follows", "users", column: "followed_id"
   add_foreign_key "follows", "users", column: "follower_id"
+  add_foreign_key "memberships", "communities"
+  add_foreign_key "memberships", "users"
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
+  add_foreign_key "participations", "challenges"
+  add_foreign_key "participations", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "reports", "posts"
   add_foreign_key "reports", "users"

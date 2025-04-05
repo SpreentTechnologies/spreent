@@ -1,11 +1,22 @@
-<div id="<%= dom_id(message) %>" class="message <%= message.user == current_user_for_view ? 'sent' : 'received' %>">
-  <div class="message-content">
-    <div class="message-header">
-      <span class="user-name"><%= message.user.name %></span>
-      <span class="timestamp"><%= message.created_at.strftime("%I:%M %p | %b %d") %></span>
-    </div>
-    <div class="message-body">
-      <%= message.body %>
+<div class="message <%= message.user == current_user ? 'flex justify-end' : 'flex justify-start' %>" id="<%= dom_id(message) %>">
+  <div class="<%= message.user == current_user ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-800' %> rounded-lg px-4 py-2 max-w-xs sm:max-w-md">
+    <div class="<%= message.user == current_user ? 'text-right' : '' %>">
+      <% unless message.user == current_user %>
+        <p class="text-xs font-medium mb-1 <%= message.user == current_user ? 'text-indigo-200' : 'text-gray-500' %>">
+          <%= message.user.username %>
+        </p>
+      <% end %>
+      <p><%= message.body %></p>
+      <p class="text-xs <%= message.user == current_user ? 'text-indigo-200' : 'text-gray-500' %> mt-1">
+        <%= short_time_ago_in_words(message.created_at) %>
+        <% if message.user == current_user %>
+          <% if message.read? %>
+            <span class="ml-1">✓✓</span>
+          <% else %>
+            <span class="ml-1">✓</span>
+          <% end %>
+        <% end %>
+      </p>
     </div>
   </div>
 </div>

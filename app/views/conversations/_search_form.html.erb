@@ -1,0 +1,44 @@
+<div class="sticky top-0 bg-white z-10" data-controller="live-search">
+  <div class="px-4 py-2 border-b flex items-center justify-between gap-2">
+    <%= form_with url: conversations_path, method: :get, class: "relative flex-1",
+                  data: {
+                    live_search_target: "form",
+                    turbo_frame: "conversations-list",
+                    turbo_action: "advance",
+                    action: "turbo:submit-end->live-search#afterUpdate"
+                  } do |f| %>
+      <div class="flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400 absolute left-3" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+        </svg>
+        <%= f.text_field :query,
+                         placeholder: I18n.t('messages.find_someone'),
+                         class: "w-full pl-10 pr-4 py-2 border-gray-200 border rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500",
+                         autocomplete: "off",
+                         value: params[:query],
+                         data: {
+                           live_search_target: "input",
+                           action: "input->live-search#search focus->live-search#afterUpdate"
+                         } %>
+        <% if params[:query].present? %>
+          <button type="button" class="absolute right-3 text-gray-400" data-action="click->live-search#clear">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        <% end %>
+      </div>
+    <% end %>
+
+    <!-- New conversation button remains the same -->
+    <button type="button"
+            class="new-conversation-btn flex-shrink-0 p-2 text-gray-500 hover:text-gray-700"
+            data-controller="modal"
+            data-action="modal#open">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+        <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+      </svg>
+    </button>
+  </div>
+</div>

@@ -1,7 +1,7 @@
 <div class="communities-list">
   <% if communities.any? %>
     <% communities.each do |community| %>
-      <%= link_to community_path(community) do %>
+      <%= link_to community_path(community), style: 'text-decoration:none;' do %>
       <div class="community-card">
         <div class="community-image">
           <% if community.image.attached? %>
@@ -13,6 +13,9 @@
         <div class="community-info">
           <h3><%= community.name %></h3>
           <p><%= community.description %></p>
+        </div>
+        <div class="member-count">
+<!--          <span><%#= community.community_memberships.count %> members</span>-->
         </div>
       </div>
         <% end %>

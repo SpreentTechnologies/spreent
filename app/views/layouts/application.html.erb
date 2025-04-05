@@ -18,6 +18,10 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Varela&display=swap');
+    </style>
+
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
@@ -32,8 +36,7 @@
     </script>
   </head>
 
-  <body>
-    <%= render 'shared/flash_messages' %>
+  <body class="relative h-[100vh] overflow-hidden font-[Varela] bg-[#6a0dad] text-white">
     <%= yield %>
   </body>
 </html>

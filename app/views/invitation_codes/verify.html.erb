@@ -1,12 +1,12 @@
-<h2 style="padding-top: 0;">Enter Your Invitation Code</h2>
-<div class="fold" style="padding-top:20px;">
+<h2 class="ml-auto mr-auto max-w-fit py-4"><%= I18n.t('enter_invitation_code.title') %></h2>
+<div class="bg-white text-black pt-[20px] h-[100vh] px-4 rounded-t-3xl">
 <%= form_with url: invite_path, method: :post do %>
   <div class="field">
-    <%= label_tag :invitation_code, "Invitation Code", style: 'margin-bottom:20px;' %>
-    <%= text_field_tag :invitation_code, params[:invitation_code], required: true %>
+    <%= label :code, 'Code', class: 'mb-[5px] block font-medium' %>
+    <%= text_field_tag :invitation_code, params[:invitation_code], required: true, class: 'h-[42px] w-full text-base rounded-3xl pl-[20px] mb-[10px] border' %>
   </div>
   <div class="actions">
-    <%= submit_tag "Proceed", class: 'submit-button-login' %>
+    <%= submit_tag I18n.t('enter_invitation_code.proceed'), class: 'text-white py-[12px] px-[30px] mb-[50px] hover:-translate-y-0.5 hover:shadow-[0_4px_8px_rgba(94,97,231,0.4)] active:translate-y-0.5 active:shadow-[0_1px_3px_rgba(94,97,231,0.4)] transition-all duration-300 ease-in-out rounded-3xl text-xl transition-all duration-300 ease-in-out cursor-pointer ml-auto mr-auto border-none bg-gradient-to-r from-[#5e61e7] to-[#8d7dfa] shadow-[0_2px_5px_rgba(94,97,231,0.3)]' %>
   </div>
 <% end %>
 </div>

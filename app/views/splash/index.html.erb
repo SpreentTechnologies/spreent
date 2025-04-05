@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <title>Spreent - Your Sports Community</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <%= stylesheet_link_tag 'splash', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%#= stylesheet_link_tag 'splash', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_importmap_tags %>
 </head>
-<body class="splash-page">
-<%= image_tag "spreent_logo.png" %>
+<body class="bg-[#6a0dad] flex items-center justify-center h-screen">
+<%= image_tag "spreent_logo.png", class: 'mr-auto ml-auto pt-[25%]' %>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
@@ -18,7 +18,7 @@
     }, 1000)
   })
 </script>
-<div class="blur-point top-left"></div>
-<div class="blur-point bottom-right"></div>
+<div class="absolute w-[150px] h-[150px] bg-white opacity-50 top-[-50px] left-[-50px] rounded-lg blur-3xl"></div>
+<div class="absolute w-[150px] h-[150px] bg-white opacity-50 bottom-[-50px] right-[-50px] rounded-lg blur-3xl"></div>
 </body>
 </html>

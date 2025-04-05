@@ -1,5 +1,5 @@
 <% content_for :head do %>
-    <h2 class="screen_header">Create Your Account</h2>
+  <h2 class="max-w-fit ml-auto mr-auto py-4"><%= I18n.t('register.register_title') %></h2>
 <% end %>
 
 <meta name="turbo-visit-control" content="reload">
@@ -7,48 +7,66 @@
 <% if flash.any? %>
   <div class="flash-messages">
     <% flash.each do |key, value| %>
-      <div class="alert alert-<%= key == 'notice' ? 'success' : 'danger' %>">
+      <div class="alert alert-<%= key == 'notice' ? 'success' : 'danger' %> alert-dismissible fade show">
         <%= value %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
     <% end %>
   </div>
 <% end %>
 
+<div class="bg-white text-black h-[100vh] p-4">
 <%= form_for(resource, as: resource_name, class: 'styled-form', url: registration_path(resource_name),
-             html: {
-               data: {
-                 controller: "password_strength_controller"
-               }
+             data: {
+               turbo: false
              }
     ) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-      <%= f.label :name %><br />
-      <%= f.text_field :name, autofocus: true %>
+  <div class="field mb-3">
+    <%= f.label :name, class: 'text-base text-[#343434]' %><br />
+    <%= f.text_field :name,
+                     autofocus: true,
+                     class: 'h-[42px] w-full text-base rounded-3xl pl-[20px] border',
+                     data: {
+                       form_validation_target: "input",
+                       rules: "required minLength:2 maxLength:50"
+                     } %>
   </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autocomplete: "email" %>
+  <div class="field mb-3">
+    <%= f.label :email, class: 'text-base text-[#343434]' %><br />
+    <%= f.email_field :email,
+                      autocomplete: "email",
+                      class: 'h-[42px] w-full text-base rounded-3xl pl-[20px] border',
+                      data: {
+                        form_validation_target: "input",
+                        rules: "required email"
+                      } %>
   </div>
 
-  <div class="field">
-    <%= f.label :password %>
+  <div class="field mb-3">
+    <%= f.label :password, class: "form-label required" %>
     <% if @minimum_password_length %>
       <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+    <%= f.password_field :password,
+                         autocomplete: "new-password",
+                         class: 'h-[42px] w-full text-base rounded-3xl pl-[20px] border' %>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  <div class="field mb-3">
+    <%= f.label :password_confirmation, class: "form-label required" %><br />
+    <%= f.password_field :password_confirmation,
+                         autocomplete: "new-password",
+                         class: 'h-[42px] w-full text-base rounded-3xl pl-[20px] border' %>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up", class: 'submit-button-login' %>
+  <div class="actions mt-4">
+    <%= f.submit I18n.t('register.sign_up'), class: 'text-white py-[12px] px-[30px] mb-[50px] hover:-translate-y-0.5 hover:shadow-[0_4px_8px_rgba(94,97,231,0.4)] active:translate-y-0.5 active:shadow-[0_1px_3px_rgba(94,97,231,0.4)] transition-all duration-300 ease-in-out rounded-3xl text-xl transition-all duration-300 ease-in-out cursor-pointer ml-auto mr-auto border-none bg-gradient-to-r from-[#5e61e7] to-[#8d7dfa] shadow-[0_2px_5px_rgba(94,97,231,0.3)] mt-10' %>
   </div>
 <% end %>
 
 <%= render "devise/shared/links" %>
+
+</div>

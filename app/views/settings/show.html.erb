@@ -1,48 +1,64 @@
-<div class="settings-container">
-  <h1>Account Settings</h1>
-
-  <div id="flash_messages">
-    <%= render 'shared/flash', flash: flash %>
+<% content_for :header do %>
+  <div class="notifications-header" style="display: flex;color:white;">
+    <h2 style="margin-left:auto;margin-right:auto;">Settings</h2>
   </div>
+<% end %>
 
-  <div class="settings-grid" style="color: black;">
-    <div class="settings-sidebar">
-      <ul>
-        <li class="active"><a href="#profile">Profile</a></li>
-        <li><a href="#avatar">Avatar</a></li>
-        <li><a href="#account">Account</a></li>
-        <li><a href="#notifications">Notifications</a></li>
-      </ul>
+<div class="profile-settings-container">
+  <%= form_with(model: @user, url: profile_path, method: :patch, class: "settings-form", local: true) do |f| %>
+    <% if @user.errors.any? %>
+      <div class="error-messages">
+        <% @user.errors.full_messages.each do |message| %>
+          <p><%= message %></p>
+        <% end %>
+      </div>
+    <% end %>
 
-      <div class="logout-section">
-        <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "logout-button", data: { turbo: false } %>
+    <div class="form-section">
+      <h2>Profile Photo</h2>
+      <div class="avatar-upload">
+        <div class="current-avatar">
+          <% if @user.avatar.attached? %>
+            <%= image_tag @user.avatar.variant(resize_to_fit: [100, 100]), class: "avatar-preview" %>
+          <% else %>
+            <%= image_tag 'default_avatar.png' %>
+          <% end %>
+        </div>
+
+        <%= f.file_field :avatar, class: "avatar-input", accept: "image/*" %>
+        <%= f.label :avatar, "Change Photo", class: "btn-upload" %>
       </div>
     </div>
 
-    <div class="settings-content">
-      <section id="profile">
-        <h2>Profile Settings</h2>
-        <div id="profile_settings">
-          <%= render 'profile_settings', user: @user %>
-        </div>
-      </section>
+    <div class="form-section">
+      <h2>Profile Information</h2>
 
-      <section id="avatar">
-        <h2>Avatar</h2>
-        <div id="avatar_section">
-          <%= render 'avatar_section', user: @user %>
-        </div>
-      </section>
+      <div class="form-group" style="display: block;">
+        <%= f.label :bio, "Bio" %>
+        <%= f.text_area :bio, class: "form-control", placeholder: "Tell us about yourself...", maxlength: 150 %>
+        <span class="character-count"><span id="bio-count">0</span>/150</span>
+      </div>
 
-      <section id="account">
-        <h2>Account Settings</h2>
-        <!-- Account settings form here -->
-      </section>
-
-      <section id="notifications">
-        <h2>Notification Preferences</h2>
-        <!-- Notification settings form here -->
-      </section>
+      <div class="form-group" style="display: block;">
+        <%= f.label :location, "Location" %>
+        <%= f.text_field :location, class: "form-control", placeholder: "City, Country" %>
+      </div>
     </div>
-  </div>
+
+<!--    <div class="form-section">-->
+<!--      <h2>Interests</h2>-->
+<!--      <div class="interests-container">-->
+        <%# Interest.all.each do |interest| %>
+<!--          <div class="interest-checkbox">-->
+            <%#= check_box_tag "user[interest_ids][]", interest.id, @user.interests.include?(interest), id: "interest_#{interest.id}" %>
+            <%#= label_tag "interest_#{interest.id}", interest.name %>
+<!--          </div>-->
+        <%# end %>
+<!--      </div>-->
+<!--    </div>-->
+
+    <div class="form-actions">
+      <%= f.submit "Save Changes", class: "btn-primary" %>
+    </div>
+  <% end %>
 </div>

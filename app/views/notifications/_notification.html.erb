@@ -1,0 +1,42 @@
+<div class="notification-item <%= notification.read_at ? 'read' : 'unread' %>">
+  <div class="notification-icon">
+    <% case notification.category %>
+    <% when 'system' %>
+      <% if notification.notifiable_type == "Challenge" && notification.message.include?("completed") %>
+        <div class="icon achievement">🏆</div>
+      <% else %>
+        <div class="icon system">📢</div>
+      <% end %>
+    <% when 'invitation' %>
+      <div class="icon invitation">👥</div>
+    <% when 'activity' %>
+      <div class="icon activity">🏃</div>
+    <% when 'social' %>
+      <% if notification.message.include?("liked") %>
+        <div class="icon social">❤️</div>
+      <% else %>
+        <div class="icon social">💬</div>
+      <% end %>
+    <% when 'achievement' %>
+      <div class="icon achievement">🏆</div>
+    <% end %>
+  </div>
+
+  <div class="notification-content">
+    <div class="notification-message">
+      <%= notification.message %>
+    </div>
+
+    <div class="notification-time">
+      <%= notification.time_ago %>
+    </div>
+  </div>
+
+  <div class="notification-action">
+    <% if notification.notifiable_type == 'Group' && notification.category == 'invitation' %>
+      <%= link_to 'See Group', group_path(notification.notifiable), class: 'action-button' %>
+    <% elsif notification.notifiable_type == 'Challenge' && notification.category == 'activity' %>
+      <%= link_to 'See Challenge', challenge_path(notification.notifiable), class: 'action-button' %>
+    <% end %>
+  </div>
+</div>

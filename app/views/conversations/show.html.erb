@@ -1,24 +1,36 @@
-<div class="conversation-container">
-  <div class="conversation-header">
-    <h1>
-      <%= link_to "← Back", conversations_path, class: "back-link" %>
-      <%= @conversation.other_participants(current_user).map(&:name).join(", ") %>
-    </h1>
-  </div>
-
-  <div id="messages" class="messages-container">
-    <%= turbo_stream_from "conversation_#{@conversation.id}" %>
-
-    <% if @messages.any? %>
-      <% @messages.each do |message| %>
-        <%= render partial: "messages/message", locals: { message: message, current_user_for_view: current_user } %>
-      <% end %>
-    <% else %>
-      <p class="no-messages">No messages yet. Start the conversation!</p>
+<div class="container mx-auto px-4 py-8">
+  <div class="flex items-center mb-6">
+    <%= link_to conversations_path, class: "text-indigo-600 hover:text-indigo-800 mr-4" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+      </svg>
     <% end %>
+
+    <% opposed_user = @conversation.opposed_user(current_user) %>
+    <% if opposed_user.avatar.present? %>
+      <img src="<%= opposed_user.avatar %>" class="h-10 w-10 rounded-full mr-3" alt="<%= opposed_user.name %>">
+    <% else %>
+      <div class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center mr-3">
+        <span class="text-gray-600"><%= opposed_user.name.upcase %></span>
+      </div>
+    <% end %>
+    <h1 class="text-xl font-bold"><%= opposed_user.name %></h1>
   </div>
 
-  <div class="message-form-container">
-    <%= render partial: "messages/form", locals: { conversation: @conversation, message: @message } %>
+  <div class="bg-white rounded-lg shadow flex flex-col h-[600px]">
+    <div id="messages" class="flex-1 overflow-y-auto p-4 space-y-4" data-conversation-id="<%= @conversation.id %>">
+      <% @conversation.messages.order(created_at: :asc).each do |message| %>
+        <%= render 'messages/message', message: message, current_user: current_user %>
+      <% end %>
+    </div>
+
+    <div class="border-t p-4">
+      <%= form_with model: [@conversation, @message], class: "flex items-end", data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" } do |f| %>
+        <div class="flex-1">
+          <%= f.text_area :body, placeholder: "Type your message...", rows: 1, class: "w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none" %>
+        </div>
+        <%= f.submit "Send", class: "ml-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" %>
+      <% end %>
+    </div>
   </div>
 </div>
