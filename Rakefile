@@ -3,6 +3,4 @@
 
 require_relative "config/application"
 
-Rake::Task["assets:precompile"].enhance ["css:build"]
-
 Rails.application.load_tasks
