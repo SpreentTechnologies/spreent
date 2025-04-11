@@ -30,6 +30,8 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
 
+
+  config.assets.version = "1.1"
   # Skip http-to-https redirect for the default health check endpoint.
   # config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
 
@@ -63,9 +65,9 @@ Rails.application.configure do
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
   config.action_mailer.smtp_settings = {
-    user_name: 'apikey',
-    password: ENV['SENDGRID_API_KEY'],
-    domain: 'spreent.ca',
+    user_name: "apikey",
+    password: ENV["SENDGRID_API_KEY"],
+    domain: "spreent.ca",
     address: "smtp.sendgrid.net",
     port: 587,
     authentication: :plain,
