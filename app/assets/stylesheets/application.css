@@ -9,8 +9,6 @@
  * Consider organizing styles into separate files for maintainability.
  */
 
-@import '../tailwind/application.css';
-
 body {
-    color: white;
+    color: blue;
 }
