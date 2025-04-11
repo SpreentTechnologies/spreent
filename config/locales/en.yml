@@ -1,10 +1,71 @@
 en:
+  links:
+    forgot_your_password: "Forgot your password?"
+    sign_up: "Create an account"
+    login_instead: "Login instead?"
+  search:
+    no_results: "No results found for your search"
+    users: "Members"
+    communities: "Communities"
+  forgot_password:
+    send_me_instructions: "Send me instructions"
+  notifications:
+    notifications_title: "Notifications"
+    general: "General"
+    communities: "Communities"
+    challenges: "Challenges"
+    recents: "Recents"
+  messages:
+    find_someone: "Find someone"
+  community:
+    see_challenges: "See challenges"
+    join_community: "Join"
+  create_challenge:
+    create_a_challenge: "Create a challenge"
+    set_up_goals_for_community: "Set up goals for the community"
+    challenge_name: "Challenge name"
+    challenge_name_placeholder: "e.g. 50k running"
+    explain_the_goal: "Explain the goal"
+    rules: "Rules"
+    rules_placeholder: "Rules for the challenge"
+    duration: "Duration"
+    starts: "Start date"
+    ends: "End date"
+    create_challenge: "Create the challenge"
+  challenges_panel:
+    challenges: "Challenges"
+    create: "Create"
+    current_challenges: "Current challenges"
+    past_challenges: "Past challenges"
+    days_left: "%{days_left} days left"
+  explore:
+    explore_title: "Explore communities"
+    search: "Search community by sport or location"
   home:
     welcome: "Welcome to Spreent"
-    your_hub: "Your Sports Community Hub"
+    your_hub: "Your Sports Hub"
     login: "Login"
     enter_invitation_code: "Enter Invitation Code"
+    enter_invitation_code_first: "Enter invitation code first"
+    invalid_invitation_code: "Invalid code"
+  feed:
+    search: "Search"
+    share_something: "Share something"
+    create_post: "Publish"
   login:
     login_title: "Login"
-    email: "Email"
-    password: "Password"
+  register:
+    register_title: "Create your account"
+    sign_up: "Account creation"
+  enter_invitation_code:
+    title: "Enter your invitation code"
+    proceed: "Proceed"
+  activerecord:
+    attributes:
+      user:
+        name: "Name"
+        email: "Email"
+        password: "Password"
+        password_confirmation: "Password (confirmation)"
+      invitation_code:
+        code: "Invitation code"

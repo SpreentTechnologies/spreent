@@ -44,8 +44,8 @@ class InvitationCodesController < ApplicationController
       session[:invitation_code] = code.code
       redirect_to new_user_registration_path
     else
-      flash[:alert] = "Invalid invitation code."
-      render :verify
+      flash[:alert] = I18n.t('home.invalid_invitation_code')
+      redirect_to invite_path
     end
   end
 

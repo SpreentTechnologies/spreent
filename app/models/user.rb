@@ -8,6 +8,7 @@ class User < ApplicationRecord
   end
 
   has_many :memberships
+  validates :name, presence: true
 
   has_many :posts
   has_many :comments
@@ -99,8 +100,6 @@ class User < ApplicationRecord
   end
 
   attr_accessor :invitation_code
-
-  validates :avatar, presence: true, on: :update
 
   has_many :liked_posts, through: :likes, source: :post
   has_many :reports

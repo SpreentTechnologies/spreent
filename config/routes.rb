@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, path: '',
     controllers: { registrations: "users/registrations" },
-    path_names: { sign_in: "login", sign_out: "logout", sign_up: "register" }
+    path_names: { sign_in: "login", sign_out: "logout", sign_up: "register" },
+    :class_name => 'User'
 
   get "up" => "rails/health#show", as: :rails_health_check
 

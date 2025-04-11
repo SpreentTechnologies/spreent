@@ -1,25 +1,28 @@
-<h2>Change your password</h2>
-
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+<h2 class="mr-auto ml-auto max-w-fit py-4"><%= I18n.t('forgot_password.change_your_password') %></h2>
+<div class="bg-white text-black pt-[20px] h-[100vh] px-4 rounded-t-3xl">
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put },              data: {
+  turbo: false
+}) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
   <%= f.hidden_field :reset_password_token %>
 
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
+  <div class="field mb-4">
+    <%= f.label :password, I18n.t('forgot_password.new_password') %><br />
     <% if @minimum_password_length %>
       <em>(<%= @minimum_password_length %> characters minimum)</em><br />
     <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
+    <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: 'h-[42px] w-full text-base rounded-3xl pl-[20px] border' %>
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.label :password_confirmation, I18n.t('forgot_password.confirm_password') %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'h-[42px] w-full text-base rounded-3xl pl-[20px] border' %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Change my password" %>
+    <%= f.submit I18n.t('forgot_password.change_my_password'),  class: 'text-white py-[12px] px-[30px] mb-[50px] hover:-translate-y-0.5 hover:shadow-[0_4px_8px_rgba(94,97,231,0.4)] active:translate-y-0.5 active:shadow-[0_1px_3px_rgba(94,97,231,0.4)] transition-all duration-300 ease-in-out rounded-3xl text-xl transition-all duration-300 ease-in-out cursor-pointer ml-auto mr-auto border-none bg-gradient-to-r from-[#5e61e7] to-[#8d7dfa] shadow-[0_2px_5px_rgba(94,97,231,0.3)] mt-10' %>
   </div>
 <% end %>
 
 <%= render "devise/shared/links" %>
+</div>

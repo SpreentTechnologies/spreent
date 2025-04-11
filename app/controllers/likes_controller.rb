@@ -8,23 +8,25 @@ class LikesController < ApplicationController
     respond_to do |format|
       if @like.save
         if @post.user_id != current_user.id
-          if [10, 50, 100, 500, 1000].include?(@post.likes.count)
-            Notification.create_notification(
-              recipient: @post.user,
-              actor: nil,
-              notifiable: current_user,
-              category: :achievement,
-              message: "Your post received #{@post.likes.count} likes for the first time"
-            )
-          else
-            Notification.create_notification(
-            recipient: @post.user,
-            actor: @post.user,
-            notifiable: current_user,
-            category: :social,
-            message: "#{current_user.name} liked your post"
-            )
-          end
+          # if [10, 50, 100, 500, 1000].include?(@post.likes.count)
+          #   Notification.create_notification(
+          #     recipient: @post.user,
+          #     recipient_type: "User",
+          #     actor: nil,
+          #     notifiable: current_user,
+          #     category: :achievement,
+          #     message: "Your post received #{@post.likes.count} likes for the first time"
+          #   )
+          # else
+          #   Notification.create_notification(
+          #   recipient: @post.user,
+          #   recipient_type: "User",
+          #   actor: @post.user,
+          #   notifiable: current_user,
+          #   category: :social,
+          #   message: "#{current_user.name} liked your post"
+          #   )
+          # end
         end
         format.turbo_stream { render turbo_stream: turbo_stream.replace("like_button_#{@post.id}",
                                                                         partial: "posts/like_button", locals: { post: @post }) }

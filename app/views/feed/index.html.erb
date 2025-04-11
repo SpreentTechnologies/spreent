@@ -7,8 +7,8 @@
             <% end %>
 
             <%= link_to conversations_path, class: 'text-white w-[28px] h-[28px]' do %>
-                <i class="fa-solid fa-message"></i>
-            <% if current_user.unread_messages_count > 0 %>
+              <i class="fa-solid fa-message"></i>
+              <% if current_user.unread_messages_count > 0 %>
                 <span class="relative bottom-[40px] left-[4px] bg-[#E8C0FF] w-[10px] rounded-full p-1 text-[10px]"><%= current_user.unread_messages_count %></span>
                 <% end %>
             <% end %>
@@ -59,7 +59,7 @@
                     <div class="field">
                       <%= form.text_area :content,
                           placeholder: I18n.t('feed.share_something'),
-                          class: 'form-control share-content w-[85%]',
+                          class: 'form-control share-content w-[85%] resize-none',
                           rows: 3
                       %>
                     </div>
@@ -91,9 +91,35 @@
 
     </div>
 
+<div data-controller="infinite-scroll">
     <%= turbo_frame_tag "posts_list", data: { turbo_action: "advance" } do %>
-        <div class="overflow-y-scroll overflow-x-hidden h-[calc(100vh-225px)] scrollbar-hide" id="posts">
+        <div class="overflow-y-scroll overflow-x-hidden h-[calc(100vh-225px)] scrollbar-hide" id="posts" data-infinite-scroll-target="container">
             <%= render @posts %>
         </div>
-
     <% end %>
+
+  <div data-infinite-scroll-target="scrollTrigger" class="py-2 -mb-2 flex justify-center">
+
+  <div id="loading-indicator" data-infinite-scroll-target="loadingIndicator" class="h-24 fixed bottom-5 w-[25px] hidden">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+      <style>
+          .spinner {
+              transform-origin: center;
+              animation: rotate 1.5s linear infinite;
+          }
+          @keyframes rotate {
+              from { transform: rotate(0deg); }
+              to { transform: rotate(360deg); }
+          }
+      </style>
+      <g class="spinner">
+        <circle cx="50" cy="50" r="45" fill="none" stroke="#eaeaea" stroke-width="8"/>
+        <path d="M50 5 A 45 45 0 0 1 95 50" fill="none" stroke="#6a0dad" stroke-width="8" stroke-linecap="round"/>
+      </g>
+    </svg>
+  </div>
+
+  <div id="no-more-posts" data-infinite-scroll-target="noMorePosts" class="hidden">
+    No more posts to load
+  </div>
+</div>

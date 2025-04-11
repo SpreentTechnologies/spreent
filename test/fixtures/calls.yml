@@ -1,13 +1,1 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  uuid: MyString
-  status: MyString
-  caller_id: 1
-  recipient_id: 1
-
-two:
-  uuid: MyString
-  status: MyString
-  caller_id: 1
-  recipient_id: 1

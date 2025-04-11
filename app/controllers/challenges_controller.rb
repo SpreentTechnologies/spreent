@@ -2,6 +2,7 @@ class ChallengesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_community, only: [:create]
   before_action :ensure_member, only: [:create]
+  before_action :require_user_confirmation!
 
   before_action :set_challenge, only: [:show, :join]
   layout 'app_with_nav'
@@ -163,5 +164,11 @@ class ChallengesController < ApplicationController
 
   def set_challenge
     @challenge = Challenge.find(params[:id])
+  end
+
+  def require_user_confirmation!
+    unless current_user.confirmed?
+      redirect_to root_path, alert: "You need to confirm your email before accessing this page."
+    end
   end
 end

@@ -1,7 +1,7 @@
 require "test_helper"
 
 class InvitationCodesControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+  test "should validate code" do
+    post invitation_codes, params: { code: 'BRUNY2025' }
+  end
 end

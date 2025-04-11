@@ -1,4 +1,8 @@
 fr:
+  confirmation:
+    welcome: "Bienvenue"
+    you_can_confirm: "Vous pouvez confirmer votre courriel via le lien ci-dessous:"
+    confirm_my_account: "Confirmer mon courriel"
   links:
     forgot_your_password: "Mot de passe oublié?"
     sign_up: "Créer un compte"
@@ -9,6 +13,14 @@ fr:
     communities: "Communautés"
   forgot_password:
     send_me_instructions: "M'envoyer les instructions"
+    change_your_password: "Change ton mot de passe"
+    new_password: "Nouveau mot de passe"
+    confirm_password: "Confirmation de nouveau mot de passe"
+    change_my_password: "Modifier mon mot de passe"
+    someone_has_requested: "Quelqu'un a demandé un lien pour changer votre mot de passe. Vous pouvez faire cela avec le lien ci-dessous."
+    hello: "Bonjour"
+    if_didnt_request: "Si vous n'avez pas demandé ceci, veuillez ignorer ce courriel."
+    password_wont_change: "Votre mot de passe ne vas pas changer tant que vous ne cliquer pas sur le lien ci-dessus et en créant un."
   notifications:
     notifications_title: "Notifications"
     general: "Général"
@@ -46,6 +58,8 @@ fr:
     your_hub: "Votre communauté sportive"
     login: "Connexion"
     enter_invitation_code: "Entrez le code d'invitation"
+    enter_invitation_code_first: "Tu dois entrer ton code d'invitation"
+    invalid_invitation_code: "Code invalide"
   feed:
     search: "Recherche"
     share_something: "Partage quelque chose"
@@ -59,6 +73,20 @@ fr:
     title: "Entre ton code d'invitation"
     proceed: "Continuer"
   activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            name:
+              blank: "Le nom ne peut pas être vide"
+            email:
+              blank: "Le courriel ne peut pas être vide"
+              taken: "Ce courriel est déjà utilisé"
+            password:
+              too_short: "Le mot de passe doit contenir au moins 6 caractères"
+              blank: "Le mot de passe ne peut pas être vide"
+            password_confirmation:
+              confirmation: "Le mot de passe de confirmation n'est pas identique."
     attributes:
       user:
         name: "Nom"

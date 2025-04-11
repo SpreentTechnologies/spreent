@@ -9,6 +9,13 @@
   <%= javascript_importmap_tags %>
 </head>
 <body class="bg-[#6a0dad] flex items-center justify-center h-screen">
+
+<% if notice %>
+  <p class="bg-white w-96 mx-auto text-black p-4 shadow-md rounded-md mt-4"><%= notice %></p>
+<% end %>
+<% if alert %>
+  <p class="bg-white w-96 mx-auto text-black p-4 shadow-md rounded-md mt-4"><%= alert %></p>
+<% end %>
 <%= image_tag "spreent_logo.png", class: 'mr-auto ml-auto pt-[25%]' %>
 
 <script>
