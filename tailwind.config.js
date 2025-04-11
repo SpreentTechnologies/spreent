@@ -1,28 +1,22 @@
-/** @type {import('tailwindcss').Config} */
+// const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
     content: [
-        './app/**/*.{erb,rb,html}',
-        './app/views/**/*.{erb,html,html.erb,rb}',
+        './public/*.html',
         './app/helpers/**/*.rb',
         './app/javascript/**/*.js',
-        './app/javascript/**/*.jsx',
-        './app/assets/builds/**/*.js',
-        './app/components/**/*.{erb,rb}', // For view_component users
-        './lib/components/**/*.{erb,rb}', // For some component approaches
-        './config/initializers/simple_form_tailwind.rb', // If using simple_form
+        './app/views/**/*.{erb,haml,html,slim}'
     ],
     theme: {
-
+        extend: {
+            fontFamily: {
+//         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+            },
+        },
     },
     plugins: [
-        require('@tailwindcss/forms'),
-        require('@tailwindcss/typography'),
-        require('@tailwindcss/aspect-ratio'),
-        // Add any additional plugins you want to use
-    ],
-    // Add any variants configurations if needed
-    safelist: [
-        // Add any classes that might be dynamically generated and need to be included
-        // Example: 'bg-red-500', 'text-green-400'
-    ],
+        // require('@tailwindcss/forms'),
+        // require('@tailwindcss/typography'),
+        // require('@tailwindcss/container-queries'),
+    ]
 }
