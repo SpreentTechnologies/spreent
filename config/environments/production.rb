@@ -35,6 +35,7 @@ Rails.application.configure do
 
 
   config.assets.version = "1.1"
+  config.assets.
 
 
   config.public_file_server.headers = {
