@@ -27,19 +27,6 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
 
-  config.assets.compile = false # Should be false for production
-  config.assets.digest = true   # Should be true for production
-
-
-  config.assets.version = "1.1"
-  config.assets.
-
-
-  config.public_file_server.headers = {
-    'Cache-Control' => 'public, max-age=3600' # Set a shorter cache time for testing
-  }
-
-
   # Skip http-to-https redirect for the default health check endpoint.
   # config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
 
