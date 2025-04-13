@@ -39,7 +39,7 @@ aliases:
 volumes:
   - "spreent_storage:/rails/storage"
 
-#asset_path: /rails/public/assets
+asset_path: /rails/public/assets
 
 builder:
   arch: amd64
