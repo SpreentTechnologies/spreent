@@ -157,8 +157,8 @@
     <orderEntry type="library" scope="PROVIDED" name="sshkit (v1.24.0, RVM: ruby-3.2.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="stimulus-rails (v1.3.4, RVM: ruby-3.2.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="stringio (v3.1.5, RVM: ruby-3.2.4) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="tailwindcss-rails (v4.2.1, RVM: ruby-3.2.4) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="tailwindcss-ruby (v4.0.14, RVM: ruby-3.2.4) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="tailwindcss-rails (v3.3.1, RVM: ruby-3.2.4) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="tailwindcss-ruby (v3.4.17, RVM: ruby-3.2.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thor (v1.3.2, RVM: ruby-3.2.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thruster (v0.1.12, RVM: ruby-3.2.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="timeout (v0.4.3, RVM: ruby-3.2.4) [gem]" level="application" />
@@ -603,7 +603,6 @@
               <RakeTaskImpl description="Build your Tailwind CSS" fullCommand="tailwindcss:build" id="build" />
               <RakeTaskImpl description="Remove CSS builds" fullCommand="tailwindcss:clobber" id="clobber" />
               <RakeTaskImpl description="Install Tailwind CSS into the app" fullCommand="tailwindcss:install" id="install" />
-              <RakeTaskImpl description="Upgrade app from Tailwind CSS v3 to v4" fullCommand="tailwindcss:upgrade" id="upgrade" />
               <RakeTaskImpl description="Watch and build your Tailwind CSS on file changes" fullCommand="tailwindcss:watch" id="watch" />
             </subtasks>
           </RakeTaskImpl>
