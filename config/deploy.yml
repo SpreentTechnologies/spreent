@@ -2,11 +2,11 @@ service: spreent
 image: denfrac/spreent
 servers:
   web:
-    - spreent.fractionnaire.ca
+    - spreent.ca
 
 proxy:
   ssl: true
-  host: spreent.fractionnaire.ca
+  host: spreent.ca
 
 registry:
   username: denfrac
