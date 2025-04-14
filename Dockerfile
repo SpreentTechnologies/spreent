@@ -48,6 +48,8 @@ RUN bundle exec bootsnap precompile app/ lib/
 RUN chmod -R 777 /rails/app/assets/
 RUN chmod -R 777 /rails/app/assets/builds/
 
+RUN ./bin/rails assets:clobber
+
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
