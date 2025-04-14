@@ -42,7 +42,7 @@
 
   <body class="bg-[#6a0dad] relative h-[100vh] overflow-hidden m-0 w-full box-border">
     <%= yield :header %>
-    <div class="fold">
+    <div class="fold bg-white">
     <%= yield %>
     </div>
     <nav class="fixed bottom-0 left-0 right-0 bg-black z-[999]">
@@ -91,7 +91,7 @@
         });
       <% end %>
 
-      <div id="modal" class="modal" data-controller="modal">
+      <div id="modal" class="modal hidden" data-controller="modal">
         <div class="modal-overlay" data-action="click->modal#close"></div>
         <div class="modal-container">
           <div class="modal-header">
