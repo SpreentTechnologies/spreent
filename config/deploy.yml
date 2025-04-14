@@ -47,7 +47,7 @@ builder:
 accessories:
    db:
      image: mysql:8.0
-     host: spreent.fractionnaire.ca
+     host: spreent.ca
      port: "127.0.0.1:3306:3306"
      env:
        clear:
