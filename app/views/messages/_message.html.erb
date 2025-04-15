@@ -3,7 +3,7 @@
     <div class="<%= message.user == current_user ? 'text-right' : '' %>">
       <% unless message.user == current_user %>
         <p class="text-xs font-medium mb-1 <%= message.user == current_user ? 'text-indigo-200' : 'text-gray-500' %>">
-          <%= message.user.username %>
+          <%= message.user.name %>
         </p>
       <% end %>
       <p><%= message.body %></p>

@@ -91,7 +91,6 @@ document.addEventListener("turbo:load", () => {
       "dynamic-height-element",
     );
     if (postsElement.scrollTop > lastScrollTop) {
-      console.log("scrolling down");
       dynamicElementHeight.classList.add("opacity-0");
       dynamicElementHeight.classList.add("-translate-y-4");
       dynamicElementHeight.classList.remove("opacity-100");

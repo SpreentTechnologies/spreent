@@ -1,12 +1,9 @@
-// app/javascript/controllers/file_upload_controller.js
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
     static targets = ["fileInput", "fileList"]
 
     connect() {
-        // Remove the direct event listener to prevent duplicate handling
-        // We'll use Stimulus actions instead
         this.fileUploading = false
         this.uploadComplete = false
     }
