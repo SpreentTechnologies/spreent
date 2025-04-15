@@ -6,7 +6,9 @@ servers:
 
 proxy:
   ssl: true
-  host: spreent.ca
+  hosts:
+    - spreent.ca
+    - www.spreent.ca
 
 registry:
   username: denfrac
