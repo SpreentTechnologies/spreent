@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :users, path: '',
+  devise_for :users, path: "",
     controllers: { registrations: "users/registrations" },
     path_names: { sign_in: "login", sign_out: "logout", sign_up: "register" },
-    :class_name => 'User'
+    class_name: "User"
 
   get "up" => "rails/health#show", as: :rails_health_check
 
@@ -12,13 +12,13 @@ Rails.application.routes.draw do
 
   root "splash#index"
 
-  get '/home', to: 'about#index'
+  get "/home", to: "about#index", as: :home
 
-  get '/invite', to: 'invitation_codes#verify'
-  post '/invite', to: 'invitation_codes#check'
+  get "/invite", to: "invitation_codes#verify"
+  post "/invite", to: "invitation_codes#check"
   resources :invitation_codes, only: [:create, :destroy]
 
-  get '/feed', to: 'feed#index'
+  get "/feed", to: "feed#index"
 
   resources :conversations, only: [:index, :show, :create] do
     resources :messages, only: [:create]
@@ -27,8 +27,8 @@ Rails.application.routes.draw do
   # Communities
   resources :communities, only: [:index, :show, :update] do
     member do
-      post 'join'
-      delete 'leave'
+      post "join"
+      delete "leave"
     end
 
     resources :challenges
@@ -42,22 +42,24 @@ Rails.application.routes.draw do
       post :mark_all_as_read
     end
   end
+  get "/notifications/communities", to: "notifications#communities", as: :communities_notifications
+  get "/notifications/challenges", to: "notifications#challenges", as: :challenges_notifications
 
   resource :avatar, only: [:update, :destroy]
   resource :settings, only: [:show, :update]
 
-  post '/posts', to: 'posts#create'
+  post "/posts", to: "posts#create"
 
-  get '/admin', to: 'admin#index', as: 'admin'
+  get "/admin", to: "admin#index", as: "admin"
 
   resources :challenges, only: [:create, :show] do
-    post 'join', on: :member
-    post 'invite', on: :member
+    post "join", on: :member
+    post "invite", on: :member
   end
 
   # User profile
-  get '/profile', to: 'profile#index', as: 'profile'
-  get '/profile/:id', to: 'profile#show'
+  get "/profile", to: "profile#index", as: "profile"
+  get "/profile/:id", to: "profile#show"
 
   resources :posts do
     resources :comments, only: [:index, :create, :destroy]
@@ -80,12 +82,12 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show, :index] do
     member do
-      post 'follow', to: 'follows#create', as: :follow
-      delete 'unfollow', to: 'follows#destroy', as: :unfollow
+      post "follow", to: "follows#create", as: :follow
+      delete "unfollow", to: "follows#destroy", as: :unfollow
     end
   end
 
-  get '/search', to: 'search#index'
+  get "/search", to: "search#index"
 
-  mount ActionCable.server => '/cable'
+  mount ActionCable.server => "/cable"
 end

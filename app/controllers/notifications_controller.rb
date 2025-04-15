@@ -27,4 +27,12 @@ class NotificationsController < ApplicationController
 
     redirect_back(fallback_location: notifications_path)
   end
+
+  def communities
+
+  end
+
+  def challenges
+
+  end
 end
