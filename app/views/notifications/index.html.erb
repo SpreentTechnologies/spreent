@@ -13,12 +13,16 @@
       <button class="px-4 py-2 bg-indigo-600 text-white rounded-full font-medium cursor-pointer">
         <%= I18n.t('notifications.general') %>
       </button>
-      <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full font-medium cursor-pointer">
-        <%= I18n.t('notifications.communities') %>
-      </button>
-      <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full font-medium cursor-pointer">
-        <%= I18n.t('notifications.challenges') %>
-      </button>
+      <%= link_to communities_notifications_path do %>
+        <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full font-medium cursor-pointer">
+          <%= I18n.t('notifications.communities') %>
+        </button>
+        <% end %>
+      <%= link_to challenges_notifications_path do %>
+        <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full font-medium cursor-pointer">
+          <%= I18n.t('notifications.challenges') %>
+        </button>
+      <% end %>
     </div>
     </div>
 
