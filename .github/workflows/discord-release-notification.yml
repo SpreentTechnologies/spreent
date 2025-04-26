@@ -1,0 +1,59 @@
+name: Discord Release Notification
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  notify-discord:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Send Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          RELEASE_NAME="${{ github.event.release.name }}"
+          RELEASE_TAG="${{ github.event.release.tag_name }}"
+          RELEASE_URL="${{ github.event.release.html_url }}"
+          RELEASE_AUTHOR="${{ github.event.release.author.login }}"
+          RELEASE_BODY="${{ github.event.release.body }}"
+          
+          # Truncate body if too long
+          if [ ${#RELEASE_BODY} -gt 1500 ]; then
+            RELEASE_BODY="${RELEASE_BODY:0:1500}...\n\n*[Content truncated. See full release notes at the link below]*"
+          fi
+          
+          PAYLOAD=$(cat <<EOF
+          {
+            "embeds": [
+              {
+                "title": "🚀Nouvelle version: $RELEASE_NAME ($RELEASE_TAG)",
+                "description": "$RELEASE_BODY",
+                "url": "$RELEASE_URL",
+                "color": 5793266,
+                "fields": [
+                  {
+                    "name": "Released by",
+                    "value": "$RELEASE_AUTHOR",
+                    "inline": true
+                  },
+                  {
+                    "name": "Repository",
+                    "value": "${{ github.repository }}",
+                    "inline": true
+                  }
+                ],
+                "footer": {
+                  "text": "Released at ${{ github.event.release.published_at }}"
+                }
+              }
+            ]
+          }
+          EOF
+          )
+          
+          curl -X POST -H "Content-Type: application/json" -d "$PAYLOAD" $DISCORD_WEBHOOK
