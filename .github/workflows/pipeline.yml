@@ -8,14 +8,14 @@ on:
 jobs:
   test:
     name: Test Application
-    uses: ./github/workflows/rails-test.yml@main
+    uses: ./.github/workflows/rails-test.yml@main
     secrets:
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
 
   create-release:
     name: Create Release
     needs: test
-    uses: ./github/workflows/auto-release.yml@main
+    uses: ./.github/workflows/auto-release.yml@main
 
   deploy:
     name: Deploy Application
