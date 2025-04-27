@@ -85,7 +85,7 @@ jobs:
   notify:
     name: Send Release Notification
     needs: create-release
-    uses: ./github/workflows/discord-notification.yml
+    uses: ./.github/workflows/discord-notification.yml
     with:
       notification_type: 'release'
       commit_sha: ${{ github.sha }}
