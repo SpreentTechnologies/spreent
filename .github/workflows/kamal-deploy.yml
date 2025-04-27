@@ -1,0 +1,73 @@
+name: Kamal Deploy
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+  workflow_call:
+    outputs:
+      deployed_version:
+        description: "The deployed version (short commit hash)"
+        value: ${{ jobs.deploy.outputs.deployed_version }}
+      deployed_by:
+        description: "The user who triggered the deployment"
+        value: ${{ jobs.deploy.outputs.deployed_by }}
+      deployment_time:
+        description: "The time of deployment"
+        value: ${{ jobs.deploy.outputs.deployment_time }}
+    secrets:
+      RAILS_MASTER_KEY:
+        required: true
+      DOCKER_HUB_USERNAME:
+        required: true
+      SERVER_IP:
+        required: true
+
+jobs:
+  deploy:
+    name: Deploy with Kamal
+    runs-on: ubuntu-latest
+    outputs:
+      deployed_version: ${{ steps.deployment_info.outputs.deployed_version }}
+      deployed_by: ${{ steps.deployment_info.outputs.deployed_by }}
+      deployment_time: ${{ steps.deployment_info.outputs.deployment_time }}
+
+    env:
+      KAMAL_REGISTRY_PASSWORD: ${{ secrets.DOCKER_HUB_TOKEN }}
+      KAMAL_REGISTRY_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/cehckout@v3
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2.0'
+          bundler-cache: true
+
+      - name: Install Kamal
+        run: gem install kamal
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -t rsa ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+
+      - name: Build and deploy with Kamal
+        run: |
+          kamal setup
+          kamal deploy --version ${GITHUB_SHA::8}
+        env:
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+
+      - name: Store deployment details
+        id: deployment_info
+        if: success()
+        run: |
+          echo "deployed_version=${GITHUB_SHA::8}" >> $GITHUB_OUTPUT
+          echo "deployed_by=${{ github.actor }}" >> $GITHUB_OUTPUT
+          echo "deployment_time=$(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_OUTPUT

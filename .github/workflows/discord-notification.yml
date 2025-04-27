@@ -1,20 +1,66 @@
-name: Discord Release Notification
+name: Discord Notification
 
 on:
-  release:
-    types: [published]
+  workflow_dispatch:
+    inputs:
+      notification_type:
+        description: "Type of notification"
+        required: true
+        default: "deployment"
+        type: choice
+        options:
+          - deployment
+          - release
+          - test
+      commit_sha:
+        description: "Commit SHA"
+        required: false
+        type: string
+      deployed_by:
+        description: "Deployed by"
+        required: false
+        type: string
+      deployment_time:
+        description: "Deployment time"
+        required: false
+        type: string
+  workflow_call:
+    inputs:
+      notification_type:
+        description: "Type of notification"
+        required: true
+        type: string
+        default: "deployment"
+      commit_sha:
+        description: "Commit SHA"
+        required: false
+        type: string
+      deployed_by:
+        description: "Deployed by"
+        required: false
+        type: string
+      deployment_time:
+        description: "Deployment time"
+        required: false
+        type: string
+    secrets:
+      DISCORD_WEBHOOK:
+        required: true
 
 jobs:
-  notify-discord:
+  notify:
+    name: Send Discord Notification
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Send Discord notification
+      - name: Send deployment notification
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMIT_SHA: ${{ inputs.commit_sha || github.sha }}
+          DEPLOYED_BY: ${{ inputs.deployed_by || github.actor }}
+          DEPLOYMENT_TIME: ${{ inputs.deployment_time || format('{0:yyyy-MM-dd HH:mm:ss UTC}', github.event.repository.updated_at) }}
         run: |
           RELEASE_NAME="${{ github.event.release.name }}"
           RELEASE_TAG="${{ github.event.release.tag_name }}"

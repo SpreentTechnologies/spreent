@@ -1,0 +1,26 @@
+name: Full CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test Application
+    uses: ./github/workflows/rails-test.yml
+    secrets:
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+
+  create-release:
+    name: Create Release
+    needs: test
+    uses: ./github/workflows/auto-release.yml
+
+  deploy:
+    name: Deploy Application
+    needs: [test, create-release]
+    uses: ./.github/workflows/kamal-deploy.yml
+    secrets:
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+      

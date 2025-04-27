@@ -9,7 +9,6 @@ gem "mysql2"
 gem "puma", ">= 5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
-# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
@@ -42,9 +41,9 @@ gem "image_processing", "~> 1.2"
 gem "sentry-ruby"
 gem "sentry-rails"
 
-gem 'sendgrid-ruby'
-gem 'redis'
-gem 'posthog-ruby'
+gem "sendgrid-ruby"
+gem "redis"
+gem "posthog-ruby"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -58,9 +57,8 @@ group :development, :test do
 end
 
 group :development do
-  # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-  gem 'letter_opener'
+  gem "letter_opener"
 end
 
 group :test do
@@ -72,11 +70,13 @@ end
 gem "devise", "~> 4.9"
 gem "will_paginate"
 
-gem 'dotenv', groups: [:development, :test]
+gem "rspec"
 
-gem 'aws-sdk-s3'
-gem 'active_storage_validations'
+gem "dotenv", groups: [:development, :test]
 
-gem 'psych', '~> 5.1.0'
+gem "aws-sdk-s3"
+gem "active_storage_validations"
+
+gem "psych", "~> 5.1.0"
 gem "tailwindcss-ruby", "3.4.17"
 gem "tailwindcss-rails", "3.3.1"

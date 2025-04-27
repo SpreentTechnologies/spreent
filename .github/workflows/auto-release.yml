@@ -1,0 +1,94 @@
+name: Auto Release on Push
+
+on:
+  workflow_dispatch:
+  workflow_call:
+    outputs:
+      release_id:
+        description: "The ID of the created release"
+        value: ${{ jobs.create-release.outputs.release_id }}
+      release_tag:
+        description: "The tag of the created release"
+        value: ${{ jobs.create-release.outputs.release_tag }}
+      release_url:
+        description: "The URL of the created release"
+        value: ${{ jobs.create-release.outputs.release_url }}
+
+jobs:
+  create-release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    outputs:
+      release_id: ${{ steps.create_release.outputs.id }}
+      release_tag: ${{ steps.tag_version.outputs.new_tag }}
+      release_url: ${{ steps.create_release.outputs.html_url }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Get latest tag
+        id: get_latest_tag
+        run: |
+          get fetch --tags
+          LATEST_TAG=$(git tag --sort=-v:refname | head -n 1)
+          if [ -z "$LATEST_TAG" ]; then
+            LATEST_TAG="v0.0.0"
+          fi
+          echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+          echo "Latest tag: $LATEST_TAG"
+
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          default_bump: patch
+          custom_tag: ${{ steps.get_latest_tag.outputs.latest_tag != 'v.0.0.0' && '' || 'v0.1.0' }}
+
+      - name: Generate changelog with commit titles
+        id: generate_changelog
+        run: |
+          PREVIOUS_TAG=$(git tag --sort=-v:refname | head -n 1)
+          if [ -z "$PREVIOUS_TAG" ]; then
+            COMMITS=$(git log --pretty=format:"- %s" -n 20)
+          else
+            COMMITS=$(git log ${PREVIOUS_TAG}..HEAD --pretty=format:"- %s")
+          fi
+          
+          echo "# Changements dans cette version" > changelog.md
+          echo "" >> changelog.md
+          echo "$COMMITS" >> changelog.md
+          
+          CHANGELOG="${COMMITS//'%'/'%25'}"
+          CHANGELOG="${CHANGELOG//$'\n'/'%0A'}"
+          CHANGELOG="${CHANGELOG//$'\r'/'%0D'}"
+          echo "changelog=$CHANGELOG" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.tag_version.outputs.new_tag }}
+          release_name: Version ${{ steps.tag_version.outputs.new_tag }}
+          body: |
+            ## Changements dans cette version:
+            
+            ${{ steps.generate_changelog.outputs.changelog }}
+          draft: false
+          prerelease: false
+
+  notify:
+    name: Send Release Notification
+    needs: create-release
+    uses: ./github/workflows/discord-notification.yml
+    with:
+      notification_type: 'release'
+      commit_sha: ${{ github.sha }}
+      deployed_by: ${{ github.actor }}
+    secrets:
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
