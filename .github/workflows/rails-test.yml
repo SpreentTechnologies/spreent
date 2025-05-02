@@ -28,12 +28,6 @@ jobs:
           --health-timeout=5s
           --health-retries=5
 
-    env:
-      RAILS_ENV: test
-      DATABASE_URL: mysql2://root:password@127.0.0.1:3306/spreent_test
-      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-      MYSQL_ROOT_PASSWORD: Dx1g4t8ds
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
