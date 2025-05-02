@@ -14,11 +14,12 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.save
         format.html { redirect_to posts_path, notice: 'Post was successfully created.' }
-        format.turbo_stream { render turbo_stream: turbo_stream.replace(
-          "new_post_form",
-          partial: "posts/form",
-          locals: { post: current_user.posts.new }
-        ) }
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.prepend("posts_list", partial: "posts/post", locals: { post: @post }),
+            turbo_stream.replace("new_post_form", partial: "posts/form", locals: { post: current_user.posts.new })
+          ]
+        end
       else
         format.turbo_stream { render turbo_stream: turbo_stream.replace(
           "new_post_form",

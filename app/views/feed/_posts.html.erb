@@ -22,7 +22,7 @@
         <% end %>
         <span class="flex">
           <% if current_page?(feed_path) %>
-            <% if post.community_id %> <%= post.community.name %> <% elsif post.challenge_id %> <%= post.challenge.name %> <% else %> Suggested for you <% end %>
+            <% if post.community_id %> <%= post.community.name %> <% elsif post.challenge_id %> <%= post.challenge.name %> <% else %> <% end %>
           <% end %>
         </span>
       </div>
