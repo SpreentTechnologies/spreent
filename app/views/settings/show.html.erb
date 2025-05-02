@@ -12,7 +12,12 @@
       </div>
     <% end %>
 
-    <div class="form-section mx-auto text-center">
+    <div
+      class="form-section mx-auto text-center"
+      data-controller="avatar-upload"
+      data-avatar-upload-upload-path-value="<%= avatar_path %>"
+      data-avatar-upload-max-file-size-value="2"
+    >
       <h2><%= I18n.t('settings.profile_photo') %></h2>
       <div class="avatar-upload">
         <div class="current-avatar">
@@ -23,7 +28,10 @@
           <% end %>
         </div>
 
-        <%= f.file_field :avatar, class: "avatar-input hidden", accept: "image/*" %>
+        <%= f.file_field :avatar, class: "avatar-input hidden", accept: "image/*", data: {
+          avatar_upload_target: 'input',
+          action: 'change->avatar-upload#uploadFile'
+        } %>
         <%= f.label :avatar, I18n.t('settings.change_photo'), class: "btn-upload cursor-pointer text-[#6a0dad]" %>
       </div>
     </div>
