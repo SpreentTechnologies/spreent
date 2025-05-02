@@ -1,0 +1,48 @@
+<%= form_with(model: post, local: false, id: dom_id(post, "form"), html: {
+  class: 'post-form',
+  data: {
+    controller: 'file-upload',
+    action: 'file-upload:progress->turbo-frame#update'
+  }
+}) do |form| %>
+  <% if @post.errors.any? %>
+    <div class="error_messages">
+      <% @post.errors.full_messages.each do |message| %>
+        <p class="text-danger"><%= message %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="text-black ml-2.5 absolute right-9 w-6 h-6 mt-2.5 cursor-pointer" data-action="click->file-upload#triggerFileInput">
+    <i class="fa-solid fa-image"></i>
+  </div>
+
+  <div class="field">
+    <%= form.text_area :content,
+                       placeholder: I18n.t('feed.share_something'),
+                       class: 'form-control share-content w-[85%] resize-none',
+                       rows: 3
+    %>
+  </div>
+
+  <div class="form-group media-upload">
+    <div class="media-input-wrapper">
+      <%= form.file_field :media,
+                          multiple: true,
+                          accept: 'image/png,image/jpeg,image/gif,video/mp4,video/quicktime',
+                          class: 'form-control-file hidden-file-input',
+                          style: 'display: none;',
+                          direct_upload: true,
+                          data: {
+                            file_upload_target: "fileInput"
+                          }
+      %>
+
+      <div class="selected-files" data-file-upload-target="fileList"></div>
+
+      <div id="upload-preview"></div>
+    </div>
+  </div>
+
+  <%= form.submit I18n.t('feed.create_post'), class: 'text-white py-[12px] px-[30px] mb-[50px] hover:-translate-y-0.5 hover:shadow-[0_4px_8px_rgba(94,97,231,0.4)] active:translate-y-0.5 active:shadow-[0_1px_3px_rgba(94,97,231,0.4)] transition-all duration-300 ease-in-out rounded-3xl text-xl transition-all duration-300 ease-in-out cursor-pointer ml-auto mr-auto border-none bg-gradient-to-r from-[#5e61e7] to-[#8d7dfa] shadow-[0_2px_5px_rgba(94,97,231,0.3)]' %>
+<% end %>

@@ -1,43 +1,36 @@
 class PostsController < ApplicationController
-  def create
-    @new_post = current_user.posts.build(post_params)
+
+  def new
+    @post = current_user.posts.new
 
     respond_to do |format|
-      if @new_post.save
-        $posthog.capture(
-          distinct_id: current_user.email,
-          event: "post_created",
-          properties: {
-            post_id: @new_post.id
-          }
-        )
-        # @project_api_key = 'phc_MTEDYMT3VxmLUK30Cvno1b3So27daWvfJBrOWt31hCb'
-        # cookie_key = "ph_#{@project_api_key}_posthog"
+      format.html
+      format.turbo_stream
+    end
+  end
+  def create
+    @post = current_user.posts.new(post_params)
 
-        # if cookies[cookie_key].present?
-        #   @ph_cookie = JSON.parse(cookies[cookie_key])
-        # else
-        #   @ph_cookie = nil  # Or set a default value
-        # end
-
-        # $posthog.alias({
-        #   distinct_id: current_user.email,
-        #   alias: @ph_cookie['distinct_id']
-        # });
-        format.html {
-          if @new_post.community_id
-            redirect_to community_path(@new_post.community)
-
-          elsif @new_post.challenge_id
-            redirect_to challenge_path(@new_post.challenge)
-          else
-            @posts = Post.all
-            redirect_to feed_path(@posts)
-          end
-        }
-      end
+    respond_to do |format|
+      if @post.save
+        format.html { redirect_to posts_path, notice: 'Post was successfully created.' }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(
+          "new_post_form",
+          partial: "posts/form",
+          locals: { post: current_user.posts.new }
+        ) }
+      else
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(
+          "new_post_form",
+          partial: "posts/form",
+          locals: { post: @post }
+        ) }
+        format.html { render :new, status: :unprocessable_entity }
       end
     end
+
+
+  end
 
   private
 

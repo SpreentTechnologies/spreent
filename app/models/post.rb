@@ -5,7 +5,7 @@ class Post < ApplicationRecord
   has_many :liking_users, through: :likes, source: :user
   has_many :reports, dependent: :destroy
   belongs_to :user
-  belongs_to :challenge
+  belongs_to :challenge, optional: true
 
   validates :content, length: {minimum: 1, maximum: 100}, presence: true
 

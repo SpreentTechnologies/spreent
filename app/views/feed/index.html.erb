@@ -35,13 +35,12 @@
         </div>
 
         <div class="w-[80%]">
-            <%= turbo_frame_tag "share_something_input" do %>
+            <%= turbo_frame_tag "new_post_form" do %>
                 <%= form_with(model: @new_post, local: false, html: {
                     class: 'post-form',
                     data: {
                         controller: 'file-upload',
-                        action: 'file-upload:progress->turbo-frame#update',
-                        turbo: false
+                        action: 'file-upload:progress->turbo-frame#update'
                     }
                 }) do |form| %>
                     <% if @new_post.errors.any? %>

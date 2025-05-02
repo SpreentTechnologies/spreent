@@ -1,0 +1,13 @@
+<%= turbo_stream.prepend "posts_list" do %>
+  <%= render @post %>
+<% end %>
+
+<%= turbo_stream.replace "new_post_form" do %>
+  <%= render "form", post: Post.new %>
+<% end %>
+
+<%= turbo_stream.update "notice" do %>
+  <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4">
+    Post was successfully created.
+  </div>
+<% end %>
