@@ -19,7 +19,7 @@
   <%= render 'shared/search_bar' %>
     <div class="communities_pills"></div>
     <hr />
-    <div class="pl-[20px] pt-[10px] flex border-none opacity-100 translate-y-0 transform transition-all duration-300 ease-in-out" data-controller="file-upload" id="dynamic-height-element">
+    <div class="pl-[20px] pt-[10px] flex border-none opacity-100 translate-y-0 transform transition-all duration-300 ease-in-out" data-controller="file-upload">
         <div class="share-something-avatar">
             <% if current_user.avatar.attached? %>
                 <%= image_tag current_user.avatar.variant(resize_to_limit: [50, 50]),

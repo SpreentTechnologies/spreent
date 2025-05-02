@@ -86,6 +86,10 @@ fr:
   activerecord:
     errors:
       models:
+        post:
+          attributes:
+            content:
+              too_short: 'Le message doit contenir au moins quelques mots'
         user:
           attributes:
             name:
