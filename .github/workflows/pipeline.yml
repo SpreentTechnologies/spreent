@@ -25,3 +25,4 @@ jobs:
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
       KAMAL_REGISTRY_USERNAME: ${{ secrets.KAMAL_REGISTRY_USERNAME }}
       SERVER_IP: ${{ secrets.SERVER_IP }}
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}

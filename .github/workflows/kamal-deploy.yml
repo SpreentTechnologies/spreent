@@ -20,6 +20,8 @@ on:
         required: true
       SERVER_IP:
         required: true
+      SSH_PRIVATE_KEY:
+        required: true
 
 jobs:
   deploy:
