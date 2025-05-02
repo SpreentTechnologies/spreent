@@ -24,6 +24,8 @@ on:
         required: true
       SSH_PRIVATE_KEY:
         required: true
+      MYSQL_ROOT_PASSWORD:
+        required: true
 
 jobs:
   deploy:
@@ -38,6 +40,7 @@ jobs:
       KAMAL_REGISTRY_PASSWORD: ${{ secrets.KAMAL_REGISTRY_PASSWORD }}
       KAMAL_REGISTRY_USERNAME: ${{ secrets.KAMAL_REGISTRY_USERNAME }}
       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
 
     steps:
       - name: Checkout code
@@ -67,6 +70,7 @@ jobs:
           kamal deploy --version ${GITHUB_SHA::8}
         env:
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
 
       - name: Store deployment details
         id: deployment_info
