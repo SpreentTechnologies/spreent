@@ -16,7 +16,7 @@ on:
     secrets:
       RAILS_MASTER_KEY:
         required: true
-      DOCKER_HUB_USERNAME:
+      KAMAL_REGISTRY_USERNAME:
         required: true
       SERVER_IP:
         required: true
