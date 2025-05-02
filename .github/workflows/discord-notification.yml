@@ -57,7 +57,7 @@ jobs:
 
       - name: Send deployment notification
         env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1365763555219214418/6pvvn44yuPjkS1O_CG_oe0jztT2aAtwW1WQuGH8lwmtfMJYQWa6AhdffwbygR-gi7kAm"
           COMMIT_SHA: ${{ inputs.commit_sha || github.sha }}
           DEPLOYED_BY: ${{ inputs.deployed_by || github.actor }}
           DEPLOYMENT_TIME: ${{ inputs.deployment_time }}
