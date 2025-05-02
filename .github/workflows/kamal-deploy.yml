@@ -64,7 +64,6 @@ jobs:
 
       - name: Build and deploy with Kamal
         run: |
-          kamal setup
           kamal deploy --version ${GITHUB_SHA::8}
         env:
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
