@@ -5,7 +5,14 @@ class LikesController < ApplicationController
   def create
     @likes = Post.find(params[:post_id]).likes.where(user_id: current_user.id).count
 
-    puts @likes
+    if @likes == 0
+      @likes = Post.find(params[:post_id]).likes.create(user_id: current_user.id)
+
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("like_button_#{@post.id}",
+                                                                        partial: "posts/like_button", locals: { post: @post }) }
+      end
+    end
   end
 
   def destroy
