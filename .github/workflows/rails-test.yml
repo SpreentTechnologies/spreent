@@ -18,7 +18,7 @@ jobs:
       postgres:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: password
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
           MYSQL_DATABASE: spreent_test
         ports:
           - 3306:3306
@@ -32,6 +32,7 @@ jobs:
       RAILS_ENV: test
       DATABASE_URL: mysql2://root:password@127.0.0.1:3306/spreent_test
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+      MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
 
     steps:
       - name: Checkout code
