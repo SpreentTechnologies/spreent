@@ -11,7 +11,6 @@ jobs:
     uses: ./.github/workflows/rails-test.yml
     secrets:
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-      MYSQL_ROOT_PASSWORD: Dx1g4t8ds
 
   create-release:
     name: Create Release
