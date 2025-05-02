@@ -1,6 +1,6 @@
-<div id="<%= dom_id(comment) %>" class="comment">
+<div id="<%= dom_id(comment) %>" class="comment pb-4">
   <div class="comment-header">
-    <div class="comment-author">
+    <div class="comment-author flex">
       <% if comment.user.avatar.attached? %>
         <%= image_tag comment.user.avatar.variant(resize_to_limit: [50, 50]), class: 'circular-avatar', alt: "#{comment.user.email}'s avatar" %>
         <% else %>
@@ -8,16 +8,11 @@
       <% end %>
       <%= comment.user.name %>
     </div>
-    <div class="comment-timestamp"><%= time_ago_in_words(comment.created_at) %> ago</div>
   </div>
   <div class="comment-body"><%= comment.content %></div>
 
   <% if comment.user == current_user %>
     <div class="comment-actions">
-      <%= button_to "Delete", post_comment_path(comment.post, comment),
-                    method: :delete,
-                    class: "delete-button",
-                    form: { data: { turbo_confirm: "Are you sure?" } } %>
     </div>
   <% end %>
 </div>

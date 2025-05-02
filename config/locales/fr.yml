@@ -1,4 +1,8 @@
 fr:
+  datetime:
+    distance_in_words:
+      x_minutes: 'Il y a'
+      less_than_x_minutes: 'Moins de'
   confirmation:
     welcome: "Bienvenue"
     you_can_confirm: "Vous pouvez confirmer votre courriel via le lien ci-dessous:"
@@ -12,6 +16,11 @@ fr:
     change_photo: "Mettre à jour"
     city_country: "Ville, Pays"
     location: "Localisation"
+  comments:
+    title: 'Commentaires'
+    no_comments_yet: 'Pas encore de commentaire'
+    write_a_comment: "Ecris un commentaire"
+    publish: "Publier"
   links:
     forgot_your_password: "Mot de passe oublié?"
     sign_up: "Créer un compte"

@@ -6,8 +6,8 @@ export default class extends Controller {
         document.body.classList.add('no-scroll');
 
         // Animation to slide in the panel
-        const panel = this.element.querySelector('.comments-panel');
-        panel.classList.add('slide-in');
+        const panel = document.getElementById('comments_panel');
+        panel.classList.add('absolute', 'bottom-[55px]', 'left-[0]', 'w-full', 'bg-white', 'translate-y-50', 'transition-all', 'duration-500', 'ease-out');
 
         // Add event listener for ESC key
         this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -25,16 +25,15 @@ export default class extends Controller {
     }
 
     close(event) {
-        console.log('close!');
+        const commentsPanel = document.getElementById('comments_panel');
         // Don't close if clicking inside the panel (only on overlay or close button)
-        if (event && event.target.closest('.comments-panel') &&
+        if (event && commentsPanel &&
             !event.target.closest('[data-action*="comments#close"]')) {
             return;
         }
 
         // Animation to slide out
-        const panel = this.element.querySelector('.comments-panel');
-        panel.classList.remove('slide-in');
+        commentsPanel.classList.remove('absolute', 'bottom-[55px]', 'left-[0]', 'w-full', 'bg-white', 'translate-y-50', 'transition-all', 'duration-500', 'ease-out');
 
         // Re-enable scrolling
         document.body.classList.remove('no-scroll');
