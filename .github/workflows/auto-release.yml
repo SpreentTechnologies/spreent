@@ -48,9 +48,7 @@ jobs:
         with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
             default_bump: patch
-            custom_tag: ${{ steps.get_latest_tag.outputs.latest_tag != 'v0.0.0' && '' || 'v0.1.0' }}
             create_annotated_tag: true
-            tag_prefix: v
             dry_run: false
             fetch_all_tags: true
 
