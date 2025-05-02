@@ -16,7 +16,7 @@ development:
 test:
   <<: *default
   database: spreent_test
-  password: password
+  password: Dx1g4t8ds
 
 
 # Store production database in the storage/ directory, which by default
