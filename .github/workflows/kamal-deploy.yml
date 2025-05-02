@@ -18,6 +18,8 @@ on:
         required: true
       KAMAL_REGISTRY_USERNAME:
         required: true
+      KAMAL_REGISTRY_PASSWORD:
+        required: true
       SERVER_IP:
         required: true
       SSH_PRIVATE_KEY:

@@ -26,6 +26,7 @@ env:
     - DO_SPACES_REGION
     - RECAPTCHA_SITE_KEY
     - RECAPTCHA_SECRET_KEY
+    - KAMAL_REGISTRY_PASSWORD
   clear:
     SOLID_QUEUE_IN_PUMA: true
     DB_HOST: spreent-db
