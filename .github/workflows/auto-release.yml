@@ -18,6 +18,8 @@ jobs:
   create-release:
     name: Create Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     outputs:
       release_id: ${{ steps.create_release.outputs.id }}
       release_tag: ${{ steps.tag_version.outputs.new_tag }}
@@ -47,6 +49,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           default_bump: patch
           custom_tag: ${{ steps.get_latest_tag.outputs.latest_tag != 'v.0.0.0' && '' || 'v0.1.0' }}
+          tag_prefix: v
 
       - name: Generate changelog with commit titles
         id: generate_changelog
