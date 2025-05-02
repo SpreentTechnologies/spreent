@@ -41,6 +41,10 @@ jobs:
       KAMAL_REGISTRY_USERNAME: ${{ secrets.KAMAL_REGISTRY_USERNAME }}
       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+      DO_SPACES_ACCESS_KEY: ${{ secrets.DO_SPACES_ACCESS_KEY }}
+      DO_SPACES_SECRET_KEY: ${{ secrets.DO_SPACES_SECRET_KEY }}
+      DO_SPACES_BUCKET: ${{ secrets.DO_SPACES_BUCKET }}
+      DO_SPACES_REGION: ${{ secrets.DO_SPACES_REGION }}
 
     steps:
       - name: Checkout code
@@ -71,6 +75,11 @@ jobs:
         env:
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          DO_SPACES_ACCESS_KEY: ${{ secrets.DO_SPACES_ACCESS_KEY }}
+          DO_SPACES_SECRET_KEY: ${{ secrets.DO_SPACES_SECRET_KEY }}
+          DO_SPACES_BUCKET: ${{ secrets.DO_SPACES_BUCKET }}
+          DO_SPACES_REGION: ${{ secrets.DO_SPACES_REGION }}
 
       - name: Store deployment details
         id: deployment_info
