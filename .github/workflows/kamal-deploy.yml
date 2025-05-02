@@ -16,6 +16,14 @@ on:
     secrets:
       RAILS_MASTER_KEY:
         required: true
+      DO_SPACES_ACCESS_KEY:
+        required: true
+      DO_SPACES_SECRET_KEY:
+        required: true
+      DO_SPACES_BUCKET:
+        required: true
+      DO_SPACES_REGION:
+        required: true
       KAMAL_REGISTRY_USERNAME:
         required: true
       KAMAL_REGISTRY_PASSWORD:
