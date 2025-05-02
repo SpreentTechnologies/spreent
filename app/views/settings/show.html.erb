@@ -16,13 +16,15 @@
       class="form-section mx-auto text-center"
       data-controller="avatar-upload"
       data-avatar-upload-upload-path-value="<%= avatar_path %>"
-      data-avatar-upload-max-file-size-value="2"
+      data-avatar-upload-max-file-size-value="40"
     >
       <h2><%= I18n.t('settings.profile_photo') %></h2>
       <div class="avatar-upload">
         <div class="current-avatar">
           <% if @user.avatar.attached? %>
-            <%= image_tag @user.avatar.variant(resize_to_fit: [100, 100]), class: "w-[50px] h-[50px] rounded-full object-cover object-center border-3 border-gray-300 mx-auto" %>
+            <%= image_tag @user.avatar.variant(resize_to_fit: [100, 100]), class: "w-[50px] h-[50px] rounded-full object-cover object-center border-3 border-gray-300 mx-auto", data: {
+              avatar_upload_target: 'avatar'
+            }%>
           <% else %>
             <%= image_tag 'default_avatar.png', class: "w-[50px] h-[50px] rounded-full object-cover object-center border-3 border-gray-300 mx-auto mb-4" %>
           <% end %>
@@ -34,6 +36,14 @@
         } %>
         <%= f.label :avatar, I18n.t('settings.change_photo'), class: "btn-upload cursor-pointer text-[#6a0dad]" %>
       </div>
+
+      <div data-avatar-upload-target="error"
+           class="text-red-500 text-sm mb-4 hidden"></div>
+
+      <progress data-avatar-upload-target="progress"
+                class="w-full hidden"
+                value="0"
+                max="100"></progress>
     </div>
 
     <div class="form-section mt-4">
