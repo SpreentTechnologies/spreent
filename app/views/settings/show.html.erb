@@ -1,5 +1,5 @@
 <% content_for :header do %>
-  <h2 class="mr-auto ml-auto max-w-fit text-white py-4">Settings</h2>
+  <h2 class="mr-auto ml-auto max-w-fit text-white py-4 text-2xl"><%= I18n.t('settings.title') %></h2>
 <% end %>
 
 <div class="profile-settings-container">
@@ -12,51 +12,42 @@
       </div>
     <% end %>
 
-    <div class="form-section">
-      <h2>Profile Photo</h2>
+    <div class="form-section mx-auto text-center">
+      <h2><%= I18n.t('settings.profile_photo') %></h2>
       <div class="avatar-upload">
         <div class="current-avatar">
           <% if @user.avatar.attached? %>
-            <%= image_tag @user.avatar.variant(resize_to_fit: [100, 100]), class: "avatar-preview" %>
+            <%= image_tag @user.avatar.variant(resize_to_fit: [100, 100]), class: "w-[50px] h-[50px] rounded-full object-cover object-center border-3 border-gray-300 mx-auto" %>
           <% else %>
-            <%= image_tag 'default_avatar.png' %>
+            <%= image_tag 'default_avatar.png', class: "w-[50px] h-[50px] rounded-full object-cover object-center border-3 border-gray-300 mx-auto mb-4" %>
           <% end %>
         </div>
 
-        <%= f.file_field :avatar, class: "avatar-input", accept: "image/*" %>
-        <%= f.label :avatar, "Change Photo", class: "btn-upload" %>
+        <%= f.file_field :avatar, class: "avatar-input hidden", accept: "image/*" %>
+        <%= f.label :avatar, I18n.t('settings.change_photo'), class: "btn-upload cursor-pointer text-[#6a0dad]" %>
       </div>
     </div>
 
-    <div class="form-section">
-      <h2>Profile Information</h2>
+    <div class="form-section mt-4">
+      <h2 class="text-2xl mb-3"><%= I18n.t('settings.profile_information') %></h2>
 
-      <div class="form-group" style="display: block;">
-        <%= f.label :bio, "Bio" %>
-        <%= f.text_area :bio, class: "form-control", placeholder: "Tell us about yourself...", maxlength: 150 %>
-        <span class="character-count"><span id="bio-count">0</span>/150</span>
+      <div class="field mb-3">
+        <%= f.label :bio, class: 'text-base text-[#343434]' %><br />
+        <%= f.text_area :bio,
+                         autofocus: true,
+                          placeholder: I18n.t('settings.tell_us_more'),
+                          maxlength: 150,
+                         class: 'h-[42px] w-full text-base rounded-3xl pl-[20px] border' %>
       </div>
 
-      <div class="form-group" style="display: block;">
-        <%= f.label :location, "Location" %>
-        <%= f.text_field :location, class: "form-control", placeholder: "City, Country" %>
+      <div class="field">
+        <%= f.label :location, I18n.t('settings.location'), class: 'text-base text-[#343434]' %><br />
+        <%= f.text_field :location, placeholder: I18n.t('settings.city_country'), class: 'h-[42px] w-full text-base rounded-3xl pl-[20px] border' %>
       </div>
     </div>
-
-<!--    <div class="form-section">-->
-<!--      <h2>Interests</h2>-->
-<!--      <div class="interests-container">-->
-        <%# Interest.all.each do |interest| %>
-<!--          <div class="interest-checkbox">-->
-            <%#= check_box_tag "user[interest_ids][]", interest.id, @user.interests.include?(interest), id: "interest_#{interest.id}" %>
-            <%#= label_tag "interest_#{interest.id}", interest.name %>
-<!--          </div>-->
-        <%# end %>
-<!--      </div>-->
-<!--    </div>-->
 
     <div class="form-actions">
-      <%= f.submit "Save Changes", class: "btn-primary" %>
+      <%= f.submit I18n.t('settings.save_changes'), class: 'text-white py-[12px] px-[30px] mb-[50px] hover:-translate-y-0.5 hover:shadow-[0_4px_8px_rgba(94,97,231,0.4)] active:translate-y-0.5 active:shadow-[0_1px_3px_rgba(94,97,231,0.4)] transition-all duration-300 ease-in-out rounded-3xl text-xl transition-all duration-300 ease-in-out cursor-pointer ml-auto mr-auto border-none bg-gradient-to-r from-[#5e61e7] to-[#8d7dfa] shadow-[0_2px_5px_rgba(94,97,231,0.3)] mt-10' %>
     </div>
   <% end %>
 </div>

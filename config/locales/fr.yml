@@ -3,6 +3,15 @@ fr:
     welcome: "Bienvenue"
     you_can_confirm: "Vous pouvez confirmer votre courriel via le lien ci-dessous:"
     confirm_my_account: "Confirmer mon courriel"
+  settings:
+    title: "Profile"
+    profile_photo: "Photo de profile"
+    save_changes: "Sauvegarder"
+    profile_information: "Information personelle"
+    tell_us_more: "Parles-nous de toi"
+    change_photo: "Mettre à jour"
+    city_country: "Ville, Pays"
+    location: "Localisation"
   links:
     forgot_your_password: "Mot de passe oublié?"
     sign_up: "Créer un compte"
@@ -32,6 +41,8 @@ fr:
   community:
     see_challenges: "Voir les défis"
     join_community: "Rejoindre"
+  communities:
+    title: "Communauté"
   create_challenge:
     create_a_challenge: "Créer un défi"
     set_up_goals_for_community: "Lance un défi à la communauté"
