@@ -19,7 +19,7 @@
   <%= render 'shared/search_bar' %>
     <div class="communities_pills"></div>
     <hr />
-    <div class="pl-[20px] pt-[10px] flex border-none opacity-100 translate-y-0 transform transition-all duration-300 ease-in-out" data-controller="file-upload">
+    <div class="pl-[20px] pt-[10px] flex border-none opacity-100 translate-y-0 transform transition-all duration-300 ease-in-out">
         <div class="share-something-avatar">
             <% if current_user.avatar.attached? %>
                 <%= image_tag current_user.avatar.variant(resize_to_limit: [50, 50]),
@@ -68,17 +68,15 @@
                         <%= form.file_field :media,
                             multiple: true,
                             accept: 'image/png,image/jpeg,image/gif,video/mp4,video/quicktime',
-                            class: 'form-control-file hidden-file-input',
-                            style: 'display: none;',
+                            class: 'form-control-file hidden-file-input hidden',
                             direct_upload: true,
                             data: {
-                              file_upload_target: "fileInput"
+                              file_upload_target: "fileInput",
+                              action: 'change->file-upload#fileSelected'
                             }
                         %>
 
-                        <div class="selected-files" data-file-upload-target="fileList"></div>
-
-                        <div id="upload-preview"></div>
+                        <div id="upload-preview" data-file-upload-target="preview" class="flex gap-4"></div>
                       </div>
                     </div>
 
@@ -121,4 +119,5 @@
   <div id="no-more-posts" data-infinite-scroll-target="noMorePosts" class="hidden">
     No more posts to load
   </div>
+</div>
 </div>
