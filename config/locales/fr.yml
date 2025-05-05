@@ -45,6 +45,8 @@ fr:
     communities: "Communautés"
     challenges: "Défis"
     recents: "Récentes"
+    today: "Aujourd'hui"
+    yesterday: "Hier"
   messages:
     find_someone: "Trouver quelqu'un"
   community:

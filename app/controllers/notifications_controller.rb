@@ -29,7 +29,9 @@ class NotificationsController < ApplicationController
   end
 
   def communities
-
+    @recent_notifications = current_user.notifications.order(created_at: :desc)
+    @today_notifications = current_user.notifications.today
+    @yesterday_notifications = current_user.notifications.yesterday
   end
 
   def challenges

@@ -1,0 +1,55 @@
+<% content_for :header do %>
+  <div class="flex text-white py-4">
+    <%= link_to feed_path, class: 'text-white absolute top-[23px] pl-[20px]' do %>
+      <%= image_tag 'arrow_back.png' %>
+    <% end %>
+    <h2 class="mr-auto ml-auto text-2xl"><%= I18n.t('notifications.notifications_title') %></h2>
+  </div>
+<% end %>
+
+<!-- Navigation Tabs -->
+<div class="px-4 py-3 border-b">
+  <div class="flex space-x-4">
+    <%= link_to notifications_path do %>
+      <button class="px-4 py-2 bg-gray-200 text-gray-700  rounded-full font-medium cursor-pointer">
+        <%= I18n.t('notifications.general') %>
+      </button>
+    <% end %>
+    <%= link_to communities_notifications_path do %>
+      <button class="px-4 py-2   bg-gray-200   text-gray-700 rounded-full font-medium cursor-pointer">
+        <%= I18n.t('notifications.communities') %>
+      </button>
+    <% end %>
+    <%= link_to challenges_notifications_path do %>
+      <button class="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-400  text-white  rounded-full font-medium cursor-pointer">
+        <%= I18n.t('notifications.challenges') %>
+      </button>
+    <% end %>
+  </div>
+</div>
+
+<% if @recent_notifications.nil? && @today_notifications.nil? && @yesterday_notifications.nil? %>
+  C'est silencieux ici. Pas de notifications
+<% end %>
+
+<% if @recent_notifications %>
+  <div class="px-4 py-4">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4"><%= I18n.t('notifications.recents') %></h2>
+
+    <% @recent_notifications.each do |activity| %>
+      <%= render partial: 'shared/activity_item', locals: { activity: activity } %>
+    <% end %>
+  </div>
+<% end %>
+
+<% if @today_notifications %>
+<div class="px-4 py-4">
+  <h2 class="text-2xl font-bold text-gray-800 mb-4"><%= I18n.t('notifications.today') %></h2>
+</div>
+<% end %>
+
+<% if @yesterday_notifications %>
+<div class="px-4 py-4">
+  <h2 class="text-2xl font-bold text-gray-800 mb-4"><%= I18n.t('notifications.yesterday') %></h2>
+</div>
+<% end %>

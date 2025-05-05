@@ -10,7 +10,7 @@
   <!-- Navigation Tabs -->
   <div class="px-4 py-3 border-b">
     <div class="flex space-x-4">
-      <button class="px-4 py-2 bg-indigo-600 text-white rounded-full font-medium cursor-pointer">
+      <button class="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-400 text-white rounded-full font-medium cursor-pointer">
         <%= I18n.t('notifications.general') %>
       </button>
       <%= link_to communities_notifications_path do %>
@@ -24,12 +24,22 @@
         </button>
       <% end %>
     </div>
-    </div>
+  </div>
 
+<% if @recent_notifications %>
   <div class="px-4 py-4">
     <h2 class="text-2xl font-bold text-gray-800 mb-4"><%= I18n.t('notifications.recents') %></h2>
 
     <% @recent_notifications.each do |activity| %>
       <%= render partial: 'shared/activity_item', locals: { activity: activity } %>
     <% end %>
+  </div>
+  <% end %>
+
+  <div class="px-4 py-4">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4"><%= I18n.t('notifications.today') %></h2>
+  </div>
+
+  <div class="px-4 py-4">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4"><%= I18n.t('notifications.yesterday') %></h2>
   </div>
