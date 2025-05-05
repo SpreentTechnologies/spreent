@@ -18,7 +18,6 @@
   <%# Add the search form at the top %>
   <%= render 'search_form' %>
 
-  <%# Conversations list with Turbo Frame %>
   <%= turbo_frame_tag "conversations-list" do %>
     <div class="flex-1 overflow-y-auto" data-live-search-target="results">
       <%= render 'conversations_list', conversations: @conversations %>

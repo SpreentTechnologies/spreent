@@ -39,7 +39,7 @@
                 <%= form_with(model: @new_post, local: false, html: {
                     class: 'post-form',
                     data: {
-                        controller: 'file-upload',
+                        controller: 'file-upload form-validation',
                         action: 'file-upload:progress->turbo-frame#update'
                     }
                 }) do |form| %>
@@ -55,11 +55,15 @@
                         <i class="fa-solid fa-image"></i>
                     </div>
 
-                    <div class="field">
+                    <div class="pl-[10px]">
                       <%= form.text_area :content,
                           placeholder: I18n.t('feed.share_something'),
                           class: 'form-control share-content w-[85%] resize-none',
-                          rows: 3
+                          rows: 3,
+                                         data: {
+                                           form_validation_target: 'input',
+                                           action: 'input->form-validation#validateForm'
+                                         }
                       %>
                     </div>
 
@@ -72,7 +76,8 @@
                             direct_upload: true,
                             data: {
                               file_upload_target: "fileInput",
-                              action: 'change->file-upload#fileSelected'
+                              form_validation_target: 'fileInput',
+                              action: 'change->file-upload#fileSelected change->form-validation#validateForm'
                             }
                         %>
 
@@ -80,7 +85,10 @@
                       </div>
                     </div>
 
-                    <%= form.submit I18n.t('feed.create_post'), class: 'text-white py-[12px] px-[30px] mb-[50px] hover:-translate-y-0.5 hover:shadow-[0_4px_8px_rgba(94,97,231,0.4)] active:translate-y-0.5 active:shadow-[0_1px_3px_rgba(94,97,231,0.4)] transition-all duration-300 ease-in-out rounded-3xl text-xl transition-all duration-300 ease-in-out cursor-pointer ml-auto mr-auto border-none bg-gradient-to-r from-[#5e61e7] to-[#8d7dfa] shadow-[0_2px_5px_rgba(94,97,231,0.3)]' %>
+                    <%= form.submit I18n.t('feed.create_post'), class: 'text-white py-[12px] px-[50px] mb-[50px] hover:-translate-y-0.5 hover:shadow-[0_4px_8px_rgba(94,97,231,0.4)] active:translate-y-0.5 active:shadow-[0_1px_3px_rgba(94,97,231,0.4)] transition-all duration-300 ease-in-out rounded-3xl text-xl transition-all duration-300 ease-in-out cursor-pointer ml-auto mr-auto border-none bg-gradient-to-r from-[#5e61e7] to-[#8d7dfa] shadow-[0_2px_5px_rgba(94,97,231,0.3)] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none', data: {
+                      form_validation_target: 'submitButton',
+                      action: 'click->file-upload#upload'
+                    }, type: 'button' %>
                 <% end %>
             <% end %>
         </div>
@@ -90,7 +98,7 @@
 
 <div data-controller="infinite-scroll">
     <%= turbo_frame_tag "posts_list", data: { turbo_action: "advance" } do %>
-        <div class="overflow-y-scroll overflow-x-hidden h-[calc(100vh-225px)] scrollbar-hide" id="posts" data-infinite-scroll-target="container">
+        <div class="overflow-y-scroll overflow-x-hidden h-[calc(100vh-225px)] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" id="posts" data-infinite-scroll-target="container">
             <%= render @posts %>
         </div>
     <% end %>

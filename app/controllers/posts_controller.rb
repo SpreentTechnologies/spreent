@@ -13,7 +13,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to posts_path, notice: 'Post was successfully created.' }
+        format.html { redirect_to feed_path, notice: "Post was successfully created." }
         format.turbo_stream do
           render turbo_stream: [
             turbo_stream.prepend("posts_list", partial: "posts/post", locals: { post: @post }),

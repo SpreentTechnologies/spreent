@@ -8,7 +8,7 @@
   <% if @post.errors.any? %>
     <div class="error_messages">
       <% @post.errors.full_messages.each do |message| %>
-        <p class="text-danger">Une erreur s'est produite. Veuillez ré-essayer.</p>
+        <p class="text-danger"><%= message %></p>
       <% end %>
     </div>
   <% end %>

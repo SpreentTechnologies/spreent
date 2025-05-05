@@ -1,5 +1,5 @@
 <div class="message <%= message.user == current_user ? 'flex justify-end' : 'flex justify-start' %>" id="<%= dom_id(message) %>">
-  <div class="<%= message.user == current_user ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-800' %> rounded-lg px-4 py-2 max-w-xs sm:max-w-md">
+  <div class="<%= message.user == current_user ? 'bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] text-white' : 'bg-gray-200 text-gray-800' %> rounded-lg px-4 py-2 max-w-xs sm:max-w-md">
     <div class="<%= message.user == current_user ? 'text-right' : '' %>">
       <% unless message.user == current_user %>
         <p class="text-xs font-medium mb-1 <%= message.user == current_user ? 'text-indigo-200' : 'text-gray-500' %>">

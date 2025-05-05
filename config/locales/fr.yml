@@ -3,6 +3,13 @@ fr:
     distance_in_words:
       x_minutes: 'Il y a'
       less_than_x_minutes: 'Moins de'
+      half_a_minute: "30 secondes"
+      x_days:
+        one: "1 jour"
+        other: "%{count} jours"
+      x_months:
+        one: "1 mois"
+        other: "%{count} mois"
   confirmation:
     welcome: "Bienvenue"
     you_can_confirm: "Vous pouvez confirmer votre courriel via le lien ci-dessous:"
@@ -49,6 +56,12 @@ fr:
     yesterday: "Hier"
   messages:
     find_someone: "Trouver quelqu'un"
+    send: "Envoyer"
+  conversations:
+    you: "Toi"
+    type_your_message: "Tappe ton message"
+    no_conversation_found: "Aucune conversation trouvée"
+    try_different_search: "Essaye un terme de recherche différent ou démarre une nouvelle conversation"
   community:
     see_challenges: "Voir les défis"
     join_community: "Rejoindre"

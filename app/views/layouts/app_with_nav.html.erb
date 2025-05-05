@@ -54,7 +54,7 @@
     </div>
     <nav class="fixed bottom-0 left-0 right-0 bg-black z-[999]">
         <div class="flex justify-around py-[20px] items-center">
-            <%= link_to feed_path, class: "text-center #{'!text-white' if current_page?(feed_path) || current_page?(notifications_path)} text-gray-500" do %>
+            <%= link_to feed_path, class: "text-center #{'!text-white' if current_page?(feed_path) || current_page?(notifications_path) || current_page?(challenges_notifications_path) || current_page?(communities_notifications_path)} text-gray-500" do %>
               <div class="flex flex-col items-center">
                   <i class="fa-solid fa-house"></i>
               </div>

@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { Turbo } from "@hotwired/turbo-rails"
 
 export default class extends Controller {
     static targets = ["fileInput", "preview", "progress"]
@@ -120,7 +121,7 @@ export default class extends Controller {
         })
     }
 
-    upload() {
+    upload(event) {
         if (this.files.length === 0) {
             alert("Please select at least one file")
             return
@@ -138,39 +139,19 @@ export default class extends Controller {
             this.progressTarget.value = 0
         }
 
-        // Disable upload button during upload if needed
-        const uploadButton = this.element.querySelector('[data-action*="file-upload#upload"]')
-        if (uploadButton) uploadButton.disabled = true
-
-        fetch(this.urlValue, {
-            method: "POST",
-            body: formData,
-            credentials: "same-origin",
-            headers: {
-                "X-CSRF-Token": this.getMetaValue("csrf-token")
-            }
-        })
-            .then(response => {
-                if (!response.ok) throw new Error("Network response was not ok")
-                return response.json()
-            })
-            .then(data => {
-                this.reset()
-            })
-            .catch(error => {
-                console.error("Upload failed:", error)
-            })
-            .finally(() => {
-                if (this.hasProgressTarget) {
-                    this.progressTarget.classList.add("hidden")
-                }
-                if (uploadButton) uploadButton.disabled = false
-            })
+        if (event) event.preventDefault()
+        const form = this.element
+        Turbo.navigator.submitForm(form)
     }
 
     removeFile(index) {
         this.files = this.files.filter((_, i) => i !== index)
         this.updatePreviews()
+    }
+
+    getMetaValue(name) {
+        const element = document.head.querySelector(`meta[name="${name}"]`)
+        return element.getAttribute("content")
     }
 
     // Add this method to reset state when starting a new upload

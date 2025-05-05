@@ -11,7 +11,7 @@
 
       <% if conversation.latest_message %>
         <p class="latest-message">
-          <span class="sender"><%= conversation.latest_message.user.name == current_user_for_view.name ? "You" : conversation.latest_message.user.name %>:</span>
+          <span class="sender"><%= conversation.latest_message.user.name == current_user_for_view.name ? I18n.t('conversations.you') : conversation.latest_message.user.name %>:</span>
           <span class="message-preview"><%= truncate(conversation.latest_message.body, length: 50) %></span>
           <span class="timestamp"><%= time_ago_in_words(conversation.latest_message.created_at) %> ago</span>
         </p>

@@ -9,11 +9,6 @@ class Post < ApplicationRecord
 
   validates :content, length: {minimum: 1, maximum: 100}, presence: true
 
-  has_many_attached :media do |attachable|
-    attachable.variant :thumb, resize_to_limit: [300, 300]
-    attachable.variant :preview, resize_to_limit: [600, 600]
-  end
-
   scope :with_media, -> { joins_attached_media }
 
   def liked_by?(user)
