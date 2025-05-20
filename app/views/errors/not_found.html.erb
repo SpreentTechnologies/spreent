@@ -1,1 +1,10 @@
-Page non trouvée.
+<div class="w-full flex flex-col items-center">
+    <%= image_tag "run.png", alt: "Mascotte de Spreent qui courre", class: "w-[200px]" %>
+    <h2 class="text-3xl mt-6">Oops! Page non trouvée</h2>
+
+    <p class="text-md pb-[50px]">La page que vous recherchez n'existe pas ou a été déplacée.</p>
+    <%= link_to "Retour à l'accueil", home_path, class: "text-white py-[12px] px-[30px] mb-[50px] hover:-translate-y-0.5 hover:shadow-[0_4px_8px_rgba(94,97,231,0.4)] active:translate-y-0.5 active:shadow-[0_1px_3px_rgba(94,97,231,0.4)] transition-all duration-300 ease-in-out rounded-3xl text-xl transition-all duration-300 ease-in-out cursor-pointer ml-auto mr-auto border-none bg-gradient-to-r from-[#5e61e7] to-[#8d7dfa] shadow-[0_2px_5px_rgba(94,97,231,0.3)] mt-10" %>
+</div>
+
+<div class="absolute w-[150px] h-[150px] bg-white opacity-50 top-[-50px] left-[-50px] rounded-lg blur-3xl"></div>
+<div class="absolute w-[150px] h-[150px] bg-white opacity-50 bottom-[-50px] right-[-50px] rounded-lg blur-3xl"></div>
