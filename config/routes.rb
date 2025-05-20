@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   post "/invite", to: "invitation_codes#check"
   resources :invitation_codes, only: [:create, :destroy]
 
-  get "/feed", to: "feed#index"
+  get "/feed", to: "feed#index", as: :feed
 
   resources :conversations, only: [:index, :show, :create] do
     resources :messages, only: [:create]
@@ -66,7 +66,7 @@ Rails.application.routes.draw do
 
   # User profile
   get "/profile", to: "profile#index", as: "profile"
-  get "/profile/:id", to: "profile#show"
+  get "/profile/:id", to: "profile#show", as: "user_profile"
 
   resources :posts do
     resources :comments, only: [:index, :create, :destroy]
@@ -94,7 +94,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get "/search", to: "search#index"
+  get "/search", to: "search#index", as: :search
 
   mount ActionCable.server => "/cable"
 

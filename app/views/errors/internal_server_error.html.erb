@@ -1,2 +1,28 @@
-Une erreur s'est produite sur le serveur et notre équipe de développement vient d'être alertée. <br />
-Veuillez réessayer plus tard.
+<div class="h-screen w-full flex flex-col items-center justify-center">
+    <%= image_tag "uhoh.png", alt: "Mascotte de Spreent mécontent", class: "w-[200px]" %>
+    <h2 class="text-3xl mt-6">Une erreur s'est produite</h2>
+
+    <p class="text-sm pb-[50px]">
+        Nos développeurs sont déjà sur le coup pour résoudre ce problème.
+    </p>
+
+    <p class="text-sm pb-[50px]">
+        En attendant, pas game de faire 10 push-ups
+    </p>
+
+            <%= link_to "Retour à l\'acceuil", home_path, class: "
+      flex
+      justify-center
+      relative
+      text-white
+      px-[10px] py-[20px]
+      text-xl
+      border border-white
+      bg-transparent no-underline
+      transition-all duration-300 ease-in-out
+      rounded-3xl
+      hover:bg-white hover:text-black" %>
+</div>
+
+<div class="absolute w-[150px] h-[150px] bg-white opacity-50 top-[-50px] left-[-50px] rounded-lg blur-3xl"></div>
+<div class="absolute w-[150px] h-[150px] bg-white opacity-50 bottom-[-50px] right-[-50px] rounded-lg blur-3xl"></div>
