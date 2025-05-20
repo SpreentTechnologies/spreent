@@ -117,5 +117,6 @@ class User < ApplicationRecord
       user.avatar.attach(io: URI.parse(auth.info.image).open, filename: "#{auth.uid}.jpg") if auth.info.image.present?
 
       # Store extra info.
+    end
   end
 end
