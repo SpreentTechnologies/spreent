@@ -96,4 +96,7 @@ Rails.application.routes.draw do
   get "/search", to: "search#index"
 
   mount ActionCable.server => "/cable"
+
+  match "/404", to: "errors#not_found", via: :all
+  match "/500", to: "errors#internal_server_error", via: :all
 end

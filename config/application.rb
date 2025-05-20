@@ -26,5 +26,6 @@ module Spreent
     config.middleware.use Warden::Manager
 
     config.i18n.default_locale = :fr
+    config.exceptions_app = self.routes
   end
 end
