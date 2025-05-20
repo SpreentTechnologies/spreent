@@ -1,6 +1,6 @@
 <% content_for :header do %>
   <div class="flex text-white py-4">
-  <%= link_to feed_path, class: 'text-white absolute top-[23px] pl-[20px]' do %>
+  <%= link_to feed_path, class: 'text-white absolute top-[23px] pl-[20px]', style: 'z-index:9999;' do %>
     <%= image_tag 'arrow_back.png' %>
   <% end %>
   <h2 class="mr-auto ml-auto text-2xl"><%= I18n.t('notifications.notifications_title') %></h2>

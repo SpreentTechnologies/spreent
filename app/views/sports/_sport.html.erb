@@ -1,7 +1,7 @@
 <div id="<%= dom_id(sport) %>" class="flex-1 w-24 h-24 rounded-lg p-4 bg-[#EFEFEF] hover:bg-gradient-to-tr hover:from-[#6351DF] hover:to-[#8B75FF]">
   <% if sport.image.present? %>
     <div class="w-full h-40 mb-3">
-      <img src="<%= sport.image.image %>" alt="<%= sport.name %>" class="w-full h-full object-cover rounded-sm">
+      <%= image_tag sport.image, alt: sport.name, class: "w-full object-cover rounded-sm" %>
     </div>
   <% end %>
 </div>
