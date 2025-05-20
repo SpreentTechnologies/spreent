@@ -14,6 +14,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
       sign_in(resource_name, resource)
 
       if resource.active_for_authentication?
+
+        # Send a PostHog update
+        PostHog.capture(
+          distinct_id: resource.id,
+          event: 'user_registered',
+          properties: {
+            emial: resource.email,
+            sign_up_date: Time.now,
+          }
+        )
+
         set_flash_message! :notice, :signed_up
         respond_with resource, location: after_sign_up_path_for(resource)
       else

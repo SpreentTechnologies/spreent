@@ -85,13 +85,13 @@ jobs:
             ${{ steps.generate_changelog.outputs.changelog }}
           draft: false
           prerelease: false
-  notify:
-    name: Send Release Notification
-    needs: create-release
-    uses: ./.github/workflows/discord-notification.yml
-    with:
-      notification_type: 'release'
-      commit_sha: ${{ github.sha }}
-      deployed_by: ${{ github.actor }}
-    secrets:
-      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+  # notify:
+  #   name: Send Release Notification
+  #   needs: create-release
+  #   uses: ./.github/workflows/discord-notification.yml
+  #   with:
+  #     notification_type: 'release'
+  #     commit_sha: ${{ github.sha }}
+  #     deployed_by: ${{ github.actor }}
+  #   secrets:
+  #     DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
