@@ -1,6 +1,6 @@
 <h2 class="mr-auto ml-auto max-w-fit py-4"><%= I18n.t('links.forgot_your_password') %></h2>
 
-<div class="fold" style="padding-top:20px;">
+<div class="bg-white text-black pt-[20px] h-[100vh] px-4 rounded-t-3xl">
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
