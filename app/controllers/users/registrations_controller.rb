@@ -20,7 +20,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
           distinct_id: resource.id,
           event: 'user_registered',
           properties: {
-            emial: resource.email,
+            email: resource.email,
             sign_up_date: Time.now,
           }
         )
