@@ -2,17 +2,12 @@ source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.1"
-# The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 gem "mysql2"
-# Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
-# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 gem "turbo-rails"
-# Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
-# Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
@@ -21,7 +16,6 @@ gem "jbuilder"
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
-# Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
 gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
@@ -46,13 +40,8 @@ gem "redis"
 gem "posthog-ruby"
 
 group :development, :test do
-  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
-
-  # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
-
-  # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 end
 
@@ -68,6 +57,10 @@ group :test do
 end
 
 gem "devise", "~> 4.9"
+gem 'omniauth'
+gem 'omniauth-apple'
+gem 'omniauth-google-oauth2'
+
 gem "will_paginate"
 
 gem "rspec"
@@ -80,3 +73,4 @@ gem "active_storage_validations"
 gem "psych", "~> 5.1.0"
 gem "tailwindcss-ruby", "3.4.17"
 gem "tailwindcss-rails", "3.3.1"
+
