@@ -124,8 +124,8 @@
     <div class="user-details">
       <h2 class="display-name"><%= @user.name %></h2>
       <div class="follow-stats">
-        <span><%= @user.followers.count %> Followers</span>
-        <span><%= @user.following.count %> Following</span>
+        <span><%= @user.followers.count %> abonnés</span>
+        <span><%= @user.following.count %> abonnements</span>
       </div>
     </div>
 
@@ -142,12 +142,12 @@
     <i class="fa-solid fa-location-pin"></i> <%= @user.location %>
   </div>
 
-<!--  <div class="user-sports">-->
-<!--    <i class="sports-icon"></i> <%#= @user.sports.map(&:name).join(', ') %>-->
-<!--  </div>-->
+  <div class="user-sports">
+    <i class="sports-icon"></i> <%#= @user.sports.map(&:name).join(', ') %>
+  </div>
 
   <div class="profile-actions">
-    <div class="action-button">Communities</div>
+    <div class="action-button">Communautés</div>
     <div class="action-button">Challenges</div>
     <div class="action-button">Message</div>
   </div>

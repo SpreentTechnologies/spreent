@@ -29,7 +29,7 @@
                     <%= image_tag 'default_avatar.png', class: "w-12 h-12" %>
                   <% end %>
                   <div class="flex items-center">
-                    <%= link_to user.name, user_path(user) %>
+                    <%= link_to user.name, user_path(user), data: { turbo: false } %>
                   </div>
                 </li>
               <% end %>

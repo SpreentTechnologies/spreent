@@ -3,7 +3,7 @@
 <% end %>
 
 <div class="profile-settings-container">
-  <%= form_with(model: @user, url: profile_path, method: :patch, class: "settings-form", local: true) do |f| %>
+  <%= form_with(model: @user, url: profile_path, method: :post, class: "settings-form", local: true) do |f| %>
     <% if @user.errors.any? %>
       <div class="error-messages">
         <% @user.errors.full_messages.each do |message| %>

@@ -7,7 +7,7 @@
           <%= image_tag user.avatar, class: "user-avatar" %>
         <% end %>
         <div>
-          <%= link_to user.username, user_path(user) %>
+          <%= link_to user.username, user_path(user), data: { turbo: false } %>
           <p><%= user.name %></p>
         </div>
       </li>
