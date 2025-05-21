@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr" style="scroll-behavior: smooth;">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P0VVVF3N5J"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-P0VVVF3N5J');
+    </script>
+    <title><%= content_for(:title) || "Spreent" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="handheldfriendly" content="true">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#6a0dad" />
+
+    <meta property="og:site_name" content="Spreent">
+    <meta property="og:title" content="Spreent - Your Sports Community">
+    <meta property="og:description" content="Spreent is a sports community platform that connects sports enthusiasts around the world.">
+    <meta property="og:type" content="website">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= turbo_include_tags %>
+
+    <%= yield :head %>
+
+    <%= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%= javascript_importmap_tags %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <script src="https://kit.fontawesome.com/129864eb3e.js" crossorigin="anonymous"></script>
+    <script>
+        !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+        posthog.init('phc_MTEDYMT3VxmLUK30Cvno1b3So27daWvfJBrOWt31hCb', {
+            api_host: 'https://us.i.posthog.com',
+            person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
+        })
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  </head>
+
+  <body class="relative h-[100vh] overflow-hidden m-0 w-full box-border">
+    <%= yield %>
+    </div>
+    <nav class="fixed bottom-0 left-0 right-0 bg-black z-[999]">
+        <div class="flex justify-around py-[20px] items-center">
+            <%= link_to feed_path, class: "text-center #{'!text-white' if current_page?(feed_path) || current_page?(notifications_path) || current_page?(challenges_notifications_path) || current_page?(communities_notifications_path)} text-gray-500" do %>
+              <div class="flex flex-col items-center">
+                  <i class="fa-solid fa-house"></i>
+              </div>
+            <% end %>
+
+            <%= link_to categories_path, class: "text-center #{'!text-white' if current_page?(categories_path)} text-gray-500" do %>
+              <div class="flex flex-col items-center">
+                  <i class="fa-solid fa-star"></i>
+              </div>
+            <% end %>
+
+            <%= link_to '', class: "text-center #{'!text-white' if current_page?('')} text-gray-500 grayed-out" do %>
+              <div class="flex flex-col items-center">
+                  <i class="fa-solid fa-calendar"></i>
+              </div>
+            <% end %>
+
+            <%= link_to settings_path, class: "text-center #{'!text-white' if current_page?(settings_path)} text-gray-500" do %>
+              <div class="flex flex-col items-center">
+                  <i class="fa-solid fa-user"></i>
+              </div>
+            <% end %>
+
+          <% if current_user.user_type == 'admin' %>
+            <%= link_to admin_path, class: "text-center #{'!text-white' if current_page?(admin_path)} text-gray-500" do %>
+              <div class="flex flex-col items-center">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+    </nav>
+
+      <%= turbo_frame_tag "comments_panel", target: "_top" %>
+
+      <%= javascript_tag do %>
+        document.addEventListener('turbo:before-fetch-request', function(event) {
+          if (event.target.id === 'comments_panel') {
+              document.body.classList.add('no-scroll');
+          }
+        });
+      <% end %>
+
+      <div id="modal" class="modal hidden" data-controller="modal">
+        <div class="modal-overlay" data-action="click->modal#close"></div>
+        <div class="modal-container">
+          <div class="modal-header">
+            <h3 class="modal-title" id="modal_title">Modal Title</h3>
+            <button type="button" class="modal-close" data-action="click->modal#close">&times;</button>
+          </div>
+          <div class="modal-content">
+            <%= turbo_frame_tag "modal_frame" %>
+          </div>
+        </div>
+      </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+      <script>
+        document.addEventListener('turbo:load', function() {
+          // Initialize thumbnail swiper
+          var galleryThumbs = new Swiper('.gallery-thumbs', {
+            spaceBetween: 10,
+            slidesPerView: 4,
+            freeMode: true,
+            watchSlidesProgress: true,
+            breakpoints: {
+              640: { slidesPerView: 5 },
+              768: { slidesPerView: 6 },
+              1024: { slidesPerView: 8 }
+            }
+          });
+
+          // Initialize main swiper
+          var mainSwiper = new Swiper('.swiper-container:not(.gallery-thumbs)', {
+            spaceBetween: 10,
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+            },
+            thumbs: {
+              swiper: galleryThumbs
+            },
+            autoplay: {
+              delay: 5000,
+              disableOnInteraction: false,
+            },
+            on: {
+              slideChange: function() {
+                // Pause all videos when sliding
+                document.querySelectorAll('.swiper-video').forEach(function(video) {
+                  video.pause();
+                });
+              }
+            }
+          });
+        });
+      </script>
+
+      <div class="absolute w-[150px] h-[150px] bg-white opacity-50 top-[-50px] left-[-50px] rounded-lg blur-3xl" style="z-index:-1;"></div>
+<div class="absolute w-[150px] h-[150px] bg-white opacity-50 bottom-[-50px] right-[-50px] rounded-lg blur-3xl" style="z-index:-1;"></div>
+
+  </body>
+</html>

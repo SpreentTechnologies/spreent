@@ -16,7 +16,6 @@ export default class extends Controller {
     }
 
     disconnect() {
-        this.intersectionObserver.disconnect()
     }
 
     handleScroll() {

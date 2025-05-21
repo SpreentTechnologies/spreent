@@ -82,17 +82,17 @@
       <% end %>
     </div>
 
-    <div class="flex gap-2 pl-5">
+    <div class="flex gap-4 pl-5">
       <%= render "posts/like_button", post: post %>
 
       <%= link_to post_comments_path(post),
                   data: { turbo_frame: "comments_panel" },
-                  class: "comments-button" do %>
+                  class: "comments-button flex" do %>
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
         </svg>
         <% if post.comments.count > 0 %>
-          <span><%= post.comments.count %></span>
+          <span class="relative bottom-[3px] pl-[5px]"><%= post.comments.count %></span>
         <% end %>
       <% end %>
     </div>

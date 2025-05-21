@@ -122,11 +122,6 @@ export default class extends Controller {
     }
 
     upload(event) {
-        if (this.files.length === 0) {
-            alert("Please select at least one file")
-            return
-        }
-
         const formData = new FormData()
 
         this.files.forEach(file => {

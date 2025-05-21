@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  layout 'app_with_nav'
+  layout 'full_with_nav'
   def show
     # Include the user's posts
     @user = User.find(params[:id])
