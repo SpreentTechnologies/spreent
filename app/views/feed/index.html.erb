@@ -1,13 +1,13 @@
 <% content_for :header do %>
     <div class="flex">
         <%= image_tag "spreent_logo.png", class: 'w-[150px] h-[50px]' %>
-        <div class="absolute right-0 top-[21px] flex pr-[7px]">
+        <div class="absolute right-0 top-[12px] flex pr-[7px] gap-[10px]">
             <%= link_to notifications_path, class: 'text-white w-[28px] h-[28px]' do %>
-                <i class="fa-solid fa-bell"></i>
+                <i class="fa-solid fa-bell fa-lg"></i>
             <% end %>
 
             <%= link_to conversations_path, class: 'text-white w-[28px] h-[28px]' do %>
-              <i class="fa-solid fa-message"></i>
+              <i class="fa-solid fa-message fa-lg"></i>
               <% if current_user.unread_messages_count > 0 %>
                 <span class="relative bottom-[40px] left-[4px] bg-[#E8C0FF] w-[10px] rounded-full p-1 text-[10px]"><%= current_user.unread_messages_count %></span>
                 <% end %>

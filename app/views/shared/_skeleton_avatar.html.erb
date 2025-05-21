@@ -1,0 +1,14 @@
+<div class="relative w-[50px] h-[50px]">
+  <!-- Skeleton loader -->
+  <div class="skeleton-loader absolute inset-0 bg-gray-200 animate-pulse rounded-full" 
+       style="display: block;"></div>
+  
+  <!-- Actual image (hidden until loaded) -->
+  <img src="<%= image_path %>" 
+       alt="<%= alt_text %>"
+       loading="lazy"
+       class="w-[50px] h-[50px] rounded-full object-cover object-center border-3 border-gray-300 mx-auto object-cover transition-opacity duration-300 opacity-0"
+       onload="this.classList.add('opacity-100'); this.previousElementSibling.style.display = 'none';"
+       onerror="this.src='<%= image_path('default_avatar.png') %>'; this.classList.add('opacity-100'); this.previousElementSibling.style.display = 'none';"
+  >
+</div>
