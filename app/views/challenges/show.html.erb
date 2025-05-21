@@ -196,7 +196,7 @@
 <%= render @posts %>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('turbo:load', function() {
         // Join challenge button functionality
         const joinButton = document.getElementById('join-challenge-button');
         if (joinButton) {
@@ -251,7 +251,7 @@
 
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('turbo:load', function() {
         // DOM elements
         const inviteButton = document.getElementById('invite-members-button');
         const invitePanel = document.getElementById('invite-panel');

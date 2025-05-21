@@ -19,7 +19,7 @@
 <%= image_tag "spreent_logo.png", class: 'mr-auto ml-auto pt-[25%]' %>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('turbo:load', () => {
     setTimeout(() => {
       Turbo.visit('/home', { action: 'replace' })
     }, 1000)

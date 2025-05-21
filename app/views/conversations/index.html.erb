@@ -38,6 +38,28 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
       </svg>
     </button>
+
+    <h2 class="text-2xl">Trouver quelqu'un</h2>
+
+    <div class="p-4">
+      <%= form_with url: conversations_path, method: :post, local: true do |form| %>
+        <div class="mb-4">
+          <%= form.label :search, "Rechercher un utilisateur", class: "block text-gray-700" %>
+          <%= form.text_field :search, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200" %>
+        </div>
+        <div class="flex justify-end">
+          <%= form.submit "Rechercher", class: "bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" %>
+        </div>
+      <% end %>
+
+      <div class="mt-4">
+        <ul id="user-list" class="list-disc pl-5">
+          <% @users.each do |user| %>
+            <li class="py-2">
+              <%= link_to user.name, conversation_path(user), class: "text-blue-500 hover:underline" %>
+            </li>
+          <% end %>
+        </ul>
 </div>
 
 <script>
@@ -55,7 +77,6 @@ document.addEventListener('turbo:load', function() {
 
               challengesPanel.classList.remove('translate-y-full');
               challengesPanel.classList.add('h-1/2');
-
             });
         }
 

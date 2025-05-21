@@ -54,7 +54,7 @@ addEventListener("direct-upload:end", (event) => {
   element.classList.add("direct-upload--complete");
 });
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("turbo:load", function () {
   const bioField = document.querySelector('textarea[name="user[bio]"]');
   const bioCount = document.getElementById("bio-count");
 
