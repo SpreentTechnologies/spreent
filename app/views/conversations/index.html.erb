@@ -59,6 +59,15 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
+        if (challengesOverlay) {
+            challengesOverlay.addEventListener('click', function() {
+              challengesOverlay.classList.add('hidden');
+              challengesOverlay.classList.add('opacity-0');
+
+              challengesPanel.classList.add('translate-y-full');
+            });
+        }
+
         if (closeCreatePanel) {
             closeCreatePanel.addEventListener('click', function() {
               challengesOverlay.classList.add('hidden');
