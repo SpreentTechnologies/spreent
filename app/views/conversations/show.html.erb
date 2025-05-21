@@ -33,8 +33,34 @@
         <div class="pr-6" style="width: calc(100vw - 128px);">
           <%= f.text_area :body, placeholder: I18n.t('conversations.type_your_message'), rows: 1, class: "w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none" %>
         </div>
-        <%= f.submit I18n.t('messages.send'), class: "text-white py-[6px] px-[20px] hover:-translate-y-0.5 hover:shadow-[0_4px_8px_rgba(94,97,231,0.4)] active:translate-y-0.5 active:shadow-[0_1px_3px_rgba(94,97,231,0.4)] transition-all duration-300 ease-in-out  text-xl transition-all duration-300 ease-in-out cursor-pointer ml-auto mr-auto border-none bg-gradient-to-r from-[#5e61e7] to-[#8d7dfa] shadow-[0_2px_5px_rgba(94,97,231,0.3)] fixed rounded-md right-[10px]" %>
+        <%= f.submit I18n.t('messages.send'), class: "text-white py-[6px] px-[20px] hover:-translate-y-0.5 hover:shadow-[0_4px_8px_rgba(94,97,231,0.4)] active:translate-y-0.5 active:shadow-[0_1px_3px_rgba(94,97,231,0.4)] transition-all duration-300 ease-in-out  text-xl transition-all duration-300 ease-in-out cursor-pointer ml-auto mr-auto border-none bg-gradient-to-r from-[#5e61e7] to-[#8d7dfa] shadow-[0_2px_5px_rgba(94,97,231,0.3)] fixed rounded-md right-[10px]", id: 'submitPM' %>
       <% end %>
     </div>
   </div>
 </div>
+
+<script>
+  document.addEventListener('turbo:load', function() {
+    const textarea = document.getElementById('message_body');
+    const submitButton = document.getElementById('submitPM');
+
+    if (textarea) {
+      textarea.addEventListener('keydown', function(e) {
+        // Check if Enter was pressed without Shift (Shift+Enter for new line)
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault(); // Prevent default Enter behavior (new line)
+          if (submitButton) {
+            submitButton.click(); // Trigger the submit button
+                const chatContainer = document.getElementById('messages');
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+          }
+        }
+      });
+    }
+  });
+
+  function scrollToBottom() {
+    console.log('Scrolling to bottom');
+
+  }
+</script>

@@ -55,7 +55,7 @@ fr:
     today: "Aujourd'hui"
     yesterday: "Hier"
   messages:
-    find_someone: "Trouver quelqu'un"
+    find_someone: "Trouver une conversation (nom ou texte)"
     send: "Envoyer"
   conversations:
     you: "Toi"
