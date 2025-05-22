@@ -4,37 +4,72 @@ export default class extends Controller {
     static targets = ["container", "scrollTrigger", "loadingIndicator", "noMorePosts"]
     static values = {
         atBottom: Boolean,
-        bottomThreshold: { type: Number, default: 5 }
+        bottomThreshold: { type: Number, default: 100 }
     }
 
     connect() {
+        console.log("🚀 Controller connected")
         this.page = 1
         this.loading = false
         this.lastPage = false
+        this.lastScrollTop = 0
 
-        this.containerTarget.addEventListener('scroll', this.handleScroll.bind(this))
+        this.containerTarget.addEventListener('scroll', this.handleScroll.bind(this), {
+            passive: true
+        });
+
+        this.containerTarget.style.webkitOverflowScrolling = 'touch'
+
+        this.setupIntersectionObserver()
+    }
+
+        setupIntersectionObserver() {
+        if (this.hasScrollTriggerTarget) {
+            this.observer = new IntersectionObserver(
+                this.handleIntersection.bind(this),
+                {
+                    root: this.containerTarget,
+                    rootMargin: '100px', // Trigger 100px before reaching the element
+                    threshold: 0.1
+                }
+            )
+            
+            this.observer.observe(this.scrollTriggerTarget)
+        }
     }
 
     disconnect() {
+        if (this.observer) {
+            this.observer.disconnect()
+        }
     }
 
     handleScroll() {
-        // Check if we're near the bottom of the page
         const container = this.containerTarget
-        const isAtBottom = container.scrollTop + container.clientHeight >=
-            container.scrollHeight - this.bottomThresholdValue
-
-        if (isAtBottom !== this.atBottomValue) {
-            this.atBottomValue = isAtBottom
-
-            if (isAtBottom) {
-                this.loadMore();
-            }
+        const scrollTop = container.scrollTop
+        const clientHeight = container.clientHeight
+        const scrollHeight = container.scrollHeight
+        
+        // Calculate how close we are to the bottom
+        const distanceFromBottom = scrollHeight - (scrollTop + clientHeight)
+        
+        // Trigger loading when we're within threshold pixels of bottom
+        // AND we're scrolling down (not up)
+        const isScrollingDown = scrollTop > this.lastScrollTop
+        const isNearBottom = distanceFromBottom <= this.bottomThresholdValue
+        
+        console.log(isNearBottom);
+        if (isNearBottom && isScrollingDown && !this.loading && !this.lastPage) {
+            console.log('Triggering load while scrolling down, distance from bottom:', distanceFromBottom)
+            this.loadMore()
         }
+        
+        this.lastScrollTop = scrollTop
     }
 
     handleIntersection(entries) {
         entries.forEach(entry => {
+            console.log('Intersection:', entry.isIntersecting)
             if (entry.isIntersecting && !this.loading && !this.lastPage) {
                 this.loadMore()
             }

@@ -96,7 +96,7 @@
 
     </div>
 
-<div data-controller="infinite-scroll" class="overflow-y-scroll overflow-x-hidden h-[calc(100vh-225px)] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" id="posts_container" data-infinite-scroll-target="container">
+<div data-controller="infinite-scroll" class="overflow-y-scroll overflow-x-hidden h-[calc(100vh-225px)] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" style="-webkit-overflow-scrolling: touch;" id="posts_container" data-infinite-scroll-target="container">
     <%= turbo_frame_tag "posts_list", data: { turbo_action: "advance" } do %>
         <div class="overflow-y-scroll overflow-x-hidden h-[calc(100vh-225px)] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" id="posts" data-infinite-scroll-target="container">
             <%= render @posts %>
@@ -139,29 +139,63 @@ document.addEventListener('turbo:load', function () {
   const posts = document.getElementById('posts');
   const some_container = document.getElementById('some_container');
 
+  let startY = 0;
   let lastScrollTop = 0;
+
+  container.addEventListener('touchstart', function(e) {
+    startY = e.touches[0].clientY;
+    console.log('Touch start:', startY);
+}, { passive: true });
+
+container.addEventListener('touchmove', function(e) {
+    const currentY = e.touches[0].clientY;
+    const currentScrollTop = container.scrollTop;
+    
+    if (currentY < startY) {
+        console.log('Scrolling down');
+    } else if (currentY > startY) {
+        console.log('Scrolling up');
+    }
+    
+    lastScrollTop = currentScrollTop;
+    startY = currentY;
+}, { passive: true });
+
+container.addEventListener('mousedown', function () {
+    console.log('Mouse down');
+});
+
+container.addEventListener('mousemove', function (e) {
+console.log('mouse move');
+  });
 
   container.addEventListener('scroll', function () {
     const currentScrollTop = container.scrollTop;
     console.log(currentScrollTop);
 
-      if (currentScrollTop > lastScrollTop) {
+    if (currentScrollTop <= 0) {
+        document.getElementById('post-form-container-item').classList.add('opacity-100');
+        document.getElementById('post-form-container-item').classList.remove('opacity-0');
+        document.getElementById('post-form-container-item').classList.remove('h-0');
+    } else {
+ if (currentScrollTop > lastScrollTop) {
         console.log('Scrolling down');
 
         document.getElementById('post-form-container-item').classList.remove('opacity-100');
         document.getElementById('post-form-container-item').classList.add('opacity-0');
         document.getElementById('post-form-container-item').classList.add('h-0')
     } else if (currentScrollTop < lastScrollTop) {
-        if (currentScrollTop == 0) {
           
         document.getElementById('post-form-container-item').classList.add('opacity-100');
         document.getElementById('post-form-container-item').classList.remove('opacity-0');
-        document.getElementById('post-form-container-item').classList.remove('h-0')
-        }
+        document.getElementById('post-form-container-item').classList.remove('h-0');
     }
+    }
+
+     
     
     lastScrollTop = currentScrollTop;
-  });
+  }, { passive: true });
 
   some_container.addEventListener('scroll', function () {
     console.log('some_container scroll event triggered');
