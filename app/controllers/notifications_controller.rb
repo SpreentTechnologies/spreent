@@ -9,6 +9,10 @@ class NotificationsController < ApplicationController
     @today_notifications = @notifications.today
     @yesterday_notifications = @notifications.yesterday
 
+    @notifications.each do |notification|
+      notification.mark_as_read!
+    end
+
     respond_to do |format|
       format.html
       format.json { render json: @notifications }

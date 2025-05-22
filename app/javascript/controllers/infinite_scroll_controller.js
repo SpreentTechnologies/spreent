@@ -15,15 +15,7 @@ export default class extends Controller {
         this.lastScrollTop = 0
 
             if ('ontouchstart' in window) {
-        let touchScrollTimeout
         
-        this.containerTarget.addEventListener('touchmove', () => {
-            clearTimeout(touchScrollTimeout)
-            touchScrollTimeout = setTimeout(() => {
-                // Manually trigger scroll check during touch
-                this.handleScroll()
-            }, 16) // ~60fps
-        }, { passive: true })
     }
 
         this.containerTarget.addEventListener('scroll', this.handleScroll.bind(this), {
@@ -73,7 +65,6 @@ export default class extends Controller {
         const isScrollingDown = scrollTop > this.lastScrollTop
         const isNearBottom = distanceFromBottom <= this.bottomThresholdValue
         
-        console.log(isNearBottom);
         if (isNearBottom && isScrollingDown && !this.loading && !this.lastPage) {
             console.log('Triggering load while scrolling down, distance from bottom:', distanceFromBottom)
             this.loadMore()

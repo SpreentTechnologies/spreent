@@ -10,9 +10,12 @@ consumer.subscriptions.create("NotificationsChannel", {
   },
 
   received(data) {
-    // Called when there's incoming data on the websocket for this channel
-    const notificationCount = document.querySelector('#notification-count');
-    const count = parseInt(notificationCount.textContent);
-    notificationCount.textContent = count + 1
+    const notificationsCount = document.getElementById('notifications_count');
+
+    if (notificationsCount) {
+      notificationsCount.classList.remove('hidden');
+      const count = parseInt(notificationsCount.textContent);
+      notificationsCount.textContent = count + 1;
+    }
   }
 });

@@ -1,10 +1,11 @@
 <% content_for :header do %>
     <div class="flex h-[56px]">
-        <%= image_tag "spreent_logo.png", class: 'w-[150px] h-[50px] relative top-1' %>
+        <%= image_tag "spreent_logo.png", class: 'w-[150px] h-[50px] relative top-1', alt: 'Spreent Logo' %>
         <div class="absolute right-0 top-4 flex pr-[7px] gap-[10px]">
             <%= link_to notifications_path, class: 'text-white w-[28px] h-[28px]' do %>
                 <i class="fa-solid fa-bell fa-lg"></i>
-            <% end %>
+                 <span class="relative text-sm <% if current_user.notifications.unread.count == 0 %> hidden <% end %>" style="bottom:33px;left:17px;background-color:#E8C0FF;border-radius:16px;padding: 3px;" id="notifications_count"><%= current_user.notifications.unread.count %></span>
+              <% end %>
 
             <%= link_to conversations_path, class: 'text-white w-[28px] h-[28px]' do %>
               <i class="fa-solid fa-message fa-lg"></i>
@@ -161,17 +162,9 @@ container.addEventListener('touchmove', function(e) {
     startY = currentY;
 }, { passive: true });
 
-container.addEventListener('mousedown', function () {
-    console.log('Mouse down');
-});
-
-container.addEventListener('mousemove', function (e) {
-console.log('mouse move');
-  });
 
   container.addEventListener('scroll', function () {
     const currentScrollTop = container.scrollTop;
-    console.log(currentScrollTop);
 
     if (currentScrollTop <= 0) {
         document.getElementById('post-form-container-item').classList.add('opacity-100');

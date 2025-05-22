@@ -25,6 +25,8 @@ module Spreent
     # config.eager_load_paths << Rails.root.join("extras")
     config.middleware.use Warden::Manager
 
+    config.middleware.use Rack::Deflater
+
     config.i18n.default_locale = :fr
     config.exceptions_app = self.routes
   end

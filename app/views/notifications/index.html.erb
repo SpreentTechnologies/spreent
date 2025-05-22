@@ -7,6 +7,7 @@
   </div>
 <% end %>
 
+
   <!-- Navigation Tabs -->
   <div class="px-4 py-3 border-b">
     <div class="flex space-x-4">
@@ -38,7 +39,10 @@
 
   <div class="px-4 py-4">
     <h2 class="text-2xl font-bold text-gray-800 mb-4"><%= I18n.t('notifications.today') %></h2>
-  </div>
+    <% @today_notifications.each do |activity| %>
+      <%= render partial: 'shared/activity_item', locals: { activity: activity } %>
+    <% end %>
+    </div>
 
   <div class="px-4 py-4">
     <h2 class="text-2xl font-bold text-gray-800 mb-4"><%= I18n.t('notifications.yesterday') %></h2>

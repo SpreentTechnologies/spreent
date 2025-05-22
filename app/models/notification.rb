@@ -10,6 +10,8 @@ class Notification < ApplicationRecord
   scope :yesterday, -> { where(created_at: 1.day.ago.beginning_of_day..1.day.ago.end_of_day) }
   scope :recent, -> { where(created_at: 2.days.ago..Time.zone.now) }
 
+  after_create_commit :broadcast_notification
+
   enum :category, [ :system, :invitation, :activity, :social, :achievement ]
 
   def self.create_notification(params)
@@ -50,5 +52,16 @@ class Notification < ApplicationRecord
     else
       created_at.strftime("%b %d")
     end
+  end
+
+  private
+
+  def broadcast_notification
+    ActionCable.server.broadcast(
+      "notifications_#{recipient.id}",
+      {
+        id: id
+      }
+    )
   end
 end
