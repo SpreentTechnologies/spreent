@@ -14,11 +14,26 @@ export default class extends Controller {
         this.lastPage = false
         this.lastScrollTop = 0
 
+            if ('ontouchstart' in window) {
+        let touchScrollTimeout
+        
+        this.containerTarget.addEventListener('touchmove', () => {
+            clearTimeout(touchScrollTimeout)
+            touchScrollTimeout = setTimeout(() => {
+                // Manually trigger scroll check during touch
+                this.handleScroll()
+            }, 16) // ~60fps
+        }, { passive: true })
+    }
+
         this.containerTarget.addEventListener('scroll', this.handleScroll.bind(this), {
             passive: true
         });
 
-        this.containerTarget.style.webkitOverflowScrolling = 'touch'
+    this.containerTarget.style.webkitOverflowScrolling = 'touch'
+    this.containerTarget.style.webkitTransform = 'translateZ(0)'
+    this.containerTarget.style.transform = 'translateZ(0)'
+    this.containerTarget.style.willChange = 'scroll-position'
 
         this.setupIntersectionObserver()
     }
