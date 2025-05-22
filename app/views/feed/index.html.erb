@@ -19,7 +19,7 @@
   <%= render 'shared/search_bar' %>
     <div class="communities_pills"></div>
     <hr />
-    <div class="pl-[20px] pt-[10px] flex border-none opacity-100 translate-y-0 transform transition-all duration-300 ease-in-out">
+    <div class="pl-[20px] pt-[10px] flex border-none opacity-100 translate-y-0 transform transition-all duration-300 ease-in-out" id="post-form-container-item">
         <div class="share-something-avatar">
             <% if current_user.avatar.attached? %>
                 <%= image_tag current_user.avatar.variant(resize_to_limit: [50, 50]),
@@ -96,7 +96,7 @@
 
     </div>
 
-<div data-controller="infinite-scroll" overflow-y-scroll overflow-x-hidden h-[calc(100vh-225px)] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" id="posts" data-infinite-scroll-target="container">
+<div data-controller="infinite-scroll" class="overflow-y-scroll overflow-x-hidden h-[calc(100vh-225px)] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" id="posts_container" data-infinite-scroll-target="container">
     <%= turbo_frame_tag "posts_list", data: { turbo_action: "advance" } do %>
         <div class="overflow-y-scroll overflow-x-hidden h-[calc(100vh-225px)] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" id="posts" data-infinite-scroll-target="container">
             <%= render @posts %>
@@ -129,3 +129,42 @@
   </div>
 </div>
 </div>
+
+
+<script>
+document.addEventListener('turbo:load', function () {
+  console.log('Turbo loaded');
+
+  const container = document.getElementById('posts_container');
+  const posts = document.getElementById('posts');
+  const some_container = document.getElementById('some_container');
+
+  let lastScrollTop = 0;
+
+  container.addEventListener('scroll', function () {
+    const currentScrollTop = container.scrollTop;
+    console.log(currentScrollTop);
+
+      if (currentScrollTop > lastScrollTop) {
+        console.log('Scrolling down');
+
+        document.getElementById('post-form-container-item').classList.remove('opacity-100');
+        document.getElementById('post-form-container-item').classList.add('opacity-0');
+        document.getElementById('post-form-container-item').classList.add('h-0')
+    } else if (currentScrollTop < lastScrollTop) {
+        if (currentScrollTop == 0) {
+          
+        document.getElementById('post-form-container-item').classList.add('opacity-100');
+        document.getElementById('post-form-container-item').classList.remove('opacity-0');
+        document.getElementById('post-form-container-item').classList.remove('h-0')
+        }
+    }
+    
+    lastScrollTop = currentScrollTop;
+  });
+
+  some_container.addEventListener('scroll', function () {
+    console.log('some_container scroll event triggered');
+  });
+});
+</script>
