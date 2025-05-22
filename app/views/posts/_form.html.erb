@@ -1,5 +1,5 @@
 <%= form_with(model: post, local: false, id: dom_id(post, "form"), html: {
-  class: 'post-form',
+  class: 'post-form pl-[10px]',
   data: {
     controller: 'file-upload',
     action: 'file-upload:progress->turbo-frame#update'

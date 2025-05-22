@@ -15,8 +15,9 @@ class PostsController < ApplicationController
       if @post.save
         format.html { redirect_to feed_path, notice: "Post was successfully created." }
         format.turbo_stream do
+          @posts = Post.order(created_at: :desc).paginate(page: @page, per_page: 10)
           render turbo_stream: [
-            turbo_stream.prepend("posts_list", partial: "posts/post", locals: { post: @post }),
+            turbo_stream.replace("posts_list", partial: "feed/posts", locals: { posts: @posts }),
             turbo_stream.replace("new_post_form", partial: "posts/form", locals: { post: current_user.posts.new })
           ]
         end

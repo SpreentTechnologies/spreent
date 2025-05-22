@@ -1,5 +1,5 @@
 <% content_for :header do %>
-  <div class="flex text-white py-4">
+  <div class="flex text-white py-4 h-[56px]">
     <%= link_to feed_path, class: 'text-white absolute top-[23px] pl-[20px]' do %>
       <%= image_tag 'arrow_back.png' %>
     <% end %>
@@ -27,6 +27,9 @@
   <%# Modal for creating a new conversation %>
   <%= render 'new_conversation_modal' %>
 </div>
+      <div class="absolute w-[150px] h-[150px] bg-white opacity-50 top-[-50px] left-[-50px] rounded-lg blur-3xl" style="z-index:-1;"></div>
+<div class="absolute w-[150px] h-[150px] bg-white opacity-50 bottom-[-50px] right-[-50px] rounded-lg blur-3xl" style="z-index:-1;"></div>
+
 
 <!-- Sliding Panel Overlay -->
 <div id="new-conversation-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden transition-opacity duration-300 opacity-0"></div>
@@ -61,6 +64,7 @@
           <% end %>
         </ul>
 </div>
+
 
 <script>
 document.addEventListener('turbo:load', function() {

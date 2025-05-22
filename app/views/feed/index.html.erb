@@ -1,7 +1,7 @@
 <% content_for :header do %>
-    <div class="flex">
-        <%= image_tag "spreent_logo.png", class: 'w-[150px] h-[50px]' %>
-        <div class="absolute right-0 top-[12px] flex pr-[7px] gap-[10px]">
+    <div class="flex h-[56px]">
+        <%= image_tag "spreent_logo.png", class: 'w-[150px] h-[50px] relative top-1' %>
+        <div class="absolute right-0 top-4 flex pr-[7px] gap-[10px]">
             <%= link_to notifications_path, class: 'text-white w-[28px] h-[28px]' do %>
                 <i class="fa-solid fa-bell fa-lg"></i>
             <% end %>
@@ -96,7 +96,7 @@
 
     </div>
 
-<div data-controller="infinite-scroll">
+<div data-controller="infinite-scroll" overflow-y-scroll overflow-x-hidden h-[calc(100vh-225px)] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" id="posts" data-infinite-scroll-target="container">
     <%= turbo_frame_tag "posts_list", data: { turbo_action: "advance" } do %>
         <div class="overflow-y-scroll overflow-x-hidden h-[calc(100vh-225px)] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" id="posts" data-infinite-scroll-target="container">
             <%= render @posts %>

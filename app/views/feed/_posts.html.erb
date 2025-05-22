@@ -1,3 +1,4 @@
+<div class="overflow-y-scroll overflow-x-hidden h-[calc(100vh-225px)] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" id="posts" data-infinite-scroll-target="container">
 <% @posts.each do |post| %>
 <%= turbo_frame_tag dom_id(post) do %>
   <div class="text-black ml-[20px] mt-[20px] mb-[20px]">
@@ -99,3 +100,4 @@
   </div>
 <% end %>
 <% end %>
+</div>
