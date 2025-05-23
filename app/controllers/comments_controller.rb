@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
         end
 
         respond_to do |format|
-          @comments = @post.comments.order(created_at: :desc)
+          @comments = @post.comments.order(created_at: :asc)
           format.turbo_stream do
             render turbo_stream: [
               turbo_stream.replace("comments", partial: "comments/comments_list", locals: { comments: @comments }),
