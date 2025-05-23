@@ -15,7 +15,6 @@ class CommentsController < ApplicationController
     @comment = @post.comments.build(comment_params)
     @comment.user = current_user
 
-    respond_to do |format|
       if @comment.save
         if current_user.id != @comment.user_id
           Notification.create_notification(
@@ -27,17 +26,25 @@ class CommentsController < ApplicationController
           )
         end
 
-        format.turbo_stream
+        respond_to do |format|
+          @comments = @post.comments.order(created_at: :desc)
+          format.turbo_stream do
+            render turbo_stream: turbo_stream.replace("comments",
+              partial: "comments/comments_list",
+              locals: { comments: @comments })
+          end
+        end
       else
-        format.turbo_stream {
-          render turbo_stream: turbo_stream.replace(
-            "comment_form",
-            partial: "comments/form",
-            locals: { post: @post, comment: @comment }
-          )
-        }
+        respond_to do |format|
+          format.turbo_stream {
+            render turbo_stream: turbo_stream.replace(
+              "comment_form",
+              partial: "comments/form",
+              locals: { post: @post, comment: @comment }
+            )
+          }
+        end
       end
-    end
   end
 
   def destroy

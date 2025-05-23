@@ -1,4 +1,4 @@
-<%= turbo_frame_tag "comments_panel" do %>
+<%= turbo_frame_tag "comments_panel", class: 'h-4' do %>
   <div data-controller="comments">
   <div class="comments-overlay" data-action="click->comments#close"></div>
 
@@ -18,13 +18,15 @@
     </div>
 
     <div class="pb-4">
-      <div id="comments">
+    <%= turbo_frame_tag "comments" do %>
+      <div class="comments-list">
         <% if @comments.count > 0 %>
         <%= render @comments %>
           <% else %>
         <%= I18n.t('comments.no_comments_yet') %>
         <% end %>
       </div>
+      <% end %>
     </div>
 
     <div class="comments-footer">

@@ -1,0 +1,11 @@
+<%= turbo_frame_tag "comments" do %>
+  <div id="comments-list" class="max-h-96 overflow-y-auto space-y-4 pr-2>
+    <% if @comments %>
+    <% if @comments.count > 0 %>
+      <%= render comments %>
+    <% else %>
+      <p id="no-comments-message"><%= I18n.t('comments.no_comments_yet') %></p>
+    <% end %>
+    <% end %>
+  </div>
+<% end %>

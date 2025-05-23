@@ -9,7 +9,7 @@ class LikesController < ApplicationController
       @likes = Post.find(params[:post_id]).likes.create(user_id: current_user.id)
 
       # Check if the post is liked by atleast 5 users
-      # if @post.likes.count == 1
+      # if @post.likes.count == 5
       #   Notification.create(
       #     recipient: @post.user,
       #     recipient_type: "User",
