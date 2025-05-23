@@ -1,0 +1,5 @@
+        <%= turbo_frame_tag "post_#{post.id}_comment_count" do %>
+          <% if post.comments.count > 0 %>
+            <span class="relative bottom-[3px] pl-[5px]"><%= post.comments.count %></span>
+          <% end %>
+        <% end %>

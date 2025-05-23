@@ -31,7 +31,8 @@ class CommentsController < ApplicationController
           format.turbo_stream do
             render turbo_stream: [
               turbo_stream.replace("comments", partial: "comments/comments_list", locals: { comments: @comments }),
-              turbo_stream.replace("comment_form", partial: "comments/form", locals: { post: @post, comment: Comment.new })
+              turbo_stream.replace("comment_form", partial: "comments/form", locals: { post: @post, comment: Comment.new }),
+              turbo_stream.replace("post_#{@post.id}_comment_count", partial: "posts/comment_count", locals: { post: @post, comments: @comments } )
             ]
           end
         end
