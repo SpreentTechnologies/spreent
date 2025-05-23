@@ -5,9 +5,12 @@ export default class extends Controller {
         // Disable scrolling when the panel is open
         document.body.classList.add('no-scroll');
 
+        this.createOverlay();
+
+
         // Animation to slide in the panel
         const panel = document.getElementById('comments_panel');
-        panel.classList.add('absolute', 'bottom-[55px]', 'left-[0]', 'w-full', 'bg-white', 'translate-y-0', 'transition-all', 'duration-500', 'ease-out', 'z-50', 'max-h-72', 'overflow-y-auto');
+        panel.classList.add('fixed', 'bottom-[57px]', 'left-[0]', 'w-full', 'bg-white', 'translate-y-0', 'transition-all', 'duration-500', 'ease-out', 'z-50', 'max-h-72', 'overflow-y-auto');
 
         // Add event listener for ESC key
         this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -24,6 +27,45 @@ export default class extends Controller {
         this.removeDragListeners();
     }
 
+        createOverlay() {
+        // Create overlay element
+        this.overlay = document.createElement('div');
+        this.overlay.id = 'comments-overlay';
+        this.overlay.className = 'fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300 ease-out';
+        
+        // Start with opacity 0 for fade-in animation
+        this.overlay.style.opacity = '0';
+        
+        // Add click listener to close when clicking overlay
+        this.overlay.addEventListener('click', (event) => {
+            if (event.target === this.overlay) {
+                this.close();
+            }
+        });
+        
+        // Append to body
+        document.body.appendChild(this.overlay);
+        
+        // Trigger fade-in animation
+        requestAnimationFrame(() => {
+            this.overlay.style.opacity = '1';
+        });
+    }
+
+        removeOverlay() {
+        if (this.overlay && this.overlay.parentNode) {
+            // Fade out animation
+            this.overlay.style.opacity = '0';
+            
+            // Remove after animation completes
+            setTimeout(() => {
+                if (this.overlay && this.overlay.parentNode) {
+                    this.overlay.parentNode.removeChild(this.overlay);
+                }
+            }, 300);
+        }
+    }
+
     close(event) {
         const commentsPanel = document.getElementById('comments_panel');
         // Don't close if clicking inside the panel (only on overlay or close button)
@@ -35,6 +77,9 @@ export default class extends Controller {
         // Animation to slide out
         commentsPanel.classList.remove('absolute', 'bottom-[55px]', 'left-[0]', 'w-full', 'bg-white', 'translate-y-50', 'transition-all', 'duration-500', 'ease-out');
 
+        // Remove overlay
+        this.removeOverlay();
+        
         // Re-enable scrolling
         document.body.classList.remove('no-scroll');
 
