@@ -27,6 +27,7 @@ env:
     - RECAPTCHA_SITE_KEY
     - RECAPTCHA_SECRET_KEY
     - KAMAL_REGISTRY_PASSWORD
+    - REDIS_PASSWORD
   clear:
     SOLID_QUEUE_IN_PUMA: true
     DB_HOST: spreent-db
@@ -60,3 +61,17 @@ accessories:
        - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
      directories:
        - data:/var/lib/mysql
+   redis:
+      image: redis:7.0
+      host: spreent.ca
+      port: 6379
+      env:
+        clear:
+          REDIS_MAXMEMORY: 256mb
+        secret:
+          - REDIS_PASSWORD
+      files:
+        - config/redis.conf:/usr/local/etc/redis/redis.conf
+      cmd: redis-server /usr/local/etc/redis/redis.conf
+      volumes:
+        - /var/lib/redis:/data

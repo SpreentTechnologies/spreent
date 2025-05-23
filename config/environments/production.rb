@@ -44,10 +44,21 @@ Rails.application.configure do
   config.active_support.report_deprecations = false
 
   # Replace the default in-process memory cache store with a durable alternative.
-  config.cache_store = :solid_cache_store
+    config.cache_store = :redis_cache_store, {
+    url: ENV["REDIS_URL"],
+    pool_size: ENV.fetch("RAILS_MAX_THREADS", 5).to_i,
+    pool_timeout: 5,
+    connect_timeout: 1,
+    read_timeout: 1,
+    write_timeout: 1,
+    reconnect_attempts: 3,
+    error_handler: ->(method:, returning:, exception:) {
+      Rails.logger.error("Redis cache error: #{exception.message}")
+    }
+  }
 
   # Replace the default in-process and non-durable queuing backend for Active Job.
-  config.active_job.queue_adapter = :solid_queue
+  config.active_job.queue_adapter = :sidekiq
   config.solid_queue.connects_to = { database: { writing: :queue } }
 
   # Ignore bad email addresses and do not raise email delivery errors.
@@ -87,4 +98,12 @@ Rails.application.configure do
   #
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
+  config.session_store :redis_session_store, {
+    key: '_spreent_session',
+    redis: {
+      url: ENV["REDIS_URL"],
+      expire_after: 2.weeks
+    }
+  }
 end

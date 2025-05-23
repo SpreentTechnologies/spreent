@@ -104,4 +104,13 @@ Rails.application.routes.draw do
   match "/500", to: "errors#internal_server_error", via: :all
 
   post "/profile", to: "profile#update", as: :update_profile
+
+    if Rails.env.production?
+      Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+        ActiveSupport::SecurityUtils.secure_compare(username, ENV["SIDEKIQ_USERNAME"]) &
+        ActiveSupport::SecurityUtils.secure_compare(password, ENV["SIDEKIQ_PASSWORD"])
+      end
+    end
+
+    mount Sidekiq::Web => '/sidekiq'
 end
