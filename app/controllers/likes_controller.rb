@@ -9,16 +9,16 @@ class LikesController < ApplicationController
       @likes = Post.find(params[:post_id]).likes.create(user_id: current_user.id)
 
       # Check if the post is liked by atleast 5 users
-      if @post.likes.count == 1
-        Notification.create(
-          recipient: @post.user,
-          recipient_type: "User",
-          actor: current_user,
-          actor_type: "User",
-          notifiable: @post,
-          message: "Your post has been liked by atleast a user!",
-        )
-      end
+      # if @post.likes.count == 1
+      #   Notification.create(
+      #     recipient: @post.user,
+      #     recipient_type: "User",
+      #     actor: current_user,
+      #     actor_type: "User",
+      #     notifiable: @post,
+      #     message: "Your post has been liked by atleast a user!",
+      #   )
+      # end
       respond_to do |format|
         format.turbo_stream { render turbo_stream: turbo_stream.replace("like_button_#{@post.id}",
                                                                         partial: "posts/like_button", locals: { post: @post }) }
