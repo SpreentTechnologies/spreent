@@ -62,25 +62,18 @@ gem 'omniauth-apple'
 gem 'omniauth-google-oauth2'
 
 gem "will_paginate"
-
 gem "rspec"
 
 gem "dotenv", groups: [:development, :test]
 
 gem "aws-sdk-s3"
 gem "active_storage_validations"
-
 gem "psych", "~> 5.1.0"
 gem "tailwindcss-ruby", "3.4.17"
 gem "tailwindcss-rails", "3.3.1"
 
-gem 'redis-session-store'
 gem 'sidekiq'
 gem 'connection_pool'
 
 # For caching
 gem 'hiredis'
-
-group :development do
-  gem 'redis-rails'
-end
