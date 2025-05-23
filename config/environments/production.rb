@@ -96,11 +96,6 @@ Rails.application.configure do
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
-  config.session_store :redis_session_store, {
-    key: '_spreent_session',
-    redis: {
-      url: ENV["REDIS_URL"],
-      expire_after: 2.weeks
-    }
-  }
+
+
 end
