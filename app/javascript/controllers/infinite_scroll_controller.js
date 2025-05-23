@@ -14,36 +14,14 @@ export default class extends Controller {
         this.lastPage = false
         this.lastScrollTop = 0
 
-            if ('ontouchstart' in window) {
-        
-    }
 
         this.containerTarget.addEventListener('scroll', this.handleScroll.bind(this), {
             passive: true
         });
 
-    this.containerTarget.style.webkitOverflowScrolling = 'touch'
-    this.containerTarget.style.webkitTransform = 'translateZ(0)'
-    this.containerTarget.style.transform = 'translateZ(0)'
-    this.containerTarget.style.willChange = 'scroll-position'
 
-        this.setupIntersectionObserver()
     }
 
-        setupIntersectionObserver() {
-        if (this.hasScrollTriggerTarget) {
-            this.observer = new IntersectionObserver(
-                this.handleIntersection.bind(this),
-                {
-                    root: this.containerTarget,
-                    rootMargin: '100px', // Trigger 100px before reaching the element
-                    threshold: 0.1
-                }
-            )
-            
-            this.observer.observe(this.scrollTriggerTarget)
-        }
-    }
 
     disconnect() {
         if (this.observer) {
@@ -56,30 +34,12 @@ export default class extends Controller {
         const scrollTop = container.scrollTop
         const clientHeight = container.clientHeight
         const scrollHeight = container.scrollHeight
-        
-        // Calculate how close we are to the bottom
-        const distanceFromBottom = scrollHeight - (scrollTop + clientHeight)
-        
-        // Trigger loading when we're within threshold pixels of bottom
-        // AND we're scrolling down (not up)
-        const isScrollingDown = scrollTop > this.lastScrollTop
-        const isNearBottom = distanceFromBottom <= this.bottomThresholdValue
-        
-        if (isNearBottom && isScrollingDown && !this.loading && !this.lastPage) {
-            console.log('Triggering load while scrolling down, distance from bottom:', distanceFromBottom)
-            this.loadMore()
-        }
-        
-        this.lastScrollTop = scrollTop
-    }
 
-    handleIntersection(entries) {
-        entries.forEach(entry => {
-            console.log('Intersection:', entry.isIntersecting)
-            if (entry.isIntersecting && !this.loading && !this.lastPage) {
-                this.loadMore()
-            }
-        })
+
+        if (scrollHeight - scrollTop === clientHeight) {
+            this.loadMore();
+        }
+        this.lastScrollTop = scrollTop
     }
 
     loadMore() {
@@ -100,6 +60,7 @@ export default class extends Controller {
             .then(data => {
                 // Add new posts to the container
                 this.containerTarget.insertAdjacentHTML("beforeend", data.posts)
+                this.containerTarget.insertAdjacentHTML("beforeend", "<div data-infinite-scroll-target='scrollTrigger' class='h-11'></div>");
                 this.lastPage = data.last_page
 
                 if (this.lastPage) {
