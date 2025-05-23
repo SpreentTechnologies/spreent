@@ -143,12 +143,12 @@
   </div>
 
   <div class="profile-actions">
-    <div class="action-button">Communautés</div>
-    <div class="action-button">Challenges</div>
-    <div class="action-button">Message</div>
+    <div class="action-button"><%= I18n.t('profile.communities') %></div>
+    <div class="action-button"><%= I18n.t('profile.challenges') %></div>
+    <div class="action-button"><%= I18n.t('profile.message') %></div>
   </div>
 </div>
 
-<div id="posts">
+<div id="posts" class="overflow-scroll" style="height: calc(100vh - 225px);padding-bottom: 76px;">
   <%= render @posts %>
 </div>

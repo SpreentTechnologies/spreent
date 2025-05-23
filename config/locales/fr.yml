@@ -95,6 +95,10 @@ fr:
     enter_invitation_code: "Entrez le code d'invitation"
     enter_invitation_code_first: "Tu dois entrer ton code d'invitation"
     invalid_invitation_code: "Code invalide"
+  profile:
+    challenges: "Défis"
+    communities: "Communautés"
+    message: "Message"
   feed:
     search: "Recherche"
     share_something: "Partage quelque chose"

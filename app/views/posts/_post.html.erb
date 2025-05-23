@@ -44,7 +44,13 @@
                             turbo_frame: "modal_frame",
                             action: "click->dropdown#close"
                           } %>
-              <!-- Other menu items -->
+                          <% if post.user.id == current_user.id %>
+              <%= link_to "Delete", post, method: :delete,
+                          data: {
+                            confirm: "Are you sure?",
+                            action: "click->dropdown#close"
+                          } %>
+              <% end %>
             </div>
           </div>
         </div>
