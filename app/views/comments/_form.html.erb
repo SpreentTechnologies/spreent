@@ -12,7 +12,8 @@
       <%= form.text_area :content,
                          class: "comment-textarea w-full",
                          placeholder: I18n.t('comments.write_a_comment'),
-                         rows: 2 %>
+                         rows: 2, 
+                         required: true %>
     </div>
 
     <div id="upload-progress-container" class="upload-progress-container" style="display: none;">

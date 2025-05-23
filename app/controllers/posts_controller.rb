@@ -9,7 +9,7 @@ class PostsController < ApplicationController
     end
   end
   def create
-    @post = current_user.posts.new(post_params)
+    @post = current_user.posts.build(post_params)
 
     respond_to do |format|
       if @post.save

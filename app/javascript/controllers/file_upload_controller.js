@@ -25,7 +25,6 @@ export default class extends Controller {
 
         if (newFiles && newFiles.length) {
             this.addFiles(newFiles)
-            this.fileInputTarget.value = ""
         }
     }
 
@@ -125,7 +124,7 @@ export default class extends Controller {
         const formData = new FormData()
 
         this.files.forEach(file => {
-            formData.append(`${this.paramValue || 'document[files][]'}`, file)
+            formData.append(`${this.paramValue || 'document[media][]'}`, file)
         })
 
         // Show progress if we have a progress target
@@ -134,7 +133,6 @@ export default class extends Controller {
             this.progressTarget.value = 0
         }
 
-        if (event) event.preventDefault()
         const form = this.element
         Turbo.navigator.submitForm(form)
     }

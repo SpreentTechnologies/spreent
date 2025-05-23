@@ -28,6 +28,7 @@
   <div class="form-group media-upload">
     <div class="media-input-wrapper">
       <%= form.file_field :media,
+                            id: 'secondary_file_input',
                           multiple: true,
                           accept: 'image/png,image/jpeg,image/gif,video/mp4,video/quicktime',
                           class: 'form-control-file hidden-file-input',

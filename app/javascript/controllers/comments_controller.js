@@ -7,7 +7,7 @@ export default class extends Controller {
 
         // Animation to slide in the panel
         const panel = document.getElementById('comments_panel');
-        panel.classList.add('absolute', 'bottom-[55px]', 'left-[0]', 'w-full', 'bg-white', 'translate-y-50', 'transition-all', 'duration-500', 'ease-out');
+        panel.classList.add('absolute', 'bottom-[55px]', 'left-[0]', 'w-full', 'bg-white', 'translate-y-0', 'transition-all', 'duration-500', 'ease-out', 'z-50');
 
         // Add event listener for ESC key
         this.handleKeyDown = this.handleKeyDown.bind(this);
