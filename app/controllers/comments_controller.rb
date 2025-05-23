@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   before_action :set_post
 
   def index
-    @comments = @post.comments.order(created_at: :desc)
+    @comments = @post.comments.order(created_at: :asc)
     @comment = Comment.new
 
     respond_to do |format|
