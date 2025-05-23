@@ -13,7 +13,11 @@
                          class: "comment-textarea w-full",
                          placeholder: I18n.t('comments.write_a_comment'),
                          rows: 2, 
-                         required: true %>
+                         required: true,
+                         data: {
+                            controller: 'autogrow',
+                            action: "input->autogrow#resize",
+                          } %>
     </div>
 
     <div id="upload-progress-container" class="upload-progress-container" style="display: none;">
