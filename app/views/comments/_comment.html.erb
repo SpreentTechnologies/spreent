@@ -9,7 +9,7 @@
       <%= comment.user.name %>
     </div>
   </div>
-  <div class="comment-body"><%= comment.content %></div>
+  <div class="comment-body"><%= simple_format(comment.content) %></div>
 
   <% if comment.user == current_user %>
     <div class="comment-actions">
