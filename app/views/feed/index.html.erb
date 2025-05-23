@@ -60,7 +60,11 @@
                           placeholder: I18n.t('feed.share_something'),
                           class: 'form-control share-content w-[85%] resize-none',
                           rows: 3,
-                          required: true
+                          required: true,
+                          data: {
+                            controller: 'autogrow',
+                            action: "input->autogrow#resize",
+                          }
                       %>
                     </div>
 
