@@ -32,3 +32,4 @@ jobs:
       DO_SPACES_SECRET_KEY: ${{ secrets.DO_SPACES_SECRET_KEY }}
       DO_SPACES_BUCKET: ${{ secrets.DO_SPACES_BUCKET }}
       DO_SPACES_REGION: ${{ secrets.DO_SPACES_REGION }}
+      SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
