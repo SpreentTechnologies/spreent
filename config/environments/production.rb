@@ -61,7 +61,7 @@ Rails.application.configure do
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
   config.action_mailer.smtp_settings = {
     user_name: "apikey",
-    password: ENV["SENDGRID_API_KEY"],
+    password: "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",
     domain: "spreent.ca",
     address: "smtp.sendgrid.net",
     port: 587,
