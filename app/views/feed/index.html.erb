@@ -97,6 +97,9 @@
         <div class="overflow-y-scroll overflow-x-hidden h-[calc(100vh-225px)] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" id="posts" data-infinite-scroll-target="container">
             <%= render @posts %>
 
+              <div id="no-more-posts" data-infinite-scroll-target="noMorePosts" class="hidden">
+    No more posts to load
+  </div>
         </div>
     <% end %>
 
@@ -120,8 +123,6 @@
     </svg>
   </div>
 
-  <div id="no-more-posts" data-infinite-scroll-target="noMorePosts" class="hidden">
-    No more posts to load
-  </div>
+
 </div>
 </div>

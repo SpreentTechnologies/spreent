@@ -35,10 +35,10 @@ export default class extends Controller {
         const clientHeight = container.clientHeight
         const scrollHeight = container.scrollHeight
 
-
         if (scrollHeight - scrollTop === clientHeight) {
             this.loadMore();
         }
+
         this.lastScrollTop = scrollTop
     }
 
