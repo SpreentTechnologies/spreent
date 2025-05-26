@@ -26,10 +26,8 @@
       hover:bg-white hover:text-black" %>
         <%= link_to invite_verify_path, class: "flex justify-center px-2.5 py-5 text-[#3F256A] no-underline bg-white rounded-3xl transition-all duration-300 ease-in-out mt-[20px] text-xl relative" do %>
             <%= I18n.t "home.enter_invitation_code" %>
-            <div class="bg-lightbluez text-white left-[64px] pl-[6px] pb-[10px] mt-[3px] w-[20px] h-[20px] rounded-full text-base ml-[25px]">?</div>
+            <div class="bg-[#A7A4F5] text-white left-[64px] pl-[6px] pb-[10px] mt-[3px] w-[20px] h-[20px] rounded-full text-base ml-[25px]">?</div>
     <% end %>
-
-    <%= render(ButtonComponent.new(title: 'hello world!')) %>
 </div>
 
 <div class="absolute w-36 h-36 bg-white opacity-50 -top-12 -left-12 rounded-lg blur-3xl"></div>
