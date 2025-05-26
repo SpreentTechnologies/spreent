@@ -45,7 +45,7 @@ class InvitationCodesController < ApplicationController
       redirect_to new_user_registration_path
     else
       flash[:alert] = I18n.t('home.invalid_invitation_code')
-      redirect_to invite_path
+      redirect_to invite_verify_path
     end
   end
 

@@ -1,6 +1,6 @@
 <h2 class="ml-auto mr-auto max-w-fit py-4"><%= I18n.t('enter_invitation_code.title') %></h2>
 <div class="bg-white text-black pt-[20px] h-[100vh] px-4 rounded-t-3xl">
-<%= form_with url: invite_path, method: :post, data: { turbo: false } do %>
+<%= form_with url: invite_check_path, method: :post, data: { turbo: false } do %>
   <div class="field">
     <%= label :code, 'Code', class: 'mb-[5px] block font-medium' %>
     <%= text_field_tag :invitation_code, params[:invitation_code], required: true, class: 'h-[42px] w-full text-base rounded-3xl pl-[20px] mb-[10px] border' %>

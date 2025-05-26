@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root "splash#index"
-  
+
+  # Authentication routes
   devise_for :users, path: "",
     controllers: { 
       registrations: "users/registrations", 
@@ -14,6 +15,14 @@ Rails.application.routes.draw do
     },
     class_name: "User"
 
+  #############################
+  # Invitation Codes
+  #############################
+
+  get "/invite", to: "invitation_codes#verify", as: :invite_verify
+  post "/invite", to: "invitation_codes#check", as: :invite_check
+  resources :invitation_codes, only: [:create, :destroy]
+
   get "up" => "rails/health#show", as: :rails_health_check
 
   get '/.well-known/appspecific/com.chrome.devtools.json', to: proc { [200, { 'Content-Type' => 'application/json' }, ['{}']] }
@@ -22,10 +31,6 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   get "/home", to: "about#index", as: :home
-
-  get "/invite", to: "invitation_codes#verify"
-  post "/invite", to: "invitation_codes#check"
-  resources :invitation_codes, only: [:create, :destroy]
 
   get "/feed", to: "feed#index", as: :feed
 
@@ -57,7 +62,7 @@ Rails.application.routes.draw do
   resource :avatar, only: [:update, :destroy]
   resource :settings, only: [:show, :update]
 
-  post "/posts", to: "posts#create"
+  post "/posts", to: "posts#create", as: :create_post
 
   get "/admin", to: "admin#index", as: "admin"
 
@@ -82,13 +87,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :calls, only: [:create] do
-    member do
-      patch :accept
-      patch :end
-    end
-  end
-
   resources :users, only: [:show, :index] do
     member do
       post "follow", to: "follows#create", as: :follow
@@ -110,6 +108,10 @@ Rails.application.routes.draw do
         ActiveSupport::SecurityUtils.secure_compare(username, ENV["SIDEKIQ_USERNAME"]) &
         ActiveSupport::SecurityUtils.secure_compare(password, ENV["SIDEKIQ_PASSWORD"])
       end
+    end
+
+    if Rails.env.development?
+      mount Lookbook::Engine, at: "/lookbook"
     end
 
     mount Sidekiq::Web => '/sidekiq'

@@ -9,8 +9,12 @@ module.exports = {
     ],
     theme: {
         extend: {
+            colors: {
+                'primary': '#6a0dad',
+                'lightbluez': '#A7A4F5',
+            },
             fontFamily: {
-//         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+                'varela': ['Varela', 'sans-serif'],
             },
         },
     },

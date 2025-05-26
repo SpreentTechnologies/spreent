@@ -112,7 +112,7 @@ class ChallengesController < ApplicationController
         next if user.participating_in?(@challenge)
 
         # Create the invitation
-        invitation = ChallengInvitation.new(
+        invitation = ChallengeInvitation.new(
           challenge: @challenge,
           sender: current_user,
           recipient: user

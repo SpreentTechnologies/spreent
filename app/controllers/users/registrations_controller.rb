@@ -45,6 +45,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def check_invitation_code
-    redirect_to invite_path, alert: I18n.t('home.enter_invitation_code_first') unless session[:invitation_code].present?
+    redirect_to invite_verify_path, alert: I18n.t('home.enter_invitation_code_first') unless session[:invitation_code].present?
   end
 end

@@ -5,30 +5,32 @@
   <p class="alert alert-danger"><%= alert %></p>
 <% end %>
 
-<div class="max-w-content ml-auto mr-auto my-auto max-w-fit">
+<div class="max-w-content m-auto max-w-fit">
     <%= image_tag "spreent_logo.png", alt: 'Logo de Spreent' %>
-    <%= image_tag "mascotte.png", alt: 'Mascotte de Spreent', class: "w-[200px] mr-auto ml-auto pb-[20px]" %>
+    <%= image_tag "mascotte.png", alt: 'Mascotte de Spreent', class: "w-[200px] mx-auto pb-5" %>
 
-    <h2 class="font-[Varela] text-3xl ml-auto mr-auto max-w-fit pt-[100] pb-[20px]"><%= I18n.t "home.welcome" %></h2>
+    <h2 class="font-varela text-3xl mx-auto max-w-fit pb-5"><%= I18n.t "home.welcome" %></h2>
 
-    <span class="ml-auto mr-auto max-w-fit relative left-[30px] bottom-[25px] mb-10 text-2xl"><%= I18n.t "home.your_hub" %></span>
+    <span class="m-auto max-w-fit relative left-7 bottom-6 mb-10 text-2xl"><%= I18n.t "home.your_hub" %></span>
     <%= link_to I18n.t("home.login"), new_user_session_path, class: "
       flex
       justify-center
       relative
       text-white
-      px-[10px] py-[20px]
+      px-2.5 py-5
       text-xl
       border border-white
       bg-transparent no-underline
       transition-all duration-300 ease-in-out
       rounded-3xl
       hover:bg-white hover:text-black" %>
-        <%= link_to invite_path, class: "flex justify-center px-[10px] py-[20px] text-[#3F256A] no-underline bg-white rounded-3xl transition-all duration-300 ease-in-out mt-[20px] text-xl relative" do %>
+        <%= link_to invite_verify_path, class: "flex justify-center px-2.5 py-5 text-[#3F256A] no-underline bg-white rounded-3xl transition-all duration-300 ease-in-out mt-[20px] text-xl relative" do %>
             <%= I18n.t "home.enter_invitation_code" %>
-            <div class="bg-[#A7A4F5] text-white left-[64px] pl-[6px] pb-[10px] mt-[3px] w-[20px] h-[20px] rounded-full text-base ml-[25px]">?</div>
+            <div class="bg-lightbluez text-white left-[64px] pl-[6px] pb-[10px] mt-[3px] w-[20px] h-[20px] rounded-full text-base ml-[25px]">?</div>
     <% end %>
+
+    <%= render(ButtonComponent.new(title: 'hello world!')) %>
 </div>
 
-<div class="absolute w-[150px] h-[150px] bg-white opacity-50 top-[-50px] left-[-50px] rounded-lg blur-3xl"></div>
-<div class="absolute w-[150px] h-[150px] bg-white opacity-50 bottom-[-50px] right-[-50px] rounded-lg blur-3xl"></div>
+<div class="absolute w-36 h-36 bg-white opacity-50 -top-12 -left-12 rounded-lg blur-3xl"></div>
+<div class="absolute w-36 h-36 bg-white opacity-50 bottom-[-50px] right-[-50px] rounded-lg blur-3xl"></div>

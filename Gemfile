@@ -48,6 +48,9 @@ end
 group :development do
   gem "web-console"
   gem "letter_opener"
+  gem "lookbook", ">= 2.3.9"
+  gem "listen"
+  gem "actioncable"
 end
 
 group :test do
@@ -77,3 +80,5 @@ gem 'connection_pool'
 
 # For caching
 gem 'hiredis'
+
+gem "view_component"
